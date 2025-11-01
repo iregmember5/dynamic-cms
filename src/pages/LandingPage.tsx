@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { fetchLandingPageData, type LandingPageData } from '../types/landing';
-import Header from '../components/Header';
-import Features from '../components/Features';
-import Benefits from '../components/Benefits';
-import Testimonials from '../components/Testimonials';
-import VideoSection from '../components/VideoSection';
-import CardSections from '../components/CardSections';
-import CTA from '../components/CTA';
+import React, { useEffect, useState } from "react";
+import { fetchLandingPageData, type LandingPageData } from "../types/landing";
+import GlassNavbar from "../components/GlassNavbar";
+import Header from "../components/Header";
+import Features from "../components/Features";
+import Benefits from "../components/Benefits";
+import Testimonials from "../components/Testimonials";
+import VideoSection from "../components/VideoSection";
+import CardSections from "../components/CardSections";
+import CTA from "../components/CTA";
 
 const LandingPage: React.FC = () => {
   const [data, setData] = useState<LandingPageData | null>(null);
@@ -19,33 +20,43 @@ const LandingPage: React.FC = () => {
         setLoading(true);
         const pageData = await fetchLandingPageData();
         setData(pageData);
-        
+
         // Set dynamic meta tags
         if (pageData.meta_title || pageData.title) {
           document.title = pageData.meta_title || pageData.title;
         }
-        
+
         // Set meta description
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription && (pageData.meta_description || pageData.header_description)) {
-          metaDescription.setAttribute('content', pageData.meta_description || pageData.header_description || '');
+        const metaDescription = document.querySelector(
+          'meta[name="description"]'
+        );
+        if (
+          metaDescription &&
+          (pageData.meta_description || pageData.header_description)
+        ) {
+          metaDescription.setAttribute(
+            "content",
+            pageData.meta_description || pageData.header_description || ""
+          );
         }
-        
+
         // Set OG image
         if (pageData.og_image) {
           let ogImage = document.querySelector('meta[property="og:image"]');
           if (!ogImage) {
-            ogImage = document.createElement('meta');
-            ogImage.setAttribute('property', 'og:image');
+            ogImage = document.createElement("meta");
+            ogImage.setAttribute("property", "og:image");
             document.head.appendChild(ogImage);
           }
-          ogImage.setAttribute('content', pageData.og_image.url);
+          ogImage.setAttribute("content", pageData.og_image.url);
         }
-        
+
         setError(null);
       } catch (err) {
-        console.error('Failed to load landing page:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load page data');
+        console.error("Failed to load landing page:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to load page data"
+        );
       } finally {
         setLoading(false);
       }
@@ -70,11 +81,23 @@ const LandingPage: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="text-red-500 mb-4">
-            <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <svg
+              className="w-16 h-16 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Unable to Load Page</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            Unable to Load Page
+          </h2>
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => window.location.reload()}
@@ -113,23 +136,20 @@ const LandingPage: React.FC = () => {
         `}</style>
       )}
 
+      {/* Navbar Section */}
+      <GlassNavbar />
+
       {/* Header Section */}
       <Header data={data} />
 
       {/* Features Section */}
-      {data.features && data.features.length > 0 && (
-        <Features data={data} />
-      )}
+      {data.features && data.features.length > 0 && <Features data={data} />}
 
       {/* Video Section */}
-      {data.video_section?.featured_video && (
-        <VideoSection data={data} />
-      )}
+      {data.video_section?.featured_video && <VideoSection data={data} />}
 
       {/* Benefits Section */}
-      {data.benefits && data.benefits.length > 0 && (
-        <Benefits data={data} />
-      )}
+      {data.benefits && data.benefits.length > 0 && <Benefits data={data} />}
 
       {/* Card Sections */}
       {data.card_sections?.cards && data.card_sections.cards.length > 0 && (
@@ -147,14 +167,14 @@ const LandingPage: React.FC = () => {
       )}
 
       {/* Footer */}
-      <footer 
+      <footer
         className="py-8 text-center border-t"
-        style={{ 
-          backgroundColor: data.color_theme?.background_color || '#FFFFFF',
-          borderColor: data.color_theme?.neutral_color + '30' || '#6B728030'
+        style={{
+          backgroundColor: data.color_theme?.background_color || "#FFFFFF",
+          borderColor: data.color_theme?.neutral_color + "30" || "#6B728030",
         }}
       >
-        <p style={{ color: data.color_theme?.neutral_color || '#6B7280' }}>
+        <p style={{ color: data.color_theme?.neutral_color || "#6B7280" }}>
           © {new Date().getFullYear()} {data.title}. All rights reserved.
         </p>
       </footer>
