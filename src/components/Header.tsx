@@ -22,6 +22,11 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
   //   const secondaryColor = color_theme?.secondary_color || '#1E40AF';
   const textColor = color_theme?.text_color || "#1F2937";
 
+  const backendBaseUrl = "https://esign-admin.signmary.com";
+  const bgImageUrl = header_background_image?.url?.startsWith("http")
+    ? header_background_image.url
+    : `${backendBaseUrl}${header_background_image?.url}`;
+
   return (
     <header
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
@@ -34,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `url(${header_background_image.url})`,
+            backgroundImage: `url(${bgImageUrl})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
