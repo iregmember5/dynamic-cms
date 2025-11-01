@@ -183,7 +183,7 @@ export const fetchLandingPageData = async (): Promise<LandingPageData> => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        ...(isDevelopment ? {} : { "X-Frontend-Url": "http://localhost:5173/" }),
+        ...(isDevelopment ? {} : { "X-Frontend-Url": "https://dynamic-cms-zeta.vercel.app/" }),
       },
     });
 
