@@ -13,7 +13,7 @@ interface GlassNavbarProps {
 }
 
 export default function GlassNavbar({
-  brand = <span className="font-bold text-xl">MyBrand</span>,
+  brand = <span className="font-bold text-xl">Tax Specialist</span>,
   links = [
     { label: "Home", href: "#" },
     { label: "Features", href: "#features" },

@@ -55,21 +55,21 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
         </div>
 
         {/* Video Player */}
+        {/* Video Player */}
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
             {!isPlaying ? (
-              // Thumbnail with Play Button
-              <div className="relative">
+              <div className="relative aspect-video">
                 {featured_video.thumbnail && (
                   <img
                     src={featured_video.thumbnail.url}
                     alt={featured_video.title}
-                    className="w-full h-auto"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 )}
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300"></div>
 
                 {/* Play Button */}
                 <button
@@ -78,8 +78,11 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                   aria-label="Play video"
                 >
                   <div
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                    style={{ backgroundColor: primaryColor }}
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center shadow-xl backdrop-blur-md transition-transform duration-300 group-hover:scale-110"
+                    style={{
+                      backgroundColor: primaryColor,
+                      boxShadow: `0 0 30px ${primaryColor}55`,
+                    }}
                   >
                     <svg
                       className="w-10 h-10 sm:w-12 sm:h-12 text-white ml-1"
@@ -93,20 +96,16 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
 
                 {/* Duration Badge */}
                 {featured_video.duration && (
-                  <div
-                    className="absolute bottom-4 right-4 px-3 py-1 rounded-lg text-white text-sm font-semibold"
-                    style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
-                  >
+                  <div className="absolute bottom-4 right-4 px-3 py-1 rounded-lg text-white text-sm font-semibold bg-black/70 backdrop-blur-sm">
                     {featured_video.duration}
                   </div>
                 )}
               </div>
             ) : (
-              // Video Iframe
               <div className="aspect-video">
                 {featured_video.video_source === "upload" ? (
                   <video
-                    className="w-full h-full"
+                    className="w-full h-full object-cover rounded-3xl"
                     controls
                     autoPlay
                     src={featured_video.video_url}
@@ -115,7 +114,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                   </video>
                 ) : (
                   <iframe
-                    className="w-full h-full"
+                    className="w-full h-full rounded-3xl"
                     src={getVideoEmbedUrl(featured_video)}
                     title={featured_video.title}
                     frameBorder="0"
@@ -126,44 +125,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
               </div>
             )}
           </div>
-
-          {/* Video Info */}
-          <div className="mt-8 text-center">
-            <h3
-              className="text-2xl font-bold mb-3"
-              style={{ color: textColor }}
-            >
-              {featured_video.title}
-            </h3>
-            {featured_video.description && (
-              <p
-                className="text-lg leading-relaxed max-w-3xl mx-auto"
-                style={{ color: neutralColor }}
-              >
-                {featured_video.description}
-              </p>
-            )}
-          </div>
-
-          {/* Transcript */}
-          {featured_video.transcript && (
-            <details className="mt-8 max-w-3xl mx-auto">
-              <summary
-                className="cursor-pointer font-semibold text-lg mb-4 hover:underline"
-                style={{ color: primaryColor }}
-              >
-                View Transcript
-              </summary>
-              <div
-                className="p-6 rounded-xl bg-gray-50"
-                style={{ color: neutralColor }}
-              >
-                <p className="whitespace-pre-wrap leading-relaxed">
-                  {featured_video.transcript}
-                </p>
-              </div>
-            </details>
-          )}
         </div>
       </div>
     </section>
