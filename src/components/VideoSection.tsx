@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { LandingPageData, Video } from "../types/landing";
 
 interface VideoSectionProps {
@@ -30,6 +30,13 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
     return video.video_url;
   };
 
+  // Automatically play YouTube or Vimeo videos
+  useEffect(() => {
+    if (["youtube", "vimeo"].includes(featured_video.video_source)) {
+      setIsPlaying(true);
+    }
+  }, [featured_video.video_source]);
+
   return (
     <section className="py-16 sm:py-24" style={{ backgroundColor: bgColor }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,53 +62,9 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
         </div>
 
         {/* Video Player */}
-        {/* Video Player */}
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-            {!isPlaying ? (
-              <div className="relative aspect-video">
-                {featured_video.thumbnail && (
-                  <img
-                    src={featured_video.thumbnail.url}
-                    alt={featured_video.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                )}
-
-                {/* Dark Overlay */}
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300"></div>
-
-                {/* Play Button */}
-                <button
-                  onClick={() => setIsPlaying(true)}
-                  className="absolute inset-0 flex items-center justify-center"
-                  aria-label="Play video"
-                >
-                  <div
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center shadow-xl backdrop-blur-md transition-transform duration-300 group-hover:scale-110"
-                    style={{
-                      backgroundColor: primaryColor,
-                      boxShadow: `0 0 30px ${primaryColor}55`,
-                    }}
-                  >
-                    <svg
-                      className="w-10 h-10 sm:w-12 sm:h-12 text-white ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                  </div>
-                </button>
-
-                {/* Duration Badge */}
-                {featured_video.duration && (
-                  <div className="absolute bottom-4 right-4 px-3 py-1 rounded-lg text-white text-sm font-semibold bg-black/70 backdrop-blur-sm">
-                    {featured_video.duration}
-                  </div>
-                )}
-              </div>
-            ) : (
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            {isPlaying ? (
               <div className="aspect-video">
                 {featured_video.video_source === "upload" ? (
                   <video
@@ -122,6 +85,36 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                     allowFullScreen
                   ></iframe>
                 )}
+              </div>
+            ) : (
+              <div className="relative aspect-video">
+                <img
+                  src={featured_video.thumbnail?.url}
+                  alt={featured_video.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40"></div>
+                <button
+                  onClick={() => setIsPlaying(true)}
+                  className="absolute inset-0 flex items-center justify-center"
+                  aria-label="Play video"
+                >
+                  <div
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center shadow-xl backdrop-blur-md"
+                    style={{
+                      backgroundColor: primaryColor,
+                      boxShadow: `0 0 30px ${primaryColor}55`,
+                    }}
+                  >
+                    <svg
+                      className="w-10 h-10 sm:w-12 sm:h-12 text-white ml-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                    </svg>
+                  </div>
+                </button>
               </div>
             )}
           </div>
