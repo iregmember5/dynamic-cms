@@ -30,6 +30,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
     return video.video_url;
   };
 
+  const backendBaseUrl = "https://esign-admin.signmary.com";
+
   // Automatically play YouTube or Vimeo videos
   useEffect(() => {
     if (["youtube", "vimeo"].includes(featured_video.video_source)) {
@@ -89,10 +91,15 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
             ) : (
               <div className="relative aspect-video">
                 <img
-                  src={featured_video.thumbnail?.url}
+                  src={
+                    featured_video.thumbnail?.url?.startsWith("http")
+                      ? featured_video.thumbnail.url
+                      : `${backendBaseUrl}${featured_video.thumbnail?.url}`
+                  }
                   alt={featured_video.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
+
                 <div className="absolute inset-0 bg-black/40"></div>
                 <button
                   onClick={() => setIsPlaying(true)}
