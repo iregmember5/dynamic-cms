@@ -20,32 +20,28 @@ const LandingPage: React.FC = () => {
         const pageData = await fetchLandingPageData();
         setData(pageData);
         
-        // // Set dynamic meta tags
-        // if (pageData.meta_title || pageData.title) {
-        //   document.title = pageData.meta_title || pageData.title;
-        // }
-        
-        // // Set meta description
-        // const metaDescription = document.querySelector('meta[name="description"]');
-        // if (metaDescription && (pageData.meta_description || pageData.header_description)) {
-        //   metaDescription.setAttribute('content', pageData.meta_description || pageData.header_description || '');
-        // }
-        
-        // // Set OG image
-        // if (pageData.og_image) {
-        //   let ogImage = document.querySelector('meta[property="og:image"]');
-        //   if (!ogImage) {
-        //     ogImage = document.createElement('meta');
-        //     ogImage.setAttribute('property', 'og:image');
-        //     document.head.appendChild(ogImage);
-        //   }
-        //   ogImage.setAttribute('content', pageData.og_image.url);
-        // }
-        if (data) {
-          setData(pageData);
-        } else {
-          setError("Failed to load page data");
+        // Set dynamic meta tags
+        if (pageData.meta_title || pageData.title) {
+          document.title = pageData.meta_title || pageData.title;
         }
+        
+        // Set meta description
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription && (pageData.meta_description || pageData.header_description)) {
+          metaDescription.setAttribute('content', pageData.meta_description || pageData.header_description || '');
+        }
+        
+        // Set OG image
+        if (pageData.og_image) {
+          let ogImage = document.querySelector('meta[property="og:image"]');
+          if (!ogImage) {
+            ogImage = document.createElement('meta');
+            ogImage.setAttribute('property', 'og:image');
+            document.head.appendChild(ogImage);
+          }
+          ogImage.setAttribute('content', pageData.og_image.url);
+        }
+        
         setError(null);
       } catch (err) {
         console.error('Failed to load landing page:', err);
