@@ -92,33 +92,35 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up animation-delay-400">
-            {header_cta_primary && header_cta_primary_url && (
-              <a
-                href={header_cta_primary_url}
-                className="px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
-                style={{
-                  backgroundColor: primaryColor,
-                }}
-              >
-                {header_cta_primary}
-              </a>
-            )}
+            {header_cta_primary ||
+              (header_cta_primary_url && (
+                <a
+                  href={header_cta_primary_url}
+                  className="px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+                  style={{
+                    backgroundColor: primaryColor,
+                  }}
+                >
+                  {header_cta_primary}
+                </a>
+              ))}
 
-            {header_cta_secondary && header_cta_secondary_url && (
-              <a
-                href={header_cta_secondary_url}
-                className="px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 border-2"
-                style={{
-                  borderColor: header_background_image
-                    ? "#FFFFFF"
-                    : primaryColor,
-                  color: header_background_image ? "#FFFFFF" : primaryColor,
-                  backgroundColor: "transparent",
-                }}
-              >
-                {header_cta_secondary}
-              </a>
-            )}
+            {header_cta_secondary ||
+              (header_cta_secondary_url && (
+                <a
+                  href={header_cta_secondary_url}
+                  className="px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 border-2"
+                  style={{
+                    borderColor: header_background_image
+                      ? "#FFFFFF"
+                      : primaryColor,
+                    color: header_background_image ? "#FFFFFF" : primaryColor,
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  {header_cta_secondary}
+                </a>
+              ))}
           </div>
         </div>
       </div>
