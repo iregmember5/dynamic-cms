@@ -17,15 +17,19 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
   const neutralColor = color_theme?.neutral_color || "#6B7280";
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
-  const getVideoEmbedUrl = (video: Video) => {
+  const getVideoEmbedUrl = (video: Video, autoplay = false) => {
     if (video.video_source === "youtube") {
       const videoId = video.video_url.includes("watch?v=")
         ? video.video_url.split("watch?v=")[1]?.split("&")[0]
         : video.video_url.split("/").pop();
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      return `https://www.youtube.com/embed/${videoId}${
+        autoplay ? "?autoplay=1" : ""
+      }`;
     } else if (video.video_source === "vimeo") {
       const videoId = video.video_url.split("/").pop();
-      return `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+      return `https://player.vimeo.com/video/${videoId}${
+        autoplay ? "?autoplay=1" : ""
+      }`;
     }
     return video.video_url;
   };
@@ -81,7 +85,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                 ) : (
                   <iframe
                     className="w-full h-full rounded-3xl"
-                    src={getVideoEmbedUrl(featured_video)}
+                    src={getVideoEmbedUrl(featured_video, true)}
                     title={featured_video.title}
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
