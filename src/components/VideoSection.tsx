@@ -34,9 +34,10 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
 
   // Automatically play YouTube or Vimeo videos
   useEffect(() => {
-    if (["youtube", "vimeo"].includes(featured_video.video_source)) {
-      setIsPlaying(true);
-    }
+    setIsPlaying(false);
+    // if (["youtube", "vimeo"].includes(featured_video.video_source)) {
+    //   setIsPlaying(true);
+    // }
   }, [featured_video.video_source]);
 
   return (
