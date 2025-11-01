@@ -1,5 +1,3 @@
-// types/landing.ts
-
 export interface ImageData {
   id: number;
   title: string;

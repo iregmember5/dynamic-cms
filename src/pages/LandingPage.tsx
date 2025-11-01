@@ -8,6 +8,7 @@ import Testimonials from "../components/Testimonials";
 import VideoSection from "../components/VideoSection";
 import CardSections from "../components/CardSections";
 import CTA from "../components/CTA";
+import DynamicContentRenderer from "../components/DynamicContent";
 
 const LandingPage: React.FC = () => {
   const [data, setData] = useState<LandingPageData | null>(null);
@@ -67,10 +68,12 @@ const LandingPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-solid border-blue-500 border-t-transparent"></div>
-          <p className="mt-4 text-gray-600 text-lg">Loading...</p>
+          <div className="inline-block animate-spin rounded-full h-20 w-20 border-4 border-solid border-blue-500 border-t-transparent mb-4"></div>
+          <p className="text-gray-600 text-xl font-medium">
+            Loading amazing content...
+          </p>
         </div>
       </div>
     );
@@ -78,11 +81,11 @@ const LandingPage: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-orange-50">
         <div className="text-center max-w-md mx-auto px-4">
-          <div className="text-red-500 mb-4">
+          <div className="text-red-500 mb-6">
             <svg
-              className="w-16 h-16 mx-auto"
+              className="w-20 h-20 mx-auto"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -95,13 +98,13 @@ const LandingPage: React.FC = () => {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-3xl font-bold text-gray-800 mb-3">
             Unable to Load Page
           </h2>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-gray-600 mb-8 text-lg">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
           >
             Try Again
           </button>
@@ -114,7 +117,7 @@ const LandingPage: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <p className="text-gray-600 text-lg">No page data available</p>
+          <p className="text-gray-600 text-xl">No page data available</p>
         </div>
       </div>
     );
@@ -156,6 +159,28 @@ const LandingPage: React.FC = () => {
         <CardSections data={data} />
       )}
 
+      {/* ===== DYNAMIC CONTENT SECTION ===== */}
+      {data.dynamic_content && data.dynamic_content.length > 0 && (
+        <section
+          className="py-20 px-4 sm:px-6 lg:px-8"
+          style={{
+            backgroundColor: data.color_theme?.background_color || "#FFFFFF",
+          }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-12 text-center">
+              <div className="inline-block px-6 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
+                Dynamic Content
+              </div>
+            </div>
+            {data.dynamic_content.map((block) => (
+              <DynamicContentRenderer key={block.id} block={block} />
+            ))}
+          </div>
+        </section>
+      )}
+      {/* ===== END DYNAMIC CONTENT SECTION ===== */}
+
       {/* Testimonials Section */}
       {data.testimonials && data.testimonials.length > 0 && (
         <Testimonials data={data} />
@@ -168,15 +193,28 @@ const LandingPage: React.FC = () => {
 
       {/* Footer */}
       <footer
-        className="py-8 text-center border-t"
+        className="py-12 text-center border-t-2"
         style={{
           backgroundColor: data.color_theme?.background_color || "#FFFFFF",
           borderColor: data.color_theme?.neutral_color + "30" || "#6B728030",
         }}
       >
-        <p style={{ color: data.color_theme?.neutral_color || "#6B7280" }}>
-          © {new Date().getFullYear()} {data.title}. All rights reserved.
-        </p>
+        <div className="max-w-7xl mx-auto px-4">
+          <p
+            className="text-lg"
+            style={{ color: data.color_theme?.neutral_color || "#6B7280" }}
+          >
+            © {new Date().getFullYear()} {data.title}. All rights reserved.
+          </p>
+          {data.allowed_frontends && data.allowed_frontends.length > 0 && (
+            <p
+              className="mt-2 text-sm"
+              style={{ color: data.color_theme?.neutral_color || "#6B7280" }}
+            >
+              Powered by Dynamic CMS
+            </p>
+          )}
+        </div>
       </footer>
     </div>
   );
