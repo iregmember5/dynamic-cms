@@ -14,8 +14,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   } = data;
   const [activeIndex, setActiveIndex] = useState(0);
 
-  if (!testimonials || testimonials.length === 0)
-    return "Too Be Soon Available";
+  if (!testimonials || testimonials.length === 0) return null;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const accentColor = color_theme?.accent_color || "#10B981";

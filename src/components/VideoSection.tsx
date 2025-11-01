@@ -9,8 +9,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
   const { video_section, color_theme } = data;
   const [isPlaying, setIsPlaying] = useState(false);
 
-  if (!video_section || !video_section.featured_video)
-    return "Too be Available Soon";
+  if (!video_section || !video_section.featured_video) return null;
 
   const { heading, introduction, featured_video } = video_section;
   const primaryColor = color_theme?.primary_color || "#3B82F6";

@@ -8,7 +8,7 @@ interface FeaturesProps {
 const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features, color_theme } = data;
 
-  if (!features || features.length === 0) return "Too be Available Soon";
+  if (!features || features.length === 0) return null;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const accentColor = color_theme?.accent_color || "#10B981";

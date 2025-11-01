@@ -8,7 +8,7 @@ interface BenefitsProps {
 const Benefits: React.FC<BenefitsProps> = ({ data }) => {
   const { benefits_head, benefits_introduction, benefits, color_theme } = data;
 
-  if (!benefits || benefits.length === 0) return "Too be Available Soon";
+  if (!benefits || benefits.length === 0) return null;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const secondaryColor = color_theme?.secondary_color || "#1E40AF";

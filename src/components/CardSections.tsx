@@ -13,7 +13,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
     !card_sections.cards ||
     card_sections.cards.length === 0
   )
-    return "Too be Available Soon";
+    return null;
 
   const { heading, cards } = card_sections;
   const primaryColor = color_theme?.primary_color || "#3B82F6";

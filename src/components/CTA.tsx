@@ -17,8 +17,7 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
     color_theme,
   } = data;
 
-  if (!cta_head && !cta_introduction && !cta_primary_text)
-    return "Too be Available Soon";
+  if (!cta_head && !cta_introduction && !cta_primary_text) return null;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const secondaryColor = color_theme?.secondary_color || "#1E40AF";
