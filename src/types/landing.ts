@@ -50,7 +50,7 @@ export interface Video {
   id: number;
   title: string;
   description: string;
-  video_source: 'upload' | 'youtube' | 'vimeo' | 'external';
+  video_source: "upload" | "youtube" | "vimeo" | "external";
   video_url: string;
   thumbnail: ImageData | null;
   duration: string;
@@ -62,7 +62,7 @@ export interface CardContent {
   title: string;
   subtitle: string;
   description: string;
-  card_style: 'basic' | 'feature' | 'testimonial' | 'pricing' | 'team';
+  card_style: "basic" | "feature" | "testimonial" | "pricing" | "team";
   icon: string;
   button_text: string;
   button_url: string;
@@ -101,7 +101,7 @@ export interface LandingPageData {
     first_published_at: string | null;
     last_published_at: string | null;
   };
-  
+
   // Header Section
   header_title?: string;
   header_subtitle?: string;
@@ -111,22 +111,22 @@ export interface LandingPageData {
   header_cta_secondary?: string;
   header_cta_secondary_url?: string;
   header_background_image?: ImageData;
-  
+
   // Features Section
   features_head?: string;
   features_introduction?: string;
   features?: Feature[];
-  
+
   // Benefits Section
   benefits_head?: string;
   benefits_introduction?: string;
   benefits?: Benefit[];
-  
+
   // Testimonials Section
   testimonials_head?: string;
   testimonials_introduction?: string;
   testimonials?: Testimonial[];
-  
+
   // CTA Section
   cta_head?: string;
   cta_introduction?: string;
@@ -135,31 +135,31 @@ export interface LandingPageData {
   cta_secondary_text?: string;
   cta_secondary_url?: string;
   cta_offer?: string;
-  
+
   // SEO & Meta
   meta_title?: string;
   meta_description?: string;
   og_image?: ImageData;
-  
+
   // Color Theme
   color_theme?: ColorTheme;
-  
+
   // Video Section
   video_section?: {
     heading: string;
     introduction: string;
     featured_video: Video | null;
   };
-  
+
   // Card Sections
   card_sections?: {
     heading: string;
     cards: CardContent[];
   };
-  
+
   // Dynamic Content
   dynamic_content?: DynamicContentBlock[];
-  
+
   // Frontend Configuration
   allowed_frontends?: FrontendSite[];
 }
@@ -175,15 +175,19 @@ export interface ApiResponse {
 export const fetchLandingPageData = async (): Promise<LandingPageData> => {
   try {
     const isDevelopment = import.meta.env.DEV;
+    const frontendUrl = isDevelopment
+      ? "http://localhost:5173"
+      : "https://dynamic-cms-zeta.vercel.app";
+
     const apiUrl = isDevelopment
       ? "/blogs/api/v2/mypages/"
       : "https://esign-admin.signmary.com/blogs/api/v2/mypages/";
-    
+
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        ...(isDevelopment ? {} : { "X-Frontend-Url": "https://dynamic-cms-zeta.vercel.app/" }),
+        "X-Frontend-Url": frontendUrl,
       },
     });
 

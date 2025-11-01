@@ -1,5 +1,5 @@
-import React from 'react';
-import type { LandingPageData, Benefit } from '../types/landing';
+import React from "react";
+import type { LandingPageData, Benefit } from "../types/landing";
 
 interface BenefitsProps {
   data: LandingPageData;
@@ -8,36 +8,36 @@ interface BenefitsProps {
 const Benefits: React.FC<BenefitsProps> = ({ data }) => {
   const { benefits_head, benefits_introduction, benefits, color_theme } = data;
 
-  if (!benefits || benefits.length === 0) return null;
+  if (!benefits || benefits.length === 0) return "Too be Available Soon";
 
-  const primaryColor = color_theme?.primary_color || '#3B82F6';
-  const secondaryColor = color_theme?.secondary_color || '#1E40AF';
-  const accentColor = color_theme?.accent_color || '#10B981';
-  const textColor = color_theme?.text_color || '#1F2937';
-  const neutralColor = color_theme?.neutral_color || '#6B7280';
-  const bgColor = color_theme?.background_color || '#FFFFFF';
+  const primaryColor = color_theme?.primary_color || "#3B82F6";
+  const secondaryColor = color_theme?.secondary_color || "#1E40AF";
+  const accentColor = color_theme?.accent_color || "#10B981";
+  const textColor = color_theme?.text_color || "#1F2937";
+  const neutralColor = color_theme?.neutral_color || "#6B7280";
+  const bgColor = color_theme?.background_color || "#FFFFFF";
 
   return (
-    <section 
+    <section
       className="py-16 sm:py-24"
-      style={{ 
-        background: `linear-gradient(135deg, ${bgColor} 0%, ${primaryColor}10 100%)`
+      style={{
+        background: `linear-gradient(135deg, ${bgColor} 0%, ${primaryColor}10 100%)`,
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           {benefits_head && (
-            <h2 
+            <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
               style={{ color: textColor }}
             >
               {benefits_head}
             </h2>
           )}
-          
+
           {benefits_introduction && (
-            <p 
+            <p
               className="text-lg sm:text-xl leading-relaxed"
               style={{ color: neutralColor }}
             >
@@ -53,11 +53,11 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
               key={benefit.id}
               className="benefit-card relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group"
               style={{
-                animationDelay: `${index * 0.15}s`
+                animationDelay: `${index * 0.15}s`,
               }}
             >
               {/* Background Accent */}
-              <div 
+              <div
                 className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
                 style={{ backgroundColor: accentColor }}
               ></div>
@@ -66,10 +66,10 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 {/* Icon & Stats Row */}
                 <div className="flex items-start justify-between mb-6">
                   {benefit.icon && (
-                    <div 
+                    <div
                       className="w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                      style={{ 
-                        background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`
+                      style={{
+                        background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
                       }}
                     >
                       <span className="text-2xl text-white">
@@ -79,7 +79,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                   )}
 
                   {benefit.stats && (
-                    <div 
+                    <div
                       className="text-right font-bold text-2xl"
                       style={{ color: accentColor }}
                     >
@@ -89,7 +89,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 </div>
 
                 {/* Title */}
-                <h3 
+                <h3
                   className="text-xl sm:text-2xl font-bold mb-4"
                   style={{ color: textColor }}
                 >
@@ -97,19 +97,16 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 </h3>
 
                 {/* Description */}
-                <p 
-                  className="leading-relaxed"
-                  style={{ color: neutralColor }}
-                >
+                <p className="leading-relaxed" style={{ color: neutralColor }}>
                   {benefit.description}
                 </p>
               </div>
 
               {/* Bottom Border Animation */}
-              <div 
+              <div
                 className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-700"
-                style={{ 
-                  background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`
+                style={{
+                  background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`,
                 }}
               ></div>
             </div>

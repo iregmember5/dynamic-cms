@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import type { LandingPageData, Video } from '../types/landing';
+import React, { useState } from "react";
+import type { LandingPageData, Video } from "../types/landing";
 
 interface VideoSectionProps {
   data: LandingPageData;
@@ -9,22 +9,23 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
   const { video_section, color_theme } = data;
   const [isPlaying, setIsPlaying] = useState(false);
 
-  if (!video_section || !video_section.featured_video) return null;
+  if (!video_section || !video_section.featured_video)
+    return "Too be Available Soon";
 
   const { heading, introduction, featured_video } = video_section;
-  const primaryColor = color_theme?.primary_color || '#3B82F6';
-  const textColor = color_theme?.text_color || '#1F2937';
-  const neutralColor = color_theme?.neutral_color || '#6B7280';
-  const bgColor = color_theme?.background_color || '#FFFFFF';
+  const primaryColor = color_theme?.primary_color || "#3B82F6";
+  const textColor = color_theme?.text_color || "#1F2937";
+  const neutralColor = color_theme?.neutral_color || "#6B7280";
+  const bgColor = color_theme?.background_color || "#FFFFFF";
 
   const getVideoEmbedUrl = (video: Video) => {
-    if (video.video_source === 'youtube') {
-      const videoId = video.video_url.includes('watch?v=')
-        ? video.video_url.split('watch?v=')[1]?.split('&')[0]
-        : video.video_url.split('/').pop();
+    if (video.video_source === "youtube") {
+      const videoId = video.video_url.includes("watch?v=")
+        ? video.video_url.split("watch?v=")[1]?.split("&")[0]
+        : video.video_url.split("/").pop();
       return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    } else if (video.video_source === 'vimeo') {
-      const videoId = video.video_url.split('/').pop();
+    } else if (video.video_source === "vimeo") {
+      const videoId = video.video_url.split("/").pop();
       return `https://player.vimeo.com/video/${videoId}?autoplay=1`;
     }
     return video.video_url;
@@ -36,16 +37,16 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
         {/* Section Header */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
           {heading && (
-            <h2 
+            <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
               style={{ color: textColor }}
             >
               {heading}
             </h2>
           )}
-          
+
           {introduction && (
-            <p 
+            <p
               className="text-lg sm:text-xl leading-relaxed"
               style={{ color: neutralColor }}
             >
@@ -67,7 +68,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                     className="w-full h-auto"
                   />
                 )}
-                
+
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
 
@@ -77,13 +78,13 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
                   className="absolute inset-0 flex items-center justify-center"
                   aria-label="Play video"
                 >
-                  <div 
+                  <div
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{ backgroundColor: primaryColor }}
                   >
-                    <svg 
-                      className="w-10 h-10 sm:w-12 sm:h-12 text-white ml-1" 
-                      fill="currentColor" 
+                    <svg
+                      className="w-10 h-10 sm:w-12 sm:h-12 text-white ml-1"
+                      fill="currentColor"
                       viewBox="0 0 20 20"
                     >
                       <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
@@ -93,9 +94,9 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
 
                 {/* Duration Badge */}
                 {featured_video.duration && (
-                  <div 
+                  <div
                     className="absolute bottom-4 right-4 px-3 py-1 rounded-lg text-white text-sm font-semibold"
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
                   >
                     {featured_video.duration}
                   </div>
@@ -104,7 +105,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
             ) : (
               // Video Iframe
               <div className="aspect-video">
-                {featured_video.video_source === 'upload' ? (
+                {featured_video.video_source === "upload" ? (
                   <video
                     className="w-full h-full"
                     controls
@@ -129,14 +130,14 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
 
           {/* Video Info */}
           <div className="mt-8 text-center">
-            <h3 
+            <h3
               className="text-2xl font-bold mb-3"
               style={{ color: textColor }}
             >
               {featured_video.title}
             </h3>
             {featured_video.description && (
-              <p 
+              <p
                 className="text-lg leading-relaxed max-w-3xl mx-auto"
                 style={{ color: neutralColor }}
               >
@@ -148,13 +149,13 @@ const VideoSection: React.FC<VideoSectionProps> = ({ data }) => {
           {/* Transcript */}
           {featured_video.transcript && (
             <details className="mt-8 max-w-3xl mx-auto">
-              <summary 
+              <summary
                 className="cursor-pointer font-semibold text-lg mb-4 hover:underline"
                 style={{ color: primaryColor }}
               >
                 View Transcript
               </summary>
-              <div 
+              <div
                 className="p-6 rounded-xl bg-gray-50"
                 style={{ color: neutralColor }}
               >
