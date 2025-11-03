@@ -54,8 +54,8 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
         <div
           className="relative p-12 rounded-2xl mb-12 text-white overflow-hidden shadow-2xl"
           style={{
-            backgroundImage: getFullImageUrl(block.value.background_image.url)
-              ? `url(${block.value.background_image.url})`
+            backgroundImage: block.value.background_image
+              ? `url(${getFullImageUrl(block.value.background_image.url)})`
               : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
