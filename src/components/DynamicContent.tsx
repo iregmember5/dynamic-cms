@@ -1,12 +1,20 @@
 import React from "react";
 import type { DynamicContentBlock } from "../types/landing";
 
+const API_BASE_URL = "https://esign-admin.signmary.com"; // Update with your actual domain
+
 const extractYouTubeId = (url: string): string => {
   if (!url) return "";
   const match = url.match(
     /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/
   );
   return match ? match[1] : "";
+};
+
+const getFullImageUrl = (url: string): string => {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return `${API_BASE_URL}${url}`;
 };
 
 const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
