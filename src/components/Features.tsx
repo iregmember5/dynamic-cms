@@ -7,8 +7,14 @@ interface FeaturesProps {
 
 const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features, color_theme } = data;
-
-  if (!features || features.length === 0) return null;
+  // Show section if header/introduction exists OR if there are features
+  if (
+    !features_head &&
+    !features_introduction &&
+    (!features || features.length === 0)
+  ) {
+    return null;
+  }
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const accentColor = color_theme?.accent_color || "#10B981";
@@ -44,7 +50,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature: Feature, index: number) => (
+          {features?.map((feature: Feature, index: number) => (
             <div
               key={feature.id}
               className="group p-8 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-white"

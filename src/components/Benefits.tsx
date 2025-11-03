@@ -8,7 +8,14 @@ interface BenefitsProps {
 const Benefits: React.FC<BenefitsProps> = ({ data }) => {
   const { benefits_head, benefits_introduction, benefits, color_theme } = data;
 
-  if (!benefits || benefits.length === 0) return null;
+  // Show section if header/introduction exists OR if there are benefits
+  if (
+    !benefits_head &&
+    !benefits_introduction &&
+    (!benefits || benefits.length === 0)
+  ) {
+    return null;
+  }
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const secondaryColor = color_theme?.secondary_color || "#1E40AF";
@@ -48,7 +55,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {benefits.map((benefit: Benefit, index: number) => (
+          {benefits?.map((benefit: Benefit, index: number) => (
             <div
               key={benefit.id}
               className="benefit-card relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group"
