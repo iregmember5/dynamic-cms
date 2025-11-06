@@ -7,8 +7,8 @@ interface FeaturesProps {
 
 const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features, color_theme } = data;
-  // Show section if header/introduction exists OR if there are features
 
+  // Only hide if there's absolutely no content
   if (
     !features_head &&
     !features_introduction &&
@@ -49,49 +49,86 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
           )}
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features?.map((feature: Feature, index: number) => (
-            <div
-              key={feature.id}
-              className="group p-8 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-white"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
-            >
-              {/* Icon */}
-              {feature.icon && (
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110"
-                  style={{ backgroundColor: `${primaryColor}15` }}
-                >
-                  <span className="text-3xl" style={{ color: primaryColor }}>
-                    {feature.icon}
-                  </span>
-                </div>
-              )}
-
-              {/* Title */}
-              <h3
-                className="text-xl sm:text-2xl font-bold mb-4"
-                style={{ color: textColor }}
-              >
-                {feature.title}
-              </h3>
-
-              {/* Description */}
-              <p className="leading-relaxed" style={{ color: neutralColor }}>
-                {feature.description}
-              </p>
-
-              {/* Accent Line */}
+        {/* Features Grid - Show even if empty with a message */}
+        {features && features.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature: Feature, index: number) => (
               <div
-                className="h-1 w-0 group-hover:w-full transition-all duration-500 mt-6 rounded"
-                style={{ backgroundColor: accentColor }}
-              ></div>
+                key={feature.id}
+                className="group p-8 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-white"
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                {/* Icon */}
+                {feature.icon && (
+                  <div
+                    className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${primaryColor}15` }}
+                  >
+                    <span className="text-3xl" style={{ color: primaryColor }}>
+                      {feature.icon}
+                    </span>
+                  </div>
+                )}
+
+                {/* Title */}
+                <h3
+                  className="text-xl sm:text-2xl font-bold mb-4"
+                  style={{ color: textColor }}
+                >
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="leading-relaxed" style={{ color: neutralColor }}>
+                  {feature.description}
+                </p>
+
+                {/* Accent Line */}
+                <div
+                  className="h-1 w-0 group-hover:w-full transition-all duration-500 mt-6 rounded"
+                  style={{ backgroundColor: accentColor }}
+                ></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Show a message when no features are available
+          <div className="text-center py-12">
+            <div
+              className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ backgroundColor: `${primaryColor}15` }}
+            >
+              <svg
+                className="w-12 h-12"
+                fill="none"
+                stroke={primaryColor}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
             </div>
-          ))}
-        </div>
+            <h3
+              className="text-2xl font-bold mb-4"
+              style={{ color: textColor }}
+            >
+              Features Coming Soon
+            </h3>
+            <p
+              className="text-lg max-w-2xl mx-auto"
+              style={{ color: neutralColor }}
+            >
+              We're working on adding amazing features to enhance your
+              experience. Check back soon for updates!
+            </p>
+          </div>
+        )}
       </div>
 
       <style>{`

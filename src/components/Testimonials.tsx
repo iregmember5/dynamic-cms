@@ -14,7 +14,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   } = data;
   const [activeIndex, setActiveIndex] = useState(0);
 
-  if (!testimonials || testimonials.length === 0) return null;
+  // Only hide if there's absolutely no content
+  if (
+    !testimonials_head &&
+    !testimonials_introduction &&
+    (!testimonials || testimonials.length === 0)
+  ) {
+    return null;
+  }
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const accentColor = color_theme?.accent_color || "#10B981";
@@ -23,14 +30,55 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    if (testimonials && testimonials.length > 0) {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }
   };
 
   const handlePrev = () => {
-    setActiveIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
+    if (testimonials && testimonials.length > 0) {
+      setActiveIndex(
+        (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      );
+    }
   };
+
+  // Sample testimonials for when the array is empty
+  const sampleTestimonials = [
+    {
+      id: 1,
+      quote:
+        "This platform has completely transformed how we handle tax forms. The efficiency and accuracy are unmatched!",
+      name: "Sarah Johnson",
+      title: "Tax Manager",
+      company: "Financial Solutions Inc.",
+      photo: null,
+      order: 1,
+    },
+    {
+      id: 2,
+      quote:
+        "As a tax professional, I appreciate the attention to detail and IRS compliance features. It saves us hours of work each week.",
+      name: "Michael Chen",
+      title: "CPA",
+      company: "Chen & Associates",
+      photo: null,
+      order: 2,
+    },
+    {
+      id: 3,
+      quote:
+        "The user-friendly interface combined with powerful features makes this the best tax form solution we've ever used.",
+      name: "Emily Rodriguez",
+      title: "Tax Consultant",
+      company: "QuickTax Pro",
+      photo: null,
+      order: 3,
+    },
+  ];
+
+  const displayTestimonials =
+    testimonials && testimonials.length > 0 ? testimonials : sampleTestimonials;
 
   return (
     <section className="py-16 sm:py-24" style={{ backgroundColor: bgColor }}>
@@ -54,6 +102,26 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
               {testimonials_introduction}
             </p>
           )}
+
+          {/* Show info message when using sample testimonials */}
+          {(!testimonials || testimonials.length === 0) && (
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-4"
+              style={{
+                backgroundColor: `${primaryColor}15`,
+                color: primaryColor,
+              }}
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Showing sample testimonials
+            </div>
+          )}
         </div>
 
         {/* Testimonials Carousel */}
@@ -75,34 +143,36 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
                 className="text-xl sm:text-2xl leading-relaxed mb-8 italic"
                 style={{ color: textColor }}
               >
-                "{testimonials[activeIndex].quote}"
+                "{displayTestimonials[activeIndex].quote}"
               </blockquote>
 
               {/* Author Info */}
               <div className="flex items-center gap-6">
-                {/* Photo */}
-                {testimonials[activeIndex].photo && (
-                  <img
-                    src={testimonials[activeIndex].photo!.url}
-                    alt={testimonials[activeIndex].name}
-                    className="w-16 h-16 rounded-full object-cover border-4"
-                    style={{ borderColor: `${primaryColor}30` }}
-                  />
-                )}
+                {/* Photo Placeholder */}
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                  style={{ backgroundColor: primaryColor }}
+                >
+                  {displayTestimonials[activeIndex].name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .toUpperCase()}
+                </div>
 
                 {/* Details */}
                 <div>
                   <p className="font-bold text-lg" style={{ color: textColor }}>
-                    {testimonials[activeIndex].name}
+                    {displayTestimonials[activeIndex].name}
                   </p>
                   <p className="text-sm" style={{ color: neutralColor }}>
-                    {testimonials[activeIndex].title}
+                    {displayTestimonials[activeIndex].title}
                   </p>
                   <p
                     className="text-sm font-semibold"
                     style={{ color: accentColor }}
                   >
-                    {testimonials[activeIndex].company}
+                    {displayTestimonials[activeIndex].company}
                   </p>
                 </div>
               </div>
@@ -110,7 +180,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           </div>
 
           {/* Navigation Buttons */}
-          {testimonials.length > 1 && (
+          {displayTestimonials.length > 1 && (
             <>
               <button
                 onClick={handlePrev}
@@ -157,9 +227,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           )}
 
           {/* Dots Navigation */}
-          {testimonials.length > 1 && (
+          {displayTestimonials.length > 1 && (
             <div className="flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
+              {displayTestimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
@@ -178,6 +248,24 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
             </div>
           )}
         </div>
+
+        {/* Call to add testimonials */}
+        {(!testimonials || testimonials.length === 0) && (
+          <div className="text-center mt-12">
+            <p className="text-lg mb-6" style={{ color: neutralColor }}>
+              Have experience with our platform? We'd love to hear from you!
+            </p>
+            <button
+              className="px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+              style={{
+                backgroundColor: primaryColor,
+                color: "#FFFFFF",
+              }}
+            >
+              Share Your Experience
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
