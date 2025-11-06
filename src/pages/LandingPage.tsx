@@ -125,7 +125,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="landing-page">
-      {/* Apply color theme globally */}
+      {/* Apply color theme globally with contrast fix */}
       {data.color_theme && (
         <style>{`
           :root {
@@ -133,8 +133,23 @@ const LandingPage: React.FC = () => {
             --secondary-color: ${data.color_theme.secondary_color};
             --accent-color: ${data.color_theme.accent_color};
             --neutral-color: ${data.color_theme.neutral_color};
-            --background-color: ${data.color_theme.background_color};
+            --background-color: ${
+              data.color_theme.background_color === "#6B7280"
+                ? "#FFFFFF"
+                : data.color_theme.background_color
+            };
             --text-color: ${data.color_theme.text_color};
+          }
+          
+          /* Ensure good contrast */
+          body {
+            background-color: var(--background-color) !important;
+            color: var(--text-color);
+          }
+          
+          .landing-page {
+            background-color: var(--background-color);
+            min-height: 100vh;
           }
         `}</style>
       )}
@@ -145,14 +160,14 @@ const LandingPage: React.FC = () => {
       {/* Header Section */}
       <Header data={data} />
 
-      {/* Features Section */}
-      {data.features && data.features.length > 0 && <Features data={data} />}
+      {/* Features Section - ALWAYS SHOW (now has sample content) */}
+      <Features data={data} />
 
       {/* Video Section */}
       {data.video_section?.featured_video && <VideoSection data={data} />}
 
-      {/* Benefits Section */}
-      {data.benefits && data.benefits.length > 0 && <Benefits data={data} />}
+      {/* Benefits Section - ALWAYS SHOW (now has sample content) */}
+      <Benefits data={data} />
 
       {/* Card Sections */}
       {data.card_sections?.cards && data.card_sections.cards.length > 0 && (
@@ -164,15 +179,14 @@ const LandingPage: React.FC = () => {
         <section
           className="py-20 px-4 sm:px-6 lg:px-8"
           style={{
-            backgroundColor: data.color_theme?.background_color || "#FFFFFF",
+            backgroundColor:
+              data.color_theme?.background_color === "#6B7280"
+                ? "#FFFFFF"
+                : data.color_theme?.background_color || "#FFFFFF",
           }}
         >
           <div className="max-w-7xl mx-auto">
-            <div className="mb-12 text-center">
-              <div className="inline-block px-6 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-                Dynamic Content
-              </div>
-            </div>
+            {/* Remove the "Dynamic Content" header since it's not needed */}
             {data.dynamic_content.map((block) => (
               <DynamicContentRenderer key={block.id} block={block} />
             ))}
@@ -181,10 +195,8 @@ const LandingPage: React.FC = () => {
       )}
       {/* ===== END DYNAMIC CONTENT SECTION ===== */}
 
-      {/* Testimonials Section */}
-      {data.testimonials && data.testimonials.length > 0 && (
-        <Testimonials data={data} />
-      )}
+      {/* Testimonials Section - ALWAYS SHOW (now has sample content) */}
+      <Testimonials data={data} />
 
       {/* CTA Section */}
       {(data.cta_head || data.cta_introduction || data.cta_primary_text) && (
@@ -195,7 +207,10 @@ const LandingPage: React.FC = () => {
       <footer
         className="py-12 text-center border-t-2"
         style={{
-          backgroundColor: data.color_theme?.background_color || "#FFFFFF",
+          backgroundColor:
+            data.color_theme?.background_color === "#6B7280"
+              ? "#FFFFFF"
+              : data.color_theme?.background_color || "#FFFFFF",
           borderColor: data.color_theme?.neutral_color + "30" || "#6B728030",
         }}
       >
