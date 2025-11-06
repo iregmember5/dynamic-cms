@@ -8,6 +8,7 @@ interface FeaturesProps {
 const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features, color_theme } = data;
   // Show section if header/introduction exists OR if there are features
+
   if (
     !features_head &&
     !features_introduction &&
