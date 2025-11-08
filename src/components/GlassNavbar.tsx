@@ -152,16 +152,21 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           {/* Brand/Logo Section */}
           <div className="flex items-center gap-3 flex-shrink-0">
             {logo ? (
-              <img
-                src={getFullImageUrl(logo.url)}
-                alt={logo.title || siteName}
-                style={{
-                  width: logo.width ? `${logo.width}px` : "auto",
-                  height: logo.height ? `${logo.height}px` : "40px",
-                  maxHeight: "40px",
-                }}
-                className="h-full w-full object-cover"
-              />
+              <div
+                className="rounded-full overflow-hidden border-2 w-16 h-16 mx-auto md:mx-0"
+                style={{ borderColor: primaryColor }}
+              >
+                <img
+                  src={getFullImageUrl(logo.url)}
+                  alt={logo.title || siteName}
+                  style={{
+                    width: logo.width ? `${logo.width}px` : "auto",
+                    height: logo.height ? `${logo.height}px` : "40px",
+                    maxHeight: "40px",
+                  }}
+                  className="h-full w-full object-cover"
+                />
+              </div>
             ) : (
               <div
                 className="h-10 w-10 flex items-center justify-center rounded-lg text-white"
