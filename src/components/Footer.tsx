@@ -123,14 +123,19 @@ function Footer({ data }: FooterProps) {
           {/* Company Info Section - ALWAYS SHOW */}
           <div className="space-y-4">
             {companyInfo.logo ? (
-              <img
-                src={getFullImageUrl(companyInfo.logo.url)}
-                alt={companyInfo.logo.title || "Company Logo"}
-                className="h-12 w-12 object-cover"
-              />
+              <div
+                className="rounded-full overflow-hidden border-2 w-16 h-16 mx-auto md:mx-0"
+                style={{ borderColor: primaryColor }}
+              >
+                <img
+                  src={getFullImageUrl(companyInfo.logo.url)}
+                  alt={companyInfo.logo.title || "Company Logo"}
+                  className="h-12 w-12 object-cover"
+                />
+              </div>
             ) : (
               <div
-                className="h-12 w-12 rounded-lg flex items-center justify-center text-white font-bold text-xl"
+                className="h-16 w-16 rounded-lg flex items-center justify-center text-white font-bold text-xl mx-auto md:mx-0"
                 style={{ backgroundColor: primaryColor }}
               >
                 {data.title?.charAt(0) || "L"}
@@ -138,7 +143,7 @@ function Footer({ data }: FooterProps) {
             )}
 
             {companyInfo.description && (
-              <p className="text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed text-center md:text-left">
                 {companyInfo.description}
               </p>
             )}
