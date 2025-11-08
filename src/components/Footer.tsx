@@ -9,7 +9,7 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-import type { LandingPageData, Section } from "../../../types/landing";
+import type { LandingPageData, Section } from "../types/landing";
 
 interface FooterProps {
   data: LandingPageData;

@@ -84,9 +84,94 @@ export interface FrontendSite {
   url: string;
   is_active: boolean;
 }
+export interface FooterConfig {
+  id: number;
+  name: string;
+  company_info?: {
+    description?: string;
+    logo?: {
+      id: number;
+      url: string;
+      title: string;
+    };
+  };
+  contact_info?: {
+    address?: string;
+    phone?: string;
+    email?: string;
+  };
+  social_links?: {
+    facebook?: string;
+    twitter?: string;
+    linkedin?: string;
+    instagram?: string;
+    youtube?: string;
+  };
+  sections?: {
+    quick_links?: boolean;
+    services?: boolean;
+    contact?: boolean;
+  };
+  copyright_text?: string;
+}
+
+export interface NavigationItem {
+  id: number;
+  title: string;
+  url: string;
+  link_type: "page" | "url" | "dropdown";
+  order: number;
+  children?: NavigationItem[];
+}
+
+export interface HeaderConfig {
+  id: number;
+  name: string;
+  logo?: {
+    id: number;
+    url: string;
+    title: string;
+    width: number;
+    height: number;
+  };
+  site_name?: string;
+  navbar_style: string;
+  navigation_items?: NavigationItem[];
+  navbar_cta?: {
+    text: string;
+    url: string;
+    style: string;
+  };
+  sticky_navbar: boolean;
+  transparent_on_home: boolean;
+}
+
+// Update your LandingPageData interface
+export interface Section {
+  type: string;
+  data: any;
+}
+
+export interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+  category?: string;
+  order: number;
+  is_active: boolean;
+}
+
+export interface FAQSection {
+  heading: string;
+  introduction: string;
+  faqs: FAQItem[];
+}
 
 export interface LandingPageData {
-  header_image: any;
+  header_config?: HeaderConfig;
+  footer_config?: FooterConfig;
+  sections?: Section[];
+  header_section_image: any;
   id: number;
   title: string;
   meta: {
@@ -125,6 +210,10 @@ export interface LandingPageData {
   testimonials_head?: string;
   testimonials_introduction?: string;
   testimonials?: Testimonial[];
+
+  faq_section?: FAQSection;
+
+  faqs?: FAQItem[];
 
   // CTA Section
   cta_head?: string;
