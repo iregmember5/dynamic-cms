@@ -153,25 +153,13 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           <div className="flex items-center gap-3 flex-shrink-0">
             {logo ? (
               <div
-                className="rounded-full overflow-hidden border-2 w-16 h-16 mx-auto md:mx-0"
+                className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center border"
                 style={{ borderColor: primaryColor }}
               >
                 <img
                   src={getFullImageUrl(logo.url)}
                   alt={logo.title || siteName}
-                  className={
-                    logo.width && logo.height
-                      ? "object-contain" // preserve provided sizing
-                      : "w-full h-full object-cover object-center rounded-full" // fill container
-                  }
-                  style={
-                    logo.width && logo.height
-                      ? {
-                          width: `${logo.width}px`,
-                          height: `${logo.height}px`,
-                        }
-                      : {}
-                  }
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
             ) : (
