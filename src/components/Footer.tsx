@@ -104,6 +104,12 @@ function Footer({ data }: FooterProps) {
     email: footerConfig.contact_info?.email || footerConfig.email || "",
   };
 
+  const getFullImageUrl = (url: string) => {
+    if (!url) return "";
+    if (url.startsWith("http")) return url;
+    return `https://esign-admin.signmary.com${url}`; // <-- your backend domain
+  };
+
   // Apply dynamic theming
   const footerStyle = {
     backgroundColor: backgroundColor,
@@ -118,7 +124,7 @@ function Footer({ data }: FooterProps) {
           <div className="space-y-4">
             {companyInfo.logo ? (
               <img
-                src={companyInfo.logo.url}
+                src={getFullImageUrl(companyInfo.logo.url)}
                 alt={companyInfo.logo.title || "Company Logo"}
                 className="h-12 w-auto"
               />
