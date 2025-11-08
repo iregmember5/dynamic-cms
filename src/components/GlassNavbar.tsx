@@ -160,7 +160,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                   height: logo.height ? `${logo.height}px` : "40px",
                   maxHeight: "40px",
                 }}
-                className="object-contain"
+                className="h-full w-full object-cover"
               />
             ) : (
               <div
