@@ -126,7 +126,7 @@ function Footer({ data }: FooterProps) {
               <img
                 src={getFullImageUrl(companyInfo.logo.url)}
                 alt={companyInfo.logo.title || "Company Logo"}
-                className="h-12 w-auto"
+                className="h-12 w-12 object-cover"
               />
             ) : (
               <div
