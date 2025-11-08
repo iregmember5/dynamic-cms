@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { fetchLandingPageData, type LandingPageData } from "../types/landing";
+import type { LandingPageData } from "../types/landing";
+import { fetchLandingPageData } from "../types/landing";
 import GlassNavbar from "../components/GlassNavbar";
 import Header from "../components/Header";
 import Features from "../components/Features";
-import Benefits from "../components/Benefits";
-import Testimonials from "../components/Testimonials";
 import VideoSection from "../components/VideoSection";
+import Benefits from "../components/Benefits";
 import CardSections from "../components/CardSections";
-import CTA from "../components/CTA";
 import DynamicContentRenderer from "../components/DynamicContent";
+import Testimonials from "../components/Testimonials";
+import FAQ from "../components/FAQ";
+import CTA from "../components/CTA";
+import Footer from "../components/Footer";
 
-const LandingPage: React.FC = () => {
+interface LandingPageProps {
+  onShowLogin?: () => void;
+}
+
+const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [data, setData] = useState<LandingPageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -155,10 +162,10 @@ const LandingPage: React.FC = () => {
       )}
 
       {/* Navbar Section */}
-      <GlassNavbar />
+      <GlassNavbar data={data} onShowLogin={onShowLogin} />
 
       {/* Header Section */}
-      <Header data={data} />
+      <Header data={data} onShowLogin={onShowLogin} />
 
       {/* Features Section - ALWAYS SHOW (now has sample content) */}
       <Features data={data} />
@@ -198,39 +205,15 @@ const LandingPage: React.FC = () => {
       {/* Testimonials Section - ALWAYS SHOW (now has sample content) */}
       <Testimonials data={data} />
 
+      <FAQ data={data} />
+
       {/* CTA Section */}
       {(data.cta_head || data.cta_introduction || data.cta_primary_text) && (
         <CTA data={data} />
       )}
 
       {/* Footer */}
-      <footer
-        className="py-12 text-center border-t-2"
-        style={{
-          backgroundColor:
-            data.color_theme?.background_color === "#6B7280"
-              ? "#FFFFFF"
-              : data.color_theme?.background_color || "#FFFFFF",
-          borderColor: data.color_theme?.neutral_color + "30" || "#6B728030",
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4">
-          <p
-            className="text-lg"
-            style={{ color: data.color_theme?.neutral_color || "#6B7280" }}
-          >
-            © {new Date().getFullYear()} {data.title}. All rights reserved.
-          </p>
-          {data.allowed_frontends && data.allowed_frontends.length > 0 && (
-            <p
-              className="mt-2 text-sm"
-              style={{ color: data.color_theme?.neutral_color || "#6B7280" }}
-            >
-              Powered by Dynamic CMS
-            </p>
-          )}
-        </div>
-      </footer>
+      <Footer data={data} />
     </div>
   );
 };
