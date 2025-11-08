@@ -159,12 +159,19 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 <img
                   src={getFullImageUrl(logo.url)}
                   alt={logo.title || siteName}
-                  style={{
-                    width: logo.width ? `${logo.width}px` : "auto",
-                    height: logo.height ? `${logo.height}px` : "40px",
-                    maxHeight: "40px",
-                  }}
-                  className="h-full w-full object-cover"
+                  className={
+                    logo.width && logo.height
+                      ? "object-contain" // preserve provided sizing
+                      : "w-full h-full object-cover object-center rounded-full" // fill container
+                  }
+                  style={
+                    logo.width && logo.height
+                      ? {
+                          width: `${logo.width}px`,
+                          height: `${logo.height}px`,
+                        }
+                      : {}
+                  }
                 />
               </div>
             ) : (
