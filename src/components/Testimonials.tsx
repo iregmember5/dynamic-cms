@@ -29,19 +29,19 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   const neutralColor = color_theme?.neutral_color || "#6B7280";
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
-  const handleNext = () => {
-    if (testimonials && testimonials.length > 0) {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }
-  };
+  // const handleNext = () => {
+  //   if (testimonials && testimonials.length > 0) {
+  //     setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  //   }
+  // };
 
-  const handlePrev = () => {
-    if (testimonials && testimonials.length > 0) {
-      setActiveIndex(
-        (prev) => (prev - 1 + testimonials.length) % testimonials.length
-      );
-    }
-  };
+  // const handlePrev = () => {
+  //   if (testimonials && testimonials.length > 0) {
+  //     setActiveIndex(
+  //       (prev) => (prev - 1 + testimonials.length) % testimonials.length
+  //     );
+  //   }
+  // };
 
   // Sample testimonials for when the array is empty
   const sampleTestimonials = [
@@ -180,7 +180,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           </div>
 
           {/* Navigation Buttons */}
-          {displayTestimonials.length > 1 && (
+          {/* {displayTestimonials.length > 1 && (
             <>
               <button
                 onClick={handlePrev}
@@ -224,7 +224,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
                 </svg>
               </button>
             </>
-          )}
+          )} */}
 
           {/* Dots Navigation */}
           {displayTestimonials.length > 1 && (
