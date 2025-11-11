@@ -1,5 +1,6 @@
 import React from "react";
 import type { LandingPageData, Feature } from "../types/landing";
+import EasyIcon from "./IconRenderer"; // ← ADD THIS IMPORT
 
 interface FeaturesProps {
   data: LandingPageData;
@@ -49,7 +50,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
           )}
         </div>
 
-        {/* Features Grid - Show even if empty with a message */}
+        {/* Features Grid */}
         {features && features.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature: Feature, index: number) => (
@@ -60,15 +61,17 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
                   animationDelay: `${index * 0.1}s`,
                 }}
               >
-                {/* Icon */}
+                {/* Icon with EasyIcon - UPDATED SECTION */}
                 {feature.icon && (
                   <div
                     className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110"
                     style={{ backgroundColor: `${primaryColor}15` }}
                   >
-                    <span className="text-3xl" style={{ color: primaryColor }}>
-                      {feature.icon}
-                    </span>
+                    <EasyIcon
+                      icon={feature.icon} // ← JUST USE ICON NAME LIKE "FiStar"
+                      size={28}
+                      color={primaryColor}
+                    />
                   </div>
                 )}
 
@@ -100,19 +103,11 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
               className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6"
               style={{ backgroundColor: `${primaryColor}15` }}
             >
-              <svg
-                className="w-12 h-12"
-                fill="none"
-                stroke={primaryColor}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <EasyIcon
+                icon="FiSettings" // ← USING EasyIcon HERE TOO
+                size={48}
+                color={primaryColor}
+              />
             </div>
             <h3
               className="text-2xl font-bold mb-4"

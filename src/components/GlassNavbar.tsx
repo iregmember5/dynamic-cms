@@ -85,12 +85,12 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const getFullImageUrl = (url: string) => {
     if (!url) return "";
     if (url.startsWith("http")) return url;
-    return `https://esign-admin.signmary.com${url}`; // <-- your backend domain
+    return `https://esign-admin.signmary.com${url}`;
   };
 
   // Get logo information - handle both possible locations
   const logo = headerConfig?.logo;
-  const siteName = headerConfig?.site_name || data.title || "W9";
+  const siteName = headerConfig?.site_name || data.title || "My Powerly";
 
   // Get navbar CTA if available
   const navbarCTA = headerConfig?.navbar_cta;
@@ -149,37 +149,56 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             "border-b border-white/10 dark:border-gray-800/30"
           }`}
         >
-          {/* Brand/Logo Section */}
+          {/* Brand/Logo Section - FIXED LOGO STYLING */}
           <div className="flex items-center gap-3 flex-shrink-0">
             {logo ? (
-              <div
-                className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center border"
-                style={{ borderColor: primaryColor }}
-              >
-                <img
-                  src={getFullImageUrl(logo.url)}
-                  alt={logo.title || siteName}
-                  className="w-full h-full object-cover object-center"
-                />
+              <div className="flex items-center gap-3">
+                {/* Logo image - removed circular styling */}
+                <div className="flex items-center justify-center">
+                  <img
+                    src={getFullImageUrl(logo.url)}
+                    alt={logo.title || siteName}
+                    className="h-8 w-auto object-contain" // Changed to auto width and fixed height
+                    style={{
+                      maxWidth: logo.width ? `${logo.width}px` : "150px",
+                      maxHeight: logo.height ? `${logo.height}px` : "40px",
+                    }}
+                  />
+                </div>
+                {/* Site name */}
+                <div
+                  className="font-bold text-xl" // Increased font size
+                  style={{ color: textColor }}
+                >
+                  {siteName}
+                </div>
               </div>
             ) : (
-              <div
-                className="h-10 w-10 flex items-center justify-center rounded-lg text-white"
-                style={{ backgroundColor: primaryColor }}
-              >
-                <span className="font-bold text-sm">{siteName.charAt(0)}</span>
+              // Fallback when no logo
+              <div className="flex items-center gap-3">
+                <div
+                  className="h-10 w-10 flex items-center justify-center rounded-lg text-white"
+                  style={{ backgroundColor: primaryColor }}
+                >
+                  <span className="font-bold text-sm">
+                    {siteName.charAt(0)}
+                  </span>
+                </div>
+                <div
+                  className="font-bold text-xl" // Increased font size
+                  style={{ color: textColor }}
+                >
+                  {siteName}
+                </div>
               </div>
             )}
-            <div
-              className="hidden sm:block font-semibold text-lg"
-              style={{ color: textColor }}
-            >
-              {siteName}
-            </div>
           </div>
+
           {/* Center: Navigation Links (desktop) */}
           {navbarStyle !== "centered" && (
-            <div className="hidden md:flex items-center gap-6 mx-8 flex-1 justify-center">
+            <div className="hidden md:flex items-center gap-8 mx-8 flex-1 justify-center">
+              {" "}
+              {/* Increased gap */}
               {links
                 .sort((a, b) => a.order - b.order)
                 .map((link) => (
@@ -192,15 +211,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         onMouseLeave={() => setActiveDropdown(null)}
                       >
                         <button
-                          className="flex items-center gap-1 text-sm font-medium transition"
+                          className="flex items-center gap-1 text-sm font-medium transition hover:text-blue-600"
                           style={{
                             color: textColor,
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.color = primaryColor;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.color = textColor;
                           }}
                         >
                           {link.title}
@@ -222,17 +235,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 <a
                                   key={child.id}
                                   href={getNavigationItemUrl(child)}
-                                  className="block px-4 py-2 text-sm transition hover:bg-white/50 dark:hover:bg-gray-800/50"
+                                  className="block px-4 py-2 text-sm transition hover:bg-blue-50 hover:text-blue-600"
                                   style={{
                                     color: textColor,
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.color = primaryColor;
-                                    e.currentTarget.style.backgroundColor = `${primaryColor}20`;
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.color = textColor;
-                                    e.currentTarget.style.backgroundColor = "";
                                   }}
                                 >
                                   {child.title}
@@ -245,15 +250,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                       // Regular link
                       <a
                         href={getNavigationItemUrl(link)}
-                        className="text-sm font-medium transition"
+                        className="text-sm font-medium transition hover:text-blue-600"
                         style={{
                           color: textColor,
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = primaryColor;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = textColor;
                         }}
                       >
                         {link.title}
@@ -263,14 +262,16 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 ))}
             </div>
           )}
-          {/* Right: CTA + Mobile button */}
 
-          <div className="flex items-center gap-3">
+          {/* Right: CTA + Mobile button */}
+          <div className="flex items-center gap-4">
+            {" "}
+            {/* Increased gap */}
             {/* Navbar CTA from header_config (priority) */}
             {navbarCTA?.text && (
               <button
                 onClick={onShowLogin}
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="hidden md:inline-flex items-center gap-2 px-6 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg hover:bg-blue-600"
                 style={{
                   backgroundColor: primaryColor,
                 }}
@@ -278,12 +279,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 {navbarCTA.text}
               </button>
             )}
-
             {/* Fallback to header CTA if no navbar CTA */}
             {!navbarCTA?.text && header_cta_primary && (
               <button
                 onClick={onShowLogin}
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="hidden md:inline-flex items-center gap-2 px-6 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg hover:bg-blue-600"
                 style={{
                   backgroundColor: primaryColor,
                 }}
@@ -291,12 +291,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 {header_cta_primary}
               </button>
             )}
-
             {/* Mobile Hamburger */}
             <button
               onClick={() => setOpen((s) => !s)}
               aria-label="Toggle menu"
-              className="p-2 rounded-md md:hidden"
+              className="p-2 rounded-md md:hidden hover:bg-white/20 transition-colors"
               style={{ color: textColor }}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
@@ -306,7 +305,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
         {/* Centered navigation for centered style */}
         {navbarStyle === "centered" && (
-          <div className="hidden md:flex items-center justify-center gap-6 py-3 border-t border-white/10 dark:border-gray-800/30">
+          <div className="hidden md:flex items-center justify-center gap-8 py-3 border-t border-white/10 dark:border-gray-800/30">
             {links
               .sort((a, b) => a.order - b.order)
               .map((link) => (
@@ -318,15 +317,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <button
-                        className="flex items-center gap-1 text-sm font-medium transition"
+                        className="flex items-center gap-1 text-sm font-medium transition hover:text-blue-600"
                         style={{
                           color: textColor,
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = primaryColor;
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = textColor;
                         }}
                       >
                         {link.title}
@@ -348,17 +341,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                               <a
                                 key={child.id}
                                 href={getNavigationItemUrl(child)}
-                                className="block px-4 py-2 text-sm transition hover:bg-white/50 dark:hover:bg-gray-800/50"
+                                className="block px-4 py-2 text-sm transition hover:bg-blue-50 hover:text-blue-600"
                                 style={{
                                   color: textColor,
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.color = primaryColor;
-                                  e.currentTarget.style.backgroundColor = `${primaryColor}20`;
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.color = textColor;
-                                  e.currentTarget.style.backgroundColor = "";
                                 }}
                               >
                                 {child.title}
@@ -370,15 +355,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                   ) : (
                     <a
                       href={getNavigationItemUrl(link)}
-                      className="text-sm font-medium transition"
+                      className="text-sm font-medium transition hover:text-blue-600"
                       style={{
                         color: textColor,
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = primaryColor;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = textColor;
                       }}
                     >
                       {link.title}
@@ -416,7 +395,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             activeDropdown === link.id ? null : link.id
                           )
                         }
-                        className="w-full flex items-center justify-between text-base font-medium py-2 px-2"
+                        className="w-full flex items-center justify-between text-base font-medium py-2 px-2 hover:text-blue-600 transition-colors"
                         style={{ color: textColor }}
                       >
                         {link.title}
@@ -435,19 +414,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                               <a
                                 key={child.id}
                                 href={getNavigationItemUrl(child)}
-                                className="block text-sm py-2 px-2 rounded transition"
+                                className="block text-sm py-2 px-2 rounded transition hover:bg-blue-50 hover:text-blue-600"
                                 style={{
                                   color: textColor,
                                 }}
                                 onClick={() => setOpen(false)}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.color = primaryColor;
-                                  e.currentTarget.style.backgroundColor = `${primaryColor}20`;
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.color = textColor;
-                                  e.currentTarget.style.backgroundColor = "";
-                                }}
                               >
                                 {child.title}
                               </a>
@@ -458,17 +429,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                   ) : (
                     <a
                       href={getNavigationItemUrl(link)}
-                      className="block text-base font-medium py-2 px-2 rounded transition"
+                      className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600"
                       style={{
                         color: textColor,
                       }}
                       onClick={() => setOpen(false)}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = primaryColor;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = textColor;
-                      }}
                     >
                       {link.title}
                     </a>
@@ -485,7 +450,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     setOpen(false);
                   }
                 }}
-                className="mt-2 w-full px-4 py-2 rounded-lg text-white font-semibold text-center shadow-md"
+                className="mt-2 w-full px-4 py-3 rounded-lg text-white font-semibold text-center shadow-md hover:bg-blue-600 transition-colors"
                 style={{
                   backgroundColor: primaryColor,
                 }}
@@ -500,7 +465,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     setOpen(false);
                   }
                 }}
-                className="mt-2 w-full px-4 py-2 rounded-lg text-white font-semibold text-center shadow-md"
+                className="mt-2 w-full px-4 py-3 rounded-lg text-white font-semibold text-center shadow-md hover:bg-blue-600 transition-colors"
                 style={{
                   backgroundColor: primaryColor,
                 }}

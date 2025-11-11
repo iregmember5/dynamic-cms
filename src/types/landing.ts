@@ -61,7 +61,8 @@ export interface CardContent {
   subtitle: string;
   description: string;
   card_style: "basic" | "feature" | "testimonial" | "pricing" | "team";
-  icon: string;
+  icon: string; // Add icon support for cards
+  card_image?: ImageData; // Use images for cards
   button_text: string;
   button_url: string;
   price: string;
@@ -69,7 +70,6 @@ export interface CardContent {
   features: string[];
   rating: number;
   order: number;
-  image?: ImageData;
 }
 
 export interface DynamicContentBlock {
