@@ -142,7 +142,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   // Gradient styles
   const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
   const gradientHover = `linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%)`;
-  const gradientBorder = `linear-gradient(135deg, ${primaryColor}40 0%, ${accentColor}40 100%)`;
 
   return (
     <nav
