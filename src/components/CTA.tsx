@@ -1,5 +1,6 @@
 import React from "react";
 import type { LandingPageData } from "../types/landing";
+import EasyIcon from "./IconRenderer"; // Add this import
 
 interface CTAProps {
   data: LandingPageData;
@@ -22,8 +23,6 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const secondaryColor = color_theme?.secondary_color || "#1E40AF";
   const accentColor = color_theme?.accent_color || "#10B981";
-  //   const textColor = color_theme?.text_color || '#1F2937';
-  //   const neutralColor = color_theme?.neutral_color || '#6B7280';
 
   return (
     <section
@@ -66,9 +65,10 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
           {/* Offer Badge */}
           {cta_offer && (
             <div
-              className="inline-block px-6 py-3 rounded-full mb-8 animate-bounce"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-8 animate-bounce"
               style={{ backgroundColor: accentColor }}
             >
+              <EasyIcon icon="FiGift" size={20} color="#FFFFFF" />
               <p className="text-white font-semibold text-sm sm:text-base">
                 {cta_offer}
               </p>
@@ -80,9 +80,10 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
             {cta_primary_text && cta_primary_url && (
               <a
                 href={cta_primary_url}
-                className="px-10 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl transform bg-white"
+                className="inline-flex items-center gap-2 px-10 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl transform bg-white"
                 style={{ color: primaryColor }}
               >
+                <EasyIcon icon="FiRocket" size={20} color={primaryColor} />
                 {cta_primary_text}
               </a>
             )}
@@ -90,7 +91,7 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
             {cta_secondary_text && cta_secondary_url && (
               <a
                 href={cta_secondary_url}
-                className="px-10 py-5 rounded-xl font-bold text-lg border-2 border-white text-white transition-all duration-300 hover:bg-white hover:scale-105 hover:shadow-2xl transform"
+                className="inline-flex items-center gap-2 px-10 py-5 rounded-xl font-bold text-lg border-2 border-white text-white transition-all duration-300 hover:bg-white hover:scale-105 hover:shadow-2xl transform"
                 style={
                   {
                     "--hover-text-color": primaryColor,
@@ -103,43 +104,26 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
                   e.currentTarget.style.color = "#FFFFFF";
                 }}
               >
+                <EasyIcon icon="FiPlayCircle" size={20} color="currentColor" />
                 {cta_secondary_text}
               </a>
             )}
           </div>
 
-          {/* Trust Indicators */}
+          {/* Trust Indicators with EasyIcon */}
           <div className="mt-12 flex flex-wrap justify-center items-center gap-8 opacity-80">
             <div className="flex items-center gap-2 text-white">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <EasyIcon icon="FiCreditCard" size={20} color="#FFFFFF" />
               <span className="text-sm sm:text-base">
                 No credit card required
               </span>
             </div>
             <div className="flex items-center gap-2 text-white">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <EasyIcon icon="FiXCircle" size={20} color="#FFFFFF" />
               <span className="text-sm sm:text-base">Cancel anytime</span>
             </div>
             <div className="flex items-center gap-2 text-white">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              <EasyIcon icon="FiHeadphones" size={20} color="#FFFFFF" />
               <span className="text-sm sm:text-base">24/7 support</span>
             </div>
           </div>

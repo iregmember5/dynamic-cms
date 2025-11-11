@@ -1,6 +1,6 @@
-// components/landingpage/components/FAQ.tsx
 import React, { useState } from "react";
 import type { LandingPageData } from "../types/landing";
+import EasyIcon from "./IconRenderer"; // Add this import
 
 interface FAQProps {
   data: LandingPageData;
@@ -121,7 +121,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeCategory === category ? "text-white" : "bg-opacity-20"
                 }`}
                 style={{
@@ -132,7 +132,17 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                   color: activeCategory === category ? "white" : primaryColor,
                 }}
               >
-                {category === "all" ? "All Questions" : category}
+                {category === "all" ? (
+                  <>
+                    <EasyIcon icon="FiList" size={16} color="currentColor" />
+                    All Questions
+                  </>
+                ) : (
+                  <>
+                    <EasyIcon icon="FiFolder" size={16} color="currentColor" />
+                    {category}
+                  </>
+                )}
               </button>
             ))}
           </div>
@@ -143,12 +153,28 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
           <div className="flex justify-end mb-4">
             <button
               onClick={toggleAll}
-              className="text-sm font-medium hover:underline transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-sm font-medium hover:underline transition-colors duration-200"
               style={{ color: primaryColor }}
             >
-              {openItems.size === filteredFaqs.length
-                ? "Collapse All"
-                : "Expand All"}
+              {openItems.size === filteredFaqs.length ? (
+                <>
+                  <EasyIcon
+                    icon="FiMinusSquare"
+                    size={16}
+                    color={primaryColor}
+                  />
+                  Collapse All
+                </>
+              ) : (
+                <>
+                  <EasyIcon
+                    icon="FiPlusSquare"
+                    size={16}
+                    color={primaryColor}
+                  />
+                  Expand All
+                </>
+              )}
             </button>
           </div>
         )}
@@ -187,19 +213,15 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                   {faq.question}
                 </h3>
                 <div
-                  className={`flex-shrink-0 w-6 h-6 transition-transform duration-200 ${
+                  className={`flex-shrink-0 transition-transform duration-200 ${
                     openItems.has(faq.id) ? "rotate-180" : ""
                   }`}
-                  style={{ color: primaryColor }}
                 >
-                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
+                  <EasyIcon
+                    icon="FiChevronDown"
+                    size={20}
+                    color={primaryColor}
+                  />
                 </div>
               </button>
 
@@ -220,12 +242,13 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                 {faq.category && faq.category.trim() !== "" && (
                   <div className="mt-4">
                     <span
-                      className="inline-block px-3 py-1 text-xs font-medium rounded-full"
+                      className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium rounded-full"
                       style={{
                         backgroundColor: `${primaryColor}20`,
                         color: primaryColor,
                       }}
                     >
+                      <EasyIcon icon="FiTag" size={12} color={primaryColor} />
                       {faq.category}
                     </span>
                   </div>
@@ -242,6 +265,12 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
             border: `2px dashed ${neutralColor}`,
           }}
         >
+          <div
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+            style={{ backgroundColor: `${primaryColor}15` }}
+          >
+            <EasyIcon icon="FiHelpCircle" size={32} color={primaryColor} />
+          </div>
           <h3 className="text-2xl font-bold mb-4" style={{ color: textColor }}>
             Still have questions?
           </h3>
@@ -253,7 +282,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
             friendly team.
           </p>
           <button
-            className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5"
             style={{
               backgroundColor: primaryColor,
               color: "#ffffff",
@@ -265,6 +294,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
               e.currentTarget.style.backgroundColor = primaryColor;
             }}
           >
+            <EasyIcon icon="FiMessageCircle" size={20} color="#FFFFFF" />
             Contact Support
           </button>
         </div>

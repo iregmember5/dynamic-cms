@@ -1,5 +1,6 @@
 import React from "react";
 import type { LandingPageData, Benefit } from "../types/landing";
+import EasyIcon from "./IconRenderer"; // Add this import
 
 interface BenefitsProps {
   data: LandingPageData;
@@ -32,7 +33,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
       description:
         "Automate your tax form processes and reduce manual work by up to 80% with our streamlined platform.",
       stats: "80% Faster",
-      icon: "⚡",
+      icon: "FiZap", // Updated to use React Icons
       order: 1,
     },
     {
@@ -41,7 +42,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
       description:
         "Our built-in validation checks ensure IRS compliance and eliminate costly filing errors.",
       stats: "99% Accuracy",
-      icon: "🎯",
+      icon: "FiTarget", // Updated to use React Icons
       order: 2,
     },
     {
@@ -50,7 +51,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
       description:
         "Save up to 20% annually on tax preparation costs while improving service quality.",
       stats: "20% Savings",
-      icon: "💰",
+      icon: "FiDollarSign", // Updated to use React Icons
       order: 3,
     },
     {
@@ -59,7 +60,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
       description:
         "Enterprise-grade security protects your sensitive client data and tax information.",
       stats: "100% Secure",
-      icon: "🔒",
+      icon: "FiShield", // Updated to use React Icons
       order: 4,
     },
   ];
@@ -104,14 +105,8 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 color: primaryColor,
               }}
             >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Discover the benefits of our platform
+              <EasyIcon icon="FiInfo" size={16} color={primaryColor} />
+              <span>Discover the benefits of our platform</span>
             </div>
           )}
         </div>
@@ -142,9 +137,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                         background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
                       }}
                     >
-                      <span className="text-2xl text-white">
-                        {benefit.icon}
-                      </span>
+                      <EasyIcon icon={benefit.icon} size={24} color="#FFFFFF" />
                     </div>
                   )}
 
@@ -190,12 +183,13 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
               Ready to experience these benefits for your business?
             </p>
             <button
-              className="px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
               style={{
                 backgroundColor: primaryColor,
                 color: "#FFFFFF",
               }}
             >
+              <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" />
               Start Saving Today
             </button>
           </div>
