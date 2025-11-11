@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import type { LandingPageData } from "../types/landing";
 
@@ -19,31 +19,40 @@ interface GlassNavbarProps {
 function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   // Get header config from both possible locations
   const headerConfig =
     data.header_config ||
     data.sections?.find((section) => section.type === "header")?.data?.config;
 
-  const { header_cta_primary, color_theme } = data;
+  const { header_cta_primary, color_theme, features } = data;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
+  const accentColor = color_theme?.accent_color || "#10B981";
   const textColor = color_theme?.text_color || "#1F2937";
 
-  // Get navigation items from header_config - handle both array structures with proper typing
-  const rawNavigationItems = headerConfig?.navigation_items || [];
+  // Scroll detection for navbar effects
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  // Process navigation items with proper type casting and URL handling
+  // Process navigation items
+  const rawNavigationItems = headerConfig?.navigation_items || [];
   const processedLinks: NavigationItem[] = rawNavigationItems.map(
     (item: any) => ({
       ...item,
-      link_type: (item.link_type as "page" | "url" | "dropdown") || "url", // Type assertion with fallback
+      link_type: (item.link_type as "page" | "url" | "dropdown") || "url",
       url: getNavigationItemUrl(item),
-      children: item.children || [], // Ensure children is always an array
+      children: item.children || [],
     })
   );
 
-  // Fallback to default links if no navigation items
   const links: NavigationItem[] =
     processedLinks.length > 0
       ? processedLinks
@@ -60,7 +69,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             id: 2,
             title: "Features",
             url: "#features",
-            link_type: "url" as const,
+            link_type: "dropdown" as const,
             order: 2,
             children: [],
           },
@@ -88,28 +97,28 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     return `https://esign-admin.signmary.com${url}`;
   };
 
-  // Get logo information - handle both possible locations
   const logo = headerConfig?.logo;
   const siteName = headerConfig?.site_name || data.title || "My Powerly";
-
-  // Get navbar CTA if available
   const navbarCTA = headerConfig?.navbar_cta;
-
-  // Get navbar style and behavior
   const navbarStyle = headerConfig?.navbar_style || "default";
-  const stickyNavbar = headerConfig?.sticky_navbar !== false; // default to true
+  const stickyNavbar = headerConfig?.sticky_navbar !== false;
   const transparentOnHome = headerConfig?.transparent_on_home || false;
 
-  // Helper function to get proper URL for navigation items
   function getNavigationItemUrl(item: any): string {
     if (item.link_type === "page" && !item.url) {
-      // For page links without URL, use hash as fallback
       return "#";
     }
     return item.url || "#";
   }
 
-  // Helper function to check if item has dropdown children
+  function isFeatureDropdown(item: NavigationItem): boolean {
+    return (
+      item.link_type === "dropdown" &&
+      (item.title.toLowerCase().includes("feature") ||
+        item.title.toLowerCase() === "features")
+    );
+  }
+
   function hasDropdownChildren(item: NavigationItem): boolean {
     return (
       item.link_type === "dropdown" ||
@@ -117,7 +126,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     );
   }
 
-  // Apply navbar style classes
   const getNavbarStyleClass = () => {
     switch (navbarStyle) {
       case "centered":
@@ -131,61 +139,90 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     }
   };
 
+  // Gradient styles
+  const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
+  const gradientHover = `linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%)`;
+  const gradientBorder = `linear-gradient(135deg, ${primaryColor}40 0%, ${accentColor}40 100%)`;
+
   return (
     <nav
       className={`${
         stickyNavbar ? "fixed" : "absolute"
-      } top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        transparentOnHome
+      } top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-white/90 shadow-2xl"
+          : transparentOnHome
           ? "bg-transparent"
-          : "backdrop-blur-md bg-white/30 dark:bg-gray-900/30"
+          : "backdrop-blur-md bg-white/30"
       }`}
+      style={{
+        borderBottom: scrolled
+          ? `2px solid ${primaryColor}30`
+          : transparentOnHome
+          ? "none"
+          : `1px solid ${primaryColor}20`,
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Glass container */}
         <div
           className={`flex items-center ${getNavbarStyleClass()} py-3 ${
-            !transparentOnHome &&
-            "border-b border-white/10 dark:border-gray-800/30"
+            !transparentOnHome && !scrolled && "border-b border-white/10"
           }`}
         >
-          {/* Brand/Logo Section - FIXED LOGO STYLING */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          {/* Logo Section with Gradient Animation */}
+          <div className="flex items-center gap-3 flex-shrink-0 group cursor-pointer">
             {logo ? (
               <div className="flex items-center gap-3">
-                {/* Logo image - removed circular styling */}
-                <div className="flex items-center justify-center">
-                  <img
-                    src={getFullImageUrl(logo.url)}
-                    alt={logo.title || siteName}
-                    className="h-8 w-auto object-contain" // Changed to auto width and fixed height
-                    style={{
-                      maxWidth: logo.width ? `${logo.width}px` : "150px",
-                      maxHeight: logo.height ? `${logo.height}px` : "40px",
-                    }}
-                  />
-                </div>
-                {/* Site name */}
+                {/* Logo with animated gradient border */}
                 <div
-                  className="font-bold text-xl" // Increased font size
-                  style={{ color: textColor }}
+                  className="relative p-0.5 rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                  style={{
+                    background: gradientBg,
+                    boxShadow: scrolled
+                      ? `0 8px 24px ${primaryColor}30`
+                      : "none",
+                  }}
+                >
+                  <div className="bg-white rounded-lg p-1">
+                    <img
+                      src={getFullImageUrl(logo.url)}
+                      alt={logo.title || siteName}
+                      className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                      style={{
+                        maxWidth: logo.width ? `${logo.width}px` : "150px",
+                        maxHeight: logo.height ? `${logo.height}px` : "40px",
+                      }}
+                    />
+                  </div>
+                </div>
+                {/* Site name with gradient text on hover */}
+                <div
+                  className="font-bold text-xl transition-all duration-300 group-hover:scale-105"
+                  style={{
+                    color: textColor,
+                    textShadow: scrolled
+                      ? `0 0 20px ${primaryColor}20`
+                      : "none",
+                  }}
                 >
                   {siteName}
                 </div>
               </div>
             ) : (
-              // Fallback when no logo
               <div className="flex items-center gap-3">
                 <div
-                  className="h-10 w-10 flex items-center justify-center rounded-lg text-white"
-                  style={{ backgroundColor: primaryColor }}
+                  className="h-10 w-10 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
+                  style={{
+                    background: gradientBg,
+                    boxShadow: `0 4px 16px ${primaryColor}40`,
+                  }}
                 >
                   <span className="font-bold text-sm">
                     {siteName.charAt(0)}
                   </span>
                 </div>
                 <div
-                  className="font-bold text-xl" // Increased font size
+                  className="font-bold text-xl transition-all duration-300 group-hover:scale-105"
                   style={{ color: textColor }}
                 >
                   {siteName}
@@ -194,68 +231,191 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             )}
           </div>
 
-          {/* Center: Navigation Links (desktop) */}
+          {/* Desktop Navigation */}
           {navbarStyle !== "centered" && (
             <div className="hidden md:flex items-center gap-8 mx-8 flex-1 justify-center">
-              {" "}
-              {/* Increased gap */}
               {links
                 .sort((a, b) => a.order - b.order)
                 .map((link) => (
                   <div key={link.id} className="relative">
-                    {hasDropdownChildren(link) ? (
-                      // Dropdown menu
+                    {isFeatureDropdown(link) ? (
+                      // Features Dropdown with ALL features from API
+                      <div
+                        className="relative"
+                        onMouseEnter={() => setActiveDropdown(link.id)}
+                        onMouseLeave={() => {
+                          setActiveDropdown(null);
+                          setHoveredFeature(null);
+                        }}
+                      >
+                        <button
+                          className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
+                          style={{ color: textColor }}
+                        >
+                          {link.title}
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform duration-300 ${
+                              activeDropdown === link.id ? "rotate-180" : ""
+                            }`}
+                          />
+                          {/* Animated gradient underline */}
+                          <span
+                            className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
+                            style={{ background: gradientBg }}
+                          />
+                        </button>
+
+                        {/* Enhanced Features Dropdown */}
+                        {activeDropdown === link.id &&
+                          features &&
+                          features.length > 0 && (
+                            <div
+                              className="absolute top-full left-0 mt-4 w-80 backdrop-blur-xl bg-white/95 rounded-2xl shadow-2xl overflow-hidden animate-slideDown"
+                              style={{
+                                border: `2px solid transparent`,
+                                backgroundImage: `linear-gradient(white, white), ${gradientBg}`,
+                                backgroundOrigin: "border-box",
+                                backgroundClip: "padding-box, border-box",
+                                boxShadow: `0 20px 40px ${primaryColor}20`,
+                              }}
+                            >
+                              {/* Dropdown Header */}
+                              <div
+                                className="px-5 py-3 font-bold text-sm text-white"
+                                style={{ background: gradientBg }}
+                              >
+                                All Features
+                              </div>
+
+                              {/* Features List */}
+                              <div className="max-h-96 overflow-y-auto custom-scrollbar">
+                                {features
+                                  .sort((a, b) => a.order - b.order)
+                                  .map((feature, index) => (
+                                    <a
+                                      key={feature.id}
+                                      href={`#feature-${feature.id}`}
+                                      className="block px-5 py-3 text-sm font-medium transition-all duration-300 relative overflow-hidden group"
+                                      style={{
+                                        color: textColor,
+                                        animationDelay: `${index * 0.03}s`,
+                                      }}
+                                      onMouseEnter={() =>
+                                        setHoveredFeature(feature.id)
+                                      }
+                                      onMouseLeave={() =>
+                                        setHoveredFeature(null)
+                                      }
+                                      onClick={() => {
+                                        setActiveDropdown(null);
+                                        setOpen(false);
+                                      }}
+                                    >
+                                      <div className="relative z-10 flex items-center gap-3">
+                                        {/* Animated dot indicator */}
+                                        <span
+                                          className="w-2 h-2 rounded-full transition-all duration-300"
+                                          style={{
+                                            background:
+                                              hoveredFeature === feature.id
+                                                ? gradientBg
+                                                : primaryColor,
+                                            transform:
+                                              hoveredFeature === feature.id
+                                                ? "scale(1.5)"
+                                                : "scale(1)",
+                                            boxShadow:
+                                              hoveredFeature === feature.id
+                                                ? `0 0 12px ${primaryColor}`
+                                                : "none",
+                                          }}
+                                        />
+                                        <span className="flex-1">
+                                          {feature.title}
+                                        </span>
+                                      </div>
+                                      {/* Gradient hover background */}
+                                      <div
+                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        style={{
+                                          background: `linear-gradient(90deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
+                                        }}
+                                      />
+                                      {/* Animated left border */}
+                                      <div
+                                        className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1 transition-all duration-300"
+                                        style={{ background: gradientBg }}
+                                      />
+                                    </a>
+                                  ))}
+                              </div>
+                            </div>
+                          )}
+                      </div>
+                    ) : hasDropdownChildren(link) ? (
+                      // Regular dropdown with children
                       <div
                         className="relative"
                         onMouseEnter={() => setActiveDropdown(link.id)}
                         onMouseLeave={() => setActiveDropdown(null)}
                       >
                         <button
-                          className="flex items-center gap-1 text-sm font-medium transition hover:text-blue-600"
-                          style={{
-                            color: textColor,
-                          }}
+                          className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
+                          style={{ color: textColor }}
                         >
                           {link.title}
-                          <ChevronDown size={16} />
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform duration-300 ${
+                              activeDropdown === link.id ? "rotate-180" : ""
+                            }`}
+                          />
+                          <span
+                            className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
+                            style={{ background: gradientBg }}
+                          />
                         </button>
 
                         {activeDropdown === link.id &&
                           link.children &&
                           link.children.length > 0 && (
                             <div
-                              className="absolute top-full left-0 mt-2 w-48 backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border border-white/10 dark:border-gray-800/30 rounded-xl shadow-lg py-2 z-50"
+                              className="absolute top-full left-0 mt-2 w-48 backdrop-blur-md bg-white/95 border rounded-xl shadow-lg py-2 z-50"
                               style={{
-                                backgroundColor: color_theme?.background_color
-                                  ? `${color_theme.background_color}95`
-                                  : undefined,
+                                borderColor: `${primaryColor}30`,
+                                boxShadow: `0 10px 30px ${primaryColor}15`,
                               }}
                             >
                               {link.children.map((child) => (
                                 <a
                                   key={child.id}
                                   href={getNavigationItemUrl(child)}
-                                  className="block px-4 py-2 text-sm transition hover:bg-blue-50 hover:text-blue-600"
-                                  style={{
-                                    color: textColor,
-                                  }}
+                                  className="block px-4 py-2 text-sm transition-all duration-200 hover:scale-105 relative group"
+                                  style={{ color: textColor }}
                                 >
                                   {child.title}
+                                  <div
+                                    className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1 transition-all duration-300"
+                                    style={{ background: gradientBg }}
+                                  />
                                 </a>
                               ))}
                             </div>
                           )}
                       </div>
                     ) : (
-                      // Regular link
+                      // Regular link with gradient underline
                       <a
                         href={getNavigationItemUrl(link)}
-                        className="text-sm font-medium transition hover:text-blue-600"
-                        style={{
-                          color: textColor,
-                        }}
+                        className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block"
+                        style={{ color: textColor }}
                       >
                         {link.title}
+                        <span
+                          className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
+                          style={{ background: gradientBg }}
+                        />
                       </a>
                     )}
                   </div>
@@ -263,39 +423,43 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             </div>
           )}
 
-          {/* Right: CTA + Mobile button */}
+          {/* CTA Button with Enhanced Gradient Animation */}
           <div className="flex items-center gap-4">
-            {" "}
-            {/* Increased gap */}
-            {/* Navbar CTA from header_config (priority) */}
-            {navbarCTA?.text && (
+            {navbarCTA?.text ? (
               <button
                 onClick={onShowLogin}
-                className="hidden md:inline-flex items-center gap-2 px-6 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg hover:bg-blue-600"
-                style={{
-                  backgroundColor: primaryColor,
-                }}
+                className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-white font-semibold shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl relative overflow-hidden group"
+                style={{ background: gradientBg }}
               >
-                {navbarCTA.text}
+                <span className="relative z-10">{navbarCTA.text}</span>
+                {/* Hover gradient overlay */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: gradientHover }}
+                />
+                {/* Shine effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
               </button>
-            )}
-            {/* Fallback to header CTA if no navbar CTA */}
-            {!navbarCTA?.text && header_cta_primary && (
+            ) : header_cta_primary ? (
               <button
                 onClick={onShowLogin}
-                className="hidden md:inline-flex items-center gap-2 px-6 py-2 rounded-lg text-white font-semibold shadow-md transform transition hover:-translate-y-0.5 hover:shadow-lg hover:bg-blue-600"
-                style={{
-                  backgroundColor: primaryColor,
-                }}
+                className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-white font-semibold shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl relative overflow-hidden group"
+                style={{ background: gradientBg }}
               >
-                {header_cta_primary}
+                <span className="relative z-10">{header_cta_primary}</span>
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: gradientHover }}
+                />
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
               </button>
-            )}
+            ) : null}
+
             {/* Mobile Hamburger */}
             <button
               onClick={() => setOpen((s) => !s)}
               aria-label="Toggle menu"
-              className="p-2 rounded-md md:hidden hover:bg-white/20 transition-colors"
+              className="p-2 rounded-md md:hidden hover:bg-white/20 transition-all duration-300 hover:scale-110"
               style={{ color: textColor }}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
@@ -303,91 +467,78 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           </div>
         </div>
 
-        {/* Centered navigation for centered style */}
-        {navbarStyle === "centered" && (
-          <div className="hidden md:flex items-center justify-center gap-8 py-3 border-t border-white/10 dark:border-gray-800/30">
-            {links
-              .sort((a, b) => a.order - b.order)
-              .map((link) => (
-                <div key={link.id} className="relative">
-                  {hasDropdownChildren(link) ? (
-                    <div
-                      className="relative"
-                      onMouseEnter={() => setActiveDropdown(link.id)}
-                      onMouseLeave={() => setActiveDropdown(null)}
-                    >
-                      <button
-                        className="flex items-center gap-1 text-sm font-medium transition hover:text-blue-600"
-                        style={{
-                          color: textColor,
-                        }}
-                      >
-                        {link.title}
-                        <ChevronDown size={16} />
-                      </button>
-
-                      {activeDropdown === link.id &&
-                        link.children &&
-                        link.children.length > 0 && (
-                          <div
-                            className="absolute top-full left-0 mt-2 w-48 backdrop-blur-md bg-white/95 dark:bg-gray-900/95 border border-white/10 dark:border-gray-800/30 rounded-xl shadow-lg py-2 z-50"
-                            style={{
-                              backgroundColor: color_theme?.background_color
-                                ? `${color_theme.background_color}95`
-                                : undefined,
-                            }}
-                          >
-                            {link.children.map((child) => (
-                              <a
-                                key={child.id}
-                                href={getNavigationItemUrl(child)}
-                                className="block px-4 py-2 text-sm transition hover:bg-blue-50 hover:text-blue-600"
-                                style={{
-                                  color: textColor,
-                                }}
-                              >
-                                {child.title}
-                              </a>
-                            ))}
-                          </div>
-                        )}
-                    </div>
-                  ) : (
-                    <a
-                      href={getNavigationItemUrl(link)}
-                      className="text-sm font-medium transition hover:text-blue-600"
-                      style={{
-                        color: textColor,
-                      }}
-                    >
-                      {link.title}
-                    </a>
-                  )}
-                </div>
-              ))}
-          </div>
-        )}
-
         {/* Mobile menu panel */}
         <div
-          className={`md:hidden transition-all duration-300 ${
-            open ? "max-h-96 overflow-y-auto" : "max-h-0 overflow-hidden"
+          className={`md:hidden transition-all duration-500 ${
+            open
+              ? "max-h-screen opacity-100"
+              : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
           <div
-            className="backdrop-blur-md border border-white/10 dark:border-gray-800/30 rounded-xl shadow-lg p-4 flex flex-col gap-3 mt-2"
+            className="backdrop-blur-md rounded-xl shadow-lg p-4 flex flex-col gap-3 mt-2 mb-4"
             style={{
-              backgroundColor: color_theme?.background_color
-                ? `${color_theme.background_color}95`
-                : "rgba(255, 255, 255, 0.95)",
+              background: `${color_theme?.background_color || "#FFFFFF"}f0`,
+              border: `1px solid ${primaryColor}30`,
             }}
           >
             {links
               .sort((a, b) => a.order - b.order)
               .map((link) => (
                 <div key={link.id}>
-                  {hasDropdownChildren(link) ? (
-                    // Mobile dropdown
+                  {isFeatureDropdown(link) ? (
+                    // Mobile Features Dropdown
+                    <div>
+                      <button
+                        onClick={() =>
+                          setActiveDropdown(
+                            activeDropdown === link.id ? null : link.id
+                          )
+                        }
+                        className="w-full flex items-center justify-between text-base font-semibold py-2 px-2 transition-all duration-300 hover:scale-105 relative"
+                        style={{ color: textColor }}
+                      >
+                        {link.title}
+                        <ChevronDown
+                          size={16}
+                          className={`transform transition-transform duration-300 ${
+                            activeDropdown === link.id ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {activeDropdown === link.id &&
+                        features &&
+                        features.length > 0 && (
+                          <div className="ml-4 mt-2 space-y-1 max-h-64 overflow-y-auto">
+                            {features
+                              .sort((a, b) => a.order - b.order)
+                              .map((feature) => (
+                                <a
+                                  key={feature.id}
+                                  href={`#feature-${feature.id}`}
+                                  className="block text-sm py-2 px-3 rounded-lg transition-all duration-200 relative overflow-hidden group"
+                                  style={{ color: textColor }}
+                                  onClick={() => setOpen(false)}
+                                >
+                                  <div className="relative z-10 flex items-center gap-2">
+                                    <span
+                                      className="w-1.5 h-1.5 rounded-full"
+                                      style={{ background: primaryColor }}
+                                    />
+                                    {feature.title}
+                                  </div>
+                                  <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{
+                                      background: `linear-gradient(90deg, ${primaryColor}10 0%, ${accentColor}10 100%)`,
+                                    }}
+                                  />
+                                </a>
+                              ))}
+                          </div>
+                        )}
+                    </div>
+                  ) : hasDropdownChildren(link) ? (
                     <div>
                       <button
                         onClick={() =>
@@ -415,9 +566,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 key={child.id}
                                 href={getNavigationItemUrl(child)}
                                 className="block text-sm py-2 px-2 rounded transition hover:bg-blue-50 hover:text-blue-600"
-                                style={{
-                                  color: textColor,
-                                }}
+                                style={{ color: textColor }}
                                 onClick={() => setOpen(false)}
                               >
                                 {child.title}
@@ -430,9 +579,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     <a
                       href={getNavigationItemUrl(link)}
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600"
-                      style={{
-                        color: textColor,
-                      }}
+                      style={{ color: textColor }}
                       onClick={() => setOpen(false)}
                     >
                       {link.title}
@@ -450,12 +597,14 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     setOpen(false);
                   }
                 }}
-                className="mt-2 w-full px-4 py-3 rounded-lg text-white font-semibold text-center shadow-md hover:bg-blue-600 transition-colors"
-                style={{
-                  backgroundColor: primaryColor,
-                }}
+                className="mt-2 w-full px-4 py-3 rounded-xl text-white font-semibold text-center shadow-lg transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+                style={{ background: gradientBg }}
               >
-                {navbarCTA.text}
+                <span className="relative z-10">{navbarCTA.text}</span>
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: gradientHover }}
+                />
               </button>
             ) : header_cta_primary ? (
               <button
@@ -465,17 +614,55 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     setOpen(false);
                   }
                 }}
-                className="mt-2 w-full px-4 py-3 rounded-lg text-white font-semibold text-center shadow-md hover:bg-blue-600 transition-colors"
-                style={{
-                  backgroundColor: primaryColor,
-                }}
+                className="mt-2 w-full px-4 py-3 rounded-xl text-white font-semibold text-center shadow-lg transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+                style={{ background: gradientBg }}
               >
-                {header_cta_primary}
+                <span className="relative z-10">{header_cta_primary}</span>
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: gradientHover }}
+                />
               </button>
             ) : null}
           </div>
         </div>
       </div>
+
+      {/* Custom Styles */}
+      <style>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: ${color_theme?.background_color || "#F8F9FA"};
+          border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%);
+          border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%);
+        }
+      `}</style>
     </nav>
   );
 }
