@@ -119,7 +119,6 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     color: textColor,
                   }}
                 >
-                  {header_title}
                   {/* Gradient text effect */}
                   <span
                     className="block text-transparent bg-clip-text"
