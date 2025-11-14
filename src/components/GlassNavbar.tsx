@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
-import type { LandingPageData } from "../types/landing";
+import type { LandingPageData, FeaturesPageData } from "../types/landing";
+import { fetchAllFeaturesPages } from "../types/landing";
 
 interface NavigationItem {
   id: number;
@@ -20,20 +21,30 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [featuresPages, setFeaturesPages] = useState<FeaturesPageData[]>([]);
 
-  // Get header config from both possible locations
+  // Get header config
   const headerConfig =
     data.header_config ||
     data.sections?.find((section) => section.type === "header")?.data?.config;
 
-  const { header_cta_primary, color_theme, features } = data;
+  const { header_cta_primary, color_theme } = data;
 
   const primaryColor = color_theme?.primary_color || "#3B82F6";
   const accentColor = color_theme?.accent_color || "#10B981";
   const textColor = color_theme?.text_color || "#1F2937";
 
-  // Scroll detection for navbar effects
+  // Load FeaturesPages on mount
+  useEffect(() => {
+    const loadFeaturesPages = async () => {
+      const pages = await fetchAllFeaturesPages();
+      setFeaturesPages(pages);
+    };
+    loadFeaturesPages();
+  }, []);
+
+  // Scroll detection
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -168,11 +179,10 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             !transparentOnHome && !scrolled && "border-b border-white/10"
           }`}
         >
-          {/* Logo Section with Gradient Animation */}
+          {/* Logo Section */}
           <div className="flex items-center gap-3 flex-shrink-0 group cursor-pointer">
             {logo ? (
               <div className="flex items-center gap-3">
-                {/* Logo with animated gradient border */}
                 <div
                   className="relative p-0.5 rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
                   style={{
@@ -194,7 +204,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     />
                   </div>
                 </div>
-                {/* Site name with gradient text on hover */}
                 <div
                   className="font-bold text-xl transition-all duration-300 group-hover:scale-105"
                   style={{
@@ -238,13 +247,13 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 .map((link) => (
                   <div key={link.id} className="relative">
                     {isFeatureDropdown(link) ? (
-                      // Features Dropdown with ALL features from API
+                      // Features Dropdown with FeaturesPages
                       <div
                         className="relative"
                         onMouseEnter={() => setActiveDropdown(link.id)}
                         onMouseLeave={() => {
                           setActiveDropdown(null);
-                          setHoveredFeature(null);
+                          setHoveredItem(null);
                         }}
                       >
                         <button
@@ -258,17 +267,15 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                               activeDropdown === link.id ? "rotate-180" : ""
                             }`}
                           />
-                          {/* Animated gradient underline */}
                           <span
                             className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
                             style={{ background: gradientBg }}
                           />
                         </button>
 
-                        {/* Enhanced Features Dropdown */}
+                        {/* Features Pages Dropdown */}
                         {activeDropdown === link.id &&
-                          features &&
-                          features.length > 0 && (
+                          featuresPages.length > 0 && (
                             <div
                               className="absolute top-full left-0 mt-4 w-80 backdrop-blur-xl bg-white/95 rounded-2xl shadow-2xl overflow-hidden animate-slideDown"
                               style={{
@@ -279,81 +286,68 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 boxShadow: `0 20px 40px ${primaryColor}20`,
                               }}
                             >
-                              {/* Dropdown Header */}
                               <div
                                 className="px-5 py-3 font-bold text-sm text-white"
                                 style={{ background: gradientBg }}
                               >
-                                All Features
+                                Feature Pages
                               </div>
 
-                              {/* Features List */}
                               <div className="max-h-96 overflow-y-auto custom-scrollbar">
-                                {features
-                                  .sort((a, b) => a.order - b.order)
-                                  .map((feature, index) => (
-                                    <a
-                                      key={feature.id}
-                                      href={`#feature-${feature.id}`}
-                                      className="block px-5 py-3 text-sm font-medium transition-all duration-300 relative overflow-hidden group"
-                                      style={{
-                                        color: textColor,
-                                        animationDelay: `${index * 0.03}s`,
-                                      }}
-                                      onMouseEnter={() =>
-                                        setHoveredFeature(feature.id)
-                                      }
-                                      onMouseLeave={() =>
-                                        setHoveredFeature(null)
-                                      }
-                                      onClick={() => {
-                                        setActiveDropdown(null);
-                                        setOpen(false);
-                                      }}
-                                    >
-                                      <div className="relative z-10 flex items-center gap-3">
-                                        {/* Animated dot indicator */}
-                                        <span
-                                          className="w-2 h-2 rounded-full transition-all duration-300"
-                                          style={{
-                                            background:
-                                              hoveredFeature === feature.id
-                                                ? gradientBg
-                                                : primaryColor,
-                                            transform:
-                                              hoveredFeature === feature.id
-                                                ? "scale(1.5)"
-                                                : "scale(1)",
-                                            boxShadow:
-                                              hoveredFeature === feature.id
-                                                ? `0 0 12px ${primaryColor}`
-                                                : "none",
-                                          }}
-                                        />
-                                        <span className="flex-1">
-                                          {feature.title}
-                                        </span>
-                                      </div>
-                                      {/* Gradient hover background */}
-                                      <div
-                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                {featuresPages.map((page, index) => (
+                                  <a
+                                    key={page.id}
+                                    href={`/features/${page.slug}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block px-5 py-3 text-sm font-medium transition-all duration-300 relative overflow-hidden group"
+                                    style={{
+                                      color: textColor,
+                                      animationDelay: `${index * 0.03}s`,
+                                    }}
+                                    onMouseEnter={() => setHoveredItem(page.id)}
+                                    onMouseLeave={() => setHoveredItem(null)}
+                                  >
+                                    <div className="relative z-10 flex items-center gap-3">
+                                      <span
+                                        className="w-2 h-2 rounded-full transition-all duration-300"
                                         style={{
-                                          background: `linear-gradient(90deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
+                                          background:
+                                            hoveredItem === page.id
+                                              ? gradientBg
+                                              : primaryColor,
+                                          transform:
+                                            hoveredItem === page.id
+                                              ? "scale(1.5)"
+                                              : "scale(1)",
+                                          boxShadow:
+                                            hoveredItem === page.id
+                                              ? `0 0 12px ${primaryColor}`
+                                              : "none",
                                         }}
                                       />
-                                      {/* Animated left border */}
-                                      <div
-                                        className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1 transition-all duration-300"
-                                        style={{ background: gradientBg }}
-                                      />
-                                    </a>
-                                  ))}
+                                      <span className="flex-1">
+                                        {page.title}
+                                      </span>
+                                    </div>
+                                    <div
+                                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                      style={{
+                                        background: `linear-gradient(90deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
+                                      }}
+                                    />
+                                    <div
+                                      className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1 transition-all duration-300"
+                                      style={{ background: gradientBg }}
+                                    />
+                                  </a>
+                                ))}
                               </div>
                             </div>
                           )}
                       </div>
                     ) : hasDropdownChildren(link) ? (
-                      // Regular dropdown with children
+                      // Regular dropdown
                       <div
                         className="relative"
                         onMouseEnter={() => setActiveDropdown(link.id)}
@@ -404,7 +398,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                           )}
                       </div>
                     ) : (
-                      // Regular link with gradient underline
+                      // Regular link
                       <a
                         href={getNavigationItemUrl(link)}
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block"
@@ -422,7 +416,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             </div>
           )}
 
-          {/* CTA Button with Enhanced Gradient Animation */}
+          {/* CTA Button */}
           <div className="flex items-center gap-4">
             {navbarCTA?.text ? (
               <button
@@ -431,12 +425,10 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 style={{ background: gradientBg }}
               >
                 <span className="relative z-10">{navbarCTA.text}</span>
-                {/* Hover gradient overlay */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ background: gradientHover }}
                 />
-                {/* Shine effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
               </button>
             ) : header_cta_primary ? (
@@ -466,7 +458,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           </div>
         </div>
 
-        {/* Mobile menu panel */}
+        {/* Mobile menu */}
         <div
           className={`md:hidden transition-all duration-500 ${
             open
@@ -486,7 +478,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
               .map((link) => (
                 <div key={link.id}>
                   {isFeatureDropdown(link) ? (
-                    // Mobile Features Dropdown
                     <div>
                       <button
                         onClick={() =>
@@ -506,34 +497,33 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         />
                       </button>
                       {activeDropdown === link.id &&
-                        features &&
-                        features.length > 0 && (
+                        featuresPages.length > 0 && (
                           <div className="ml-4 mt-2 space-y-1 max-h-64 overflow-y-auto">
-                            {features
-                              .sort((a, b) => a.order - b.order)
-                              .map((feature) => (
-                                <a
-                                  key={feature.id}
-                                  href={`#feature-${feature.id}`}
-                                  className="block text-sm py-2 px-3 rounded-lg transition-all duration-200 relative overflow-hidden group"
-                                  style={{ color: textColor }}
-                                  onClick={() => setOpen(false)}
-                                >
-                                  <div className="relative z-10 flex items-center gap-2">
-                                    <span
-                                      className="w-1.5 h-1.5 rounded-full"
-                                      style={{ background: primaryColor }}
-                                    />
-                                    {feature.title}
-                                  </div>
-                                  <div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                    style={{
-                                      background: `linear-gradient(90deg, ${primaryColor}10 0%, ${accentColor}10 100%)`,
-                                    }}
+                            {featuresPages.map((page) => (
+                              <a
+                                key={page.id}
+                                href={`/features/${page.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-sm py-2 px-3 rounded-lg transition-all duration-200 relative overflow-hidden group"
+                                style={{ color: textColor }}
+                                onClick={() => setOpen(false)}
+                              >
+                                <div className="relative z-10 flex items-center gap-2">
+                                  <span
+                                    className="w-1.5 h-1.5 rounded-full"
+                                    style={{ background: primaryColor }}
                                   />
-                                </a>
-                              ))}
+                                  {page.title}
+                                </div>
+                                <div
+                                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                  style={{
+                                    background: `linear-gradient(90deg, ${primaryColor}10 0%, ${accentColor}10 100%)`,
+                                  }}
+                                />
+                              </a>
+                            ))}
                           </div>
                         )}
                     </div>

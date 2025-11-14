@@ -1,3 +1,4 @@
+// ===== EXISTING INTERFACES (keeping all your current ones) =====
 export interface ImageData {
   id: number;
   title: string;
@@ -61,8 +62,8 @@ export interface CardContent {
   subtitle: string;
   description: string;
   card_style: "basic" | "feature" | "testimonial" | "pricing" | "team";
-  icon: string; // Add icon support for cards
-  card_image?: ImageData; // Use images for cards
+  icon: string;
+  card_image?: ImageData;
   button_text: string;
   button_url: string;
   price: string;
@@ -84,6 +85,7 @@ export interface FrontendSite {
   url: string;
   is_active: boolean;
 }
+
 export interface FooterConfig {
   id: number;
   name: string;
@@ -146,7 +148,6 @@ export interface HeaderConfig {
   transparent_on_home: boolean;
 }
 
-// Update your LandingPageData interface
 export interface Section {
   type: string;
   data: any;
@@ -185,8 +186,6 @@ export interface LandingPageData {
     first_published_at: string | null;
     last_published_at: string | null;
   };
-
-  // Header Section
   header_title?: string;
   header_subtitle?: string;
   header_description?: string;
@@ -195,27 +194,17 @@ export interface LandingPageData {
   header_cta_secondary?: string;
   header_cta_secondary_url?: string;
   header_background_image?: ImageData;
-
-  // Features Section
   features_head?: string;
   features_introduction?: string;
   features?: Feature[];
-
-  // Benefits Section
   benefits_head?: string;
   benefits_introduction?: string;
   benefits?: Benefit[];
-
-  // Testimonials Section
   testimonials_head?: string;
   testimonials_introduction?: string;
   testimonials?: Testimonial[];
-
   faq_section?: FAQSection;
-
   faqs?: FAQItem[];
-
-  // CTA Section
   cta_head?: string;
   cta_introduction?: string;
   cta_primary_text?: string;
@@ -223,33 +212,74 @@ export interface LandingPageData {
   cta_secondary_text?: string;
   cta_secondary_url?: string;
   cta_offer?: string;
-
-  // SEO & Meta
   meta_title?: string;
   meta_description?: string;
   og_image?: ImageData;
-
-  // Color Theme
   color_theme?: ColorTheme;
-
-  // Video Section
   video_section?: {
     heading: string;
     introduction: string;
     featured_video: Video | null;
   };
-
-  // Card Sections
   card_sections?: {
     heading: string;
     cards: CardContent[];
   };
+  dynamic_content?: DynamicContentBlock[];
+  allowed_frontends?: FrontendSite[];
+}
+
+// ===== NEW: FeaturesPage Interface =====
+export interface FeaturesPageData {
+  id: number;
+  title: string;
+  slug: string;
+  url: string;
+  seo_title: string;
+  search_description: string;
+  live: boolean;
+  locked: boolean;
+  first_published_at: string | null;
+  last_published_at: string | null;
+
+  // Header Section
+  header_title: string;
+  header_subtitle: string;
+  header_description: string;
+  header_image?: ImageData;
+  header_cta_text: string;
+  header_cta_url: string;
+
+  // Features Overview
+  features_intro_heading: string;
+  features_intro_description: string;
+  features: Feature[];
+
+  // Sections
+  categories_heading: string;
+  categories_description: string;
+  key_features_heading: string;
+  key_features_description: string;
+  comparison_heading: string;
+  comparison_description: string;
+  integrations_heading: string;
+  integrations_description: string;
+  specifications_heading: string;
+  specifications_description: string;
+  use_cases_heading: string;
+  use_cases_description: string;
+
+  // CTA Section
+  features_cta_heading: string;
+  features_cta_description: string;
+  features_cta_button_text: string;
+  features_cta_button_url: string;
 
   // Dynamic Content
   dynamic_content?: DynamicContentBlock[];
 
-  // Frontend Configuration
-  allowed_frontends?: FrontendSite[];
+  // Theme (inherited from parent or own)
+  color_theme?: ColorTheme;
 }
 
 export interface ApiResponse {
@@ -259,17 +289,26 @@ export interface ApiResponse {
   items: LandingPageData[];
 }
 
-// API Service
+export interface FeaturesPageApiResponse {
+  meta: {
+    total_count: number;
+  };
+  items: FeaturesPageData[];
+}
+
+// ===== API Service Functions =====
+const isDevelopment = import.meta.env.DEV;
+const frontendUrl = isDevelopment
+  ? "http://localhost:5173"
+  : "https://dynamic-cms-zeta.vercel.app";
+
+const baseApiUrl = isDevelopment
+  ? "/blogs/api/v2"
+  : "https://esign-admin.signmary.com/blogs/api/v2";
+
 export const fetchLandingPageData = async (): Promise<LandingPageData> => {
   try {
-    const isDevelopment = import.meta.env.DEV;
-    const frontendUrl = isDevelopment
-      ? "http://localhost:5173"
-      : "https://dynamic-cms-zeta.vercel.app";
-
-    const apiUrl = isDevelopment
-      ? "/blogs/api/v2/mypages/"
-      : "https://esign-admin.signmary.com/blogs/api/v2/mypages/";
+    const apiUrl = `${baseApiUrl}/mypages/`;
 
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -294,6 +333,67 @@ export const fetchLandingPageData = async (): Promise<LandingPageData> => {
     return data.items[0];
   } catch (error) {
     console.error("Error fetching landing page data:", error);
+    throw error;
+  }
+};
+
+// ===== NEW: Fetch all FeaturesPages =====
+export const fetchAllFeaturesPages = async (): Promise<FeaturesPageData[]> => {
+  try {
+    const apiUrl = `${baseApiUrl}/features-pages/`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Frontend-Url": frontendUrl,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch features pages: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const data: FeaturesPageApiResponse = await response.json();
+
+    if (!data || !data.items) {
+      return [];
+    }
+
+    return data.items;
+  } catch (error) {
+    console.error("Error fetching features pages:", error);
+    return [];
+  }
+};
+
+// ===== NEW: Fetch single FeaturesPage by ID or slug =====
+export const fetchFeaturesPageById = async (
+  id: number
+): Promise<FeaturesPageData> => {
+  try {
+    const apiUrl = `${baseApiUrl}/features-pages/${id}/`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Frontend-Url": frontendUrl,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch features page: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const data: FeaturesPageData = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching features page:", error);
     throw error;
   }
 };
