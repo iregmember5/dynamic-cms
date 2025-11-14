@@ -16,7 +16,6 @@ interface FooterProps {
 }
 
 function Footer({ data }: FooterProps) {
-  // Try to get footer config from multiple possible locations
   const footerSection = data.sections?.find(
     (section: Section) => section.type === "footer"
   );
