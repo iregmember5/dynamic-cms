@@ -21,9 +21,9 @@ const DebugFeaturesAPI = () => {
 
         console.log("🔍 Testing API...");
         console.log("Frontend URL:", frontendUrl);
-        console.log("API URL:", `${baseApiUrl}/mypages/`);
+        console.log("API URL:", `${baseApiUrl}/features-pages/`);
 
-        const response = await fetch(`${baseApiUrl}/mypages/`, {
+        const response = await fetch(`${baseApiUrl}/features-pages/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
