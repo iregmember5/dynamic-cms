@@ -37,10 +37,11 @@
 import { useState, useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import FeaturesPage from "./pages/FeaturesPage";
+import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 
 function App() {
   const [currentView, setCurrentView] = useState<{
-    type: "landing" | "features";
+    type: "landing" | "features" | "debug";
     slug?: string;
   }>({ type: "landing" });
 
@@ -49,6 +50,12 @@ function App() {
     const checkRoute = () => {
       const path = window.location.pathname;
       const hash = window.location.hash;
+
+      // Debug page
+      if (path.includes("/debug") || hash.includes("#debug")) {
+        setCurrentView({ type: "debug" });
+        return;
+      }
 
       // Check if we're on a features page
       if (path.includes("/features/") || hash.includes("#features/")) {
@@ -83,6 +90,10 @@ function App() {
   // Render based on current view
   if (currentView.type === "features") {
     return <FeaturesPage slug={currentView.slug} />;
+  }
+
+  if (currentView.type === "debug") {
+    return <DebugFeaturesAPI />;
   }
 
   return <LandingPage />;
