@@ -71,12 +71,16 @@ const DebugFeaturesAPI = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-white shadow-2xl rounded-xl p-6 max-w-2xl border-2 border-blue-500 z-50 max-h-[80vh] overflow-y-auto">
+    <div className="fixed bottom-4 right-4 bg-white shadow-2xl rounded-xl p-6 w-[90vw] max-w-5xl border-2 border-blue-500 z-50 max-h-[85vh] overflow-hidden">
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-bold text-xl flex items-center gap-2">
-          <span className={error ? "🔴" : "🟢"}>{error ? "❌" : "✅"}</span>
+          <span className={error ? "text-red-500" : "text-green-600"}>
+            {error ? "❌" : "✅"}
+          </span>
           Features API Debug
         </h3>
+
         <button
           onClick={() => window.location.reload()}
           className="px-3 py-1 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600"
@@ -85,34 +89,17 @@ const DebugFeaturesAPI = () => {
         </button>
       </div>
 
+      {/* Content */}
       {error ? (
         <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4">
           <h4 className="font-bold text-red-700 mb-2">❌ Error:</h4>
           <p className="text-red-600 text-sm font-mono">{error}</p>
-
-          <div className="mt-4 p-3 bg-white rounded border border-red-200">
-            <h5 className="font-bold text-sm mb-2">
-              🔧 Troubleshooting Steps:
-            </h5>
-            <ol className="text-sm space-y-1 list-decimal list-inside">
-              <li>
-                Check if FeaturesPage is <strong>published</strong> (not draft)
-              </li>
-              <li>Verify "Allowed frontends" includes your frontend</li>
-              <li>Check CORS settings on Django backend</li>
-              <li>
-                Verify API endpoint exists:{" "}
-                <code className="bg-gray-100 px-1 rounded">
-                  /blogs/api/v2/features-pages/
-                </code>
-              </li>
-            </ol>
-          </div>
         </div>
       ) : (
-        <div className="space-y-4">
-          <div className="bg-green-50 border-2 border-green-500 rounded-lg p-4">
-            <h4 className="font-bold text-green-700 mb-2">✅ API Response:</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* LEFT CARD — API Summary */}
+          <div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 overflow-y-auto max-h-[65vh]">
+            <h4 className="font-bold text-green-700 mb-3">📄 API Summary</h4>
 
             {apiData && (
               <>
@@ -131,9 +118,8 @@ const DebugFeaturesAPI = () => {
                   </div>
                 </div>
 
-                {apiData.items && apiData.items.length > 0 ? (
+                {apiData.items?.length > 0 ? (
                   <div className="space-y-3">
-                    <h5 className="font-bold text-sm">📄 Found Pages:</h5>
                     {apiData.items.map((page: any, index: number) => (
                       <div
                         key={index}
@@ -158,7 +144,7 @@ const DebugFeaturesAPI = () => {
                                   : "text-red-600 font-bold"
                               }
                             >
-                              {page.live ? "✅ Yes" : "❌ No"}
+                              {page.live ? "Yes" : "No"}
                             </span>
                           </div>
                           <div>
@@ -174,10 +160,7 @@ const DebugFeaturesAPI = () => {
                 ) : (
                   <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-3 mt-3">
                     <p className="text-yellow-800 text-sm font-bold">
-                      ⚠️ No FeaturesPages found!
-                    </p>
-                    <p className="text-yellow-700 text-xs mt-1">
-                      The API is working but returned 0 pages.
+                      ⚠️ No pages found
                     </p>
                   </div>
                 )}
@@ -185,19 +168,22 @@ const DebugFeaturesAPI = () => {
             )}
           </div>
 
-          <div className="bg-blue-50 border border-blue-300 rounded-lg p-3">
-            <h5 className="font-bold text-sm text-blue-900 mb-2">
-              🔍 Full Response:
-            </h5>
-            <pre className="text-xs bg-white p-2 rounded border border-blue-200 overflow-x-auto max-h-48">
+          {/* RIGHT CARD — FULL JSON */}
+          <div className="bg-blue-50 border border-blue-300 rounded-lg p-4 overflow-y-auto max-h-[65vh]">
+            <h4 className="font-bold text-blue-900 mb-3">
+              🧩 Full JSON Response
+            </h4>
+
+            <pre className="text-xs bg-white p-2 rounded border border-blue-200 overflow-x-auto">
               {JSON.stringify(apiData, null, 2)}
             </pre>
           </div>
         </div>
       )}
 
+      {/* Footer */}
       <div className="mt-4 pt-4 border-t text-xs text-gray-500">
-        <p>💡 This component will auto-hide once you close dev tools</p>
+        <p>💡 Drag the panel or resize to view more content.</p>
       </div>
     </div>
   );
