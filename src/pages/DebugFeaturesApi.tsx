@@ -102,10 +102,10 @@ const DebugFeaturesAPI = () => {
       minHeight={120}
       bounds="window"
       dragHandleClassName="drag-header"
-      onDragStop={(e, d) => {
+      onDragStop={(_e, d) => {
         savePanelState({ ...panelState, x: d.x, y: d.y });
       }}
-      onResizeStop={(e, direction, ref, delta, pos) => {
+      onResizeStop={(_e, _direction, ref, _delta, pos) => {
         savePanelState({
           ...panelState,
           width: parseInt(ref.style.width),
