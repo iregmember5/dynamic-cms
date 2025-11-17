@@ -2191,6 +2191,576 @@ interface FeaturesPageProps {
   slug?: string;
 }
 
+// ===== DYNAMIC CONTENT RENDERERS =====
+const DynamicContentRenderer: React.FC<{
+  block: DynamicContentBlock;
+  theme: any;
+}> = ({ block, theme }) => {
+  const getFullImageUrl = (url: string | { url: string } | undefined) => {
+    if (!url) return "";
+
+    // Handle if url is an object with url property
+    const urlString = typeof url === "string" ? url : url.url;
+
+    if (urlString.startsWith("http")) return urlString;
+    return `https://esign-admin.signmary.com${urlString}`;
+  };
+
+  switch (block.type) {
+    case "feature_grid":
+    case "card_grid":
+      return (
+        <CardGridBlock
+          value={block.value}
+          theme={theme}
+          getFullImageUrl={getFullImageUrl}
+        />
+      );
+
+    case "feature_list":
+    case "dynamic_list":
+      return <DynamicListBlock value={block.value} theme={theme} />;
+
+    case "feature_demo":
+    case "video":
+      return (
+        <VideoBlock
+          value={block.value}
+          theme={theme}
+          getFullImageUrl={getFullImageUrl}
+        />
+      );
+
+    case "technical_specs":
+    case "rich_text":
+      return <RichTextBlock value={block.value} theme={theme} />;
+
+    case "integration_cards":
+    case "cta":
+      return (
+        <CTABlock
+          value={block.value}
+          theme={theme}
+          getFullImageUrl={getFullImageUrl}
+        />
+      );
+
+    case "testimonial_quotes":
+    case "blockquote":
+      return <BlockquoteBlock value={block.value} theme={theme} />;
+
+    case "problem_solution":
+      return (
+        <ProblemSolutionBlock
+          value={block.value}
+          theme={theme}
+          getFullImageUrl={getFullImageUrl}
+        />
+      );
+
+    case "pricing_widget":
+      return <PricingWidgetBlock value={block.value} theme={theme} />;
+
+    default:
+      return null;
+  }
+};
+
+// Card Grid Block
+const CardGridBlock: React.FC<{
+  value: any;
+  theme: any;
+  getFullImageUrl: (url: string) => string;
+}> = ({ value, theme, getFullImageUrl }) => {
+  if (!value || !value.cards) return null;
+
+  const columns = parseInt(value.columns) || 3;
+  const gridCols =
+    {
+      1: "grid-cols-1",
+      2: "md:grid-cols-2",
+      3: "md:grid-cols-2 lg:grid-cols-3",
+      4: "md:grid-cols-2 lg:grid-cols-4",
+    }[columns] || "md:grid-cols-3";
+
+  return (
+    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+      <div className="container mx-auto px-4">
+        {value.heading && (
+          <h2
+            className="text-4xl font-bold text-center mb-4"
+            style={{ color: theme.textColor }}
+          >
+            {value.heading}
+          </h2>
+        )}
+        {value.subheading && (
+          <p
+            className="text-xl text-center mb-12"
+            style={{ color: theme.neutralColor }}
+          >
+            {value.subheading}
+          </p>
+        )}
+
+        <div className={`grid ${gridCols} gap-6`}>
+          {value.cards.map((card: any, idx: number) => {
+            // Get card image URL safely
+            const getCardImage = () => {
+              if (card.card_content?.card_image) {
+                const img = card.card_content.card_image;
+                if (typeof img === "string") return img;
+                if (img?.url) return getFullImageUrl(img.url);
+              }
+              return null;
+            };
+
+            const cardImageUrl = getCardImage();
+
+            return (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+              >
+                {cardImageUrl && (
+                  <img
+                    src={cardImageUrl}
+                    alt={card.custom_title || card.card_content?.title || ""}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
+                <div className="p-6">
+                  <h3
+                    className="text-2xl font-bold mb-3"
+                    style={{ color: theme.textColor }}
+                  >
+                    {card.custom_title || card.card_content?.title}
+                  </h3>
+                  <p style={{ color: theme.neutralColor }}>
+                    {card.custom_description ||
+                      card.card_content?.description ||
+                      ""}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Dynamic List Block
+const DynamicListBlock: React.FC<{ value: any; theme: any }> = ({
+  value,
+  theme,
+}) => {
+  const getFullImageUrl = (url: string | { url: string } | undefined) => {
+    if (!url) return "";
+
+    // Handle if url is an object with url property
+    const urlString = typeof url === "string" ? url : url.url;
+
+    if (urlString.startsWith("http")) return urlString;
+    return `https://esign-admin.signmary.com${urlString}`;
+  };
+  if (!value || !value.items) return null;
+
+  return (
+    <section
+      className="py-16"
+      style={{ backgroundColor: `${theme.primaryColor}05` }}
+    >
+      <div className="container mx-auto px-4">
+        {value.heading && (
+          <h2
+            className="text-4xl font-bold text-center mb-4"
+            style={{ color: theme.textColor }}
+          >
+            {value.heading}
+          </h2>
+        )}
+        {value.description && (
+          <p
+            className="text-xl text-center mb-12"
+            style={{ color: theme.neutralColor }}
+          >
+            {value.description}
+          </p>
+        )}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {value.items.map((item: any, idx: number) => {
+            if (item.type === "feature") {
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                >
+                  {item.value.icon && (
+                    <div className="text-3xl mb-3">{item.value.icon}</div>
+                  )}
+                  <h3
+                    className="text-xl font-bold mb-2"
+                    style={{ color: theme.textColor }}
+                  >
+                    {item.value.title}
+                  </h3>
+                  <p style={{ color: theme.neutralColor }}>
+                    {item.value.description}
+                  </p>
+                </div>
+              );
+            }
+
+            if (item.type === "benefit") {
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3
+                    className="text-xl font-bold mb-2"
+                    style={{ color: theme.textColor }}
+                  >
+                    {item.value.title}
+                  </h3>
+                  {item.value.stat && (
+                    <div
+                      className="text-3xl font-bold mb-3"
+                      style={{ color: theme.primaryColor }}
+                    >
+                      {item.value.stat}
+                    </div>
+                  )}
+                  <p style={{ color: theme.neutralColor }}>
+                    {item.value.description}
+                  </p>
+                </div>
+              );
+            }
+
+            if (item.type === "custom_item") {
+              return (
+                <div
+                  key={idx}
+                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <h3
+                    className="text-xl font-bold mb-3"
+                    style={{ color: theme.textColor }}
+                  >
+                    {item.value.title}
+                  </h3>
+                  {/* ADD THIS: Image support */}
+                  {item.value.image && (
+                    <img
+                      src={getFullImageUrl(item.value.image.url)}
+                      alt={item.value.title}
+                      className="w-full h-48 object-cover rounded-xl mb-4"
+                    />
+                  )}
+                  <div
+                    className="prose"
+                    style={{ color: theme.neutralColor }}
+                    dangerouslySetInnerHTML={{ __html: item.value.content }}
+                  />
+                </div>
+              );
+            }
+
+            return null;
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Video Block
+const VideoBlock: React.FC<{
+  value: any;
+  theme: any;
+  getFullImageUrl: (url: string) => string;
+}> = ({ value, theme, getFullImageUrl }) => {
+  if (!value || !value.video) return null;
+
+  const video = value.video;
+  const autoplay = value.autoplay === "true";
+  const controls = value.controls !== "false";
+  const loop = value.loop === "true";
+  const muted = value.muted === "true";
+
+  return (
+    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          {/* YouTube */}
+          {video.video_source === "youtube" && (
+            <iframe
+              width="100%"
+              height="500"
+              src={`https://www.youtube.com/embed/${video.video_url}?autoplay=${
+                autoplay ? 1 : 0
+              }&controls=${controls ? 1 : 0}&loop=${loop ? 1 : 0}&mute=${
+                muted ? 1 : 0
+              }`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          )}
+
+          {/* Vimeo */}
+          {video.video_source === "vimeo" && (
+            <iframe
+              src={`https://player.vimeo.com/video/${video.video_url}`}
+              width="100%"
+              height="500"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              className="w-full"
+            />
+          )}
+
+          {/* ADD THIS: Uploaded Video */}
+          {video.video_source === "upload" && video.video_url && (
+            <video
+              width="100%"
+              height="500"
+              controls={controls}
+              autoPlay={autoplay}
+              loop={loop}
+              muted={muted}
+              className="w-full"
+            >
+              <source src={getFullImageUrl(video.video_url)} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
+
+          {/* External URL */}
+          {video.video_source === "external" && (
+            <video
+              width="100%"
+              height="500"
+              controls={controls}
+              autoPlay={autoplay}
+              loop={loop}
+              muted={muted}
+              className="w-full"
+            >
+              <source src={video.video_url} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
+
+          <div className="p-6">
+            <h3
+              className="text-2xl font-bold mb-2"
+              style={{ color: theme.textColor }}
+            >
+              {video.title}
+            </h3>
+            {video.description && (
+              <p style={{ color: theme.neutralColor }}>{video.description}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Rich Text Block
+const RichTextBlock: React.FC<{ value: any; theme: any }> = ({
+  value,
+  theme,
+}) => {
+  if (!value) return null;
+
+  return (
+    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div
+          className="prose prose-lg max-w-none bg-white p-8 rounded-2xl shadow-lg"
+          style={{ color: theme.textColor }}
+          dangerouslySetInnerHTML={{ __html: value }}
+        />
+      </div>
+    </section>
+  );
+};
+
+// CTA Block
+const CTABlock: React.FC<{
+  value: any;
+  theme: any;
+  getFullImageUrl: (url: string) => string;
+}> = ({ value, theme, getFullImageUrl }) => {
+  if (!value) return null;
+
+  const bgStyle = value.background_image
+    ? {
+        backgroundImage: `url(${getFullImageUrl(value.background_image.url)})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }
+    : {
+        background: `linear-gradient(135deg, ${theme.primaryColor} 0%, ${theme.accentColor} 100%)`,
+      };
+
+  return (
+    <section className="py-20 relative overflow-hidden" style={bgStyle}>
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(135deg, ${theme.primaryColor}90 0%, ${theme.accentColor}90 100%)`,
+        }}
+      />
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-3xl mx-auto text-center text-white">
+          {value.title && (
+            <h2 className="text-4xl font-bold mb-4">{value.title}</h2>
+          )}
+          {value.description && (
+            <p className="text-xl mb-8">{value.description}</p>
+          )}
+          {value.button_text && (
+            <a
+              href={value.button_url}
+              className="inline-block px-8 py-4 bg-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+              style={{ color: theme.primaryColor }}
+            >
+              {value.button_text}
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Blockquote Block
+const BlockquoteBlock: React.FC<{ value: any; theme: any }> = ({
+  value,
+  theme,
+}) => {
+  if (!value) return null;
+
+  return (
+    <section
+      className="py-16"
+      style={{ backgroundColor: `${theme.primaryColor}05` }}
+    >
+      <div className="container mx-auto px-4 max-w-4xl">
+        <blockquote
+          className="bg-white p-8 rounded-2xl shadow-lg border-l-4"
+          style={{ borderColor: theme.primaryColor }}
+        >
+          <p
+            className="text-2xl italic mb-4"
+            style={{ color: theme.textColor }}
+          >
+            "{value.text}"
+          </p>
+          {value.author && (
+            <footer
+              className="text-lg font-semibold"
+              style={{ color: theme.primaryColor }}
+            >
+              — {value.author}
+              {value.source && (
+                <span
+                  className="text-sm ml-2"
+                  style={{ color: theme.neutralColor }}
+                >
+                  ({value.source})
+                </span>
+              )}
+            </footer>
+          )}
+        </blockquote>
+      </div>
+    </section>
+  );
+};
+
+// Problem Solution Block
+const ProblemSolutionBlock: React.FC<{
+  value: any;
+  theme: any;
+  getFullImageUrl: (url: string) => string;
+}> = ({ value, theme, getFullImageUrl }) => {
+  if (!value) return null;
+
+  return (
+    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-red-100">
+            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span className="text-3xl">❌</span>
+              Problem
+            </h3>
+            <div
+              className="prose"
+              dangerouslySetInnerHTML={{ __html: value.problem }}
+            />
+          </div>
+          <div
+            className="bg-white p-8 rounded-2xl shadow-lg border-2"
+            style={{ borderColor: theme.accentColor }}
+          >
+            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <span className="text-3xl">✅</span>
+              Solution
+            </h3>
+            <div
+              className="prose"
+              dangerouslySetInnerHTML={{ __html: value.solution }}
+            />
+          </div>
+        </div>
+        {value.image && (
+          <div className="mt-8 max-w-4xl mx-auto">
+            <img
+              src={getFullImageUrl(value.image.url)}
+              alt="Problem Solution"
+              className="w-full rounded-2xl shadow-xl"
+            />
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+// Pricing Widget Block
+const PricingWidgetBlock: React.FC<{ value: any; theme: any }> = ({
+  value,
+  theme,
+}) => {
+  if (!value || !value.widget_code) return null;
+
+  return (
+    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+      <div className="container mx-auto px-4">
+        {value.description && (
+          <p
+            className="text-xl text-center mb-8"
+            style={{ color: theme.neutralColor }}
+          >
+            {value.description}
+          </p>
+        )}
+        <div dangerouslySetInnerHTML={{ __html: value.widget_code }} />
+      </div>
+    </section>
+  );
+};
+
 const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
   const [data, setData] = useState<FeaturesPageData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -2287,6 +2857,14 @@ const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
   const neutralColor = data.color_theme?.neutral_color || "#6B7280";
   const bgColor = data.color_theme?.background_color || "#FFFFFF";
 
+  const theme = {
+    primaryColor,
+    secondaryColor,
+    accentColor,
+    textColor,
+    neutralColor,
+    bgColor,
+  };
   const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
   const gradientHover = `linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%)`;
 
@@ -2432,6 +3010,26 @@ const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
           )}
         </div>
       </section>
+
+      {/* Dynamic Content Sections */}
+      {data.dynamic_content && data.dynamic_content.length > 0 && (
+        <div>
+          {data.dynamic_content.map((block, index) => {
+            try {
+              return (
+                <DynamicContentRenderer
+                  key={block.id || index}
+                  block={block}
+                  theme={theme}
+                />
+              );
+            } catch (error) {
+              console.error(`Error rendering block ${block.type}:`, error);
+              return null; // Skip broken blocks instead of crashing
+            }
+          })}
+        </div>
+      )}
 
       {/* Problem/Solution Section */}
       {(data.problem_description || data.solution_description) && (
