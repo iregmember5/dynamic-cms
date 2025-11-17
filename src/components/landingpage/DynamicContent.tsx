@@ -1,5 +1,5 @@
 import React from "react";
-import type { DynamicContentBlock } from "../types/landing";
+import type { DynamicContentBlock } from "../../types/landing";
 import EasyIcon from "./IconRenderer"; // Add this import
 
 const API_BASE_URL = "https://esign-admin.signmary.com";

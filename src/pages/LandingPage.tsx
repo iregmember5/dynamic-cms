@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import type { LandingPageData } from "../types/landing";
 import { fetchLandingPageData } from "../types/landing";
-import GlassNavbar from "../components/GlassNavbar";
-import Header from "../components/Header";
-import Features from "../components/Features";
-import VideoSection from "../components/VideoSection";
-import Benefits from "../components/Benefits";
-import CardSections from "../components/CardSections";
-import DynamicContentRenderer from "../components/DynamicContent";
-import Testimonials from "../components/Testimonials";
-import FAQ from "../components/FAQ";
-import CTA from "../components/CTA";
-import Footer from "../components/Footer";
+import DynamicContentRenderer from "../components/landingpage/DynamicContent";
+import GlassNavbar from "../components/landingpage/GlassNavbar";
+import Header from "../components/landingpage/Header";
+import Features from "../components/landingpage/Features";
+import VideoSection from "../components/landingpage/VideoSection";
+import Benefits from "../components/landingpage/Benefits";
+import CardSections from "../components/landingpage/CardSections";
+import Testimonials from "../components/landingpage/Testimonials";
+import FAQ from "../components/landingpage/FAQ";
+import CTA from "../components/landingpage/CTA";
+import Footer from "../components/landingpage/Footer";
 
 interface LandingPageProps {
   onShowLogin?: () => void;

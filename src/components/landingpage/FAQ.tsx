@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { LandingPageData } from "../types/landing";
+import type { LandingPageData } from "../../types/landing";
 import EasyIcon from "./IconRenderer"; // Add this import
 
 interface FAQProps {
