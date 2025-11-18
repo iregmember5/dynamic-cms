@@ -1,6 +1,7 @@
 import React from "react";
 import type { HowItWorksStep, Theme } from "../../../types/features-page";
 import { getFullImageUrl } from "../utils/imageUtils";
+import EasyIcon from "../../landingpage/IconRenderer";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -112,8 +113,8 @@ export const EnhancedHowItWorks: React.FC<EnhancedHowItWorksProps> = ({
                       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 how-it-works-overlay" />
                     </div>
                   ) : step.icon ? (
-                    <div className="w-32 h-32 lg:w-40 lg:h-40 mx-auto rounded-2xl flex items-center justify-center text-4xl lg:text-5xl transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl how-it-works-icon-bg">
-                      {step.icon}
+                    <div className="w-32 h-32 lg:w-40 lg:h-40 mx-auto rounded-2xl flex items-center justify-center transform transition-all duration-500 hover:scale-110 hover:rotate-3 shadow-2xl how-it-works-icon-bg">
+                      <EasyIcon icon={step.icon} size={64} color="var(--primary-color)" />
                     </div>
                   ) : (
                     <div className="w-full h-64 lg:h-80 rounded-2xl flex items-center justify-center text-6xl transform transition-all duration-500 hover:scale-105 shadow-2xl how-it-works-number-bg">

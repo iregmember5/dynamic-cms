@@ -1,5 +1,6 @@
 import React from "react";
 import type { Benefit, Theme } from "../../../types/features-page";
+import EasyIcon from "../../landingpage/IconRenderer";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -67,8 +68,8 @@ export const EnhancedBenefits: React.FC<EnhancedBenefitsProps> = ({
 
               <div className="relative z-10">
                 {benefit.icon && (
-                  <div className="text-5xl mb-6 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
-                    {benefit.icon}
+                  <div className="mb-6 transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    <EasyIcon icon={benefit.icon} size={48} color="var(--primary-color)" />
                   </div>
                 )}
 

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Theme } from "../../../../types/features-page";
+import EasyIcon from "../../../landingpage/IconRenderer";
 
 interface DynamicListBlockProps {
   value: any;
@@ -46,8 +47,8 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                   className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
                 >
                   {item.value.icon && (
-                    <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                      {item.value.icon}
+                    <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <EasyIcon icon={item.value.icon} size={32} color={theme.primaryColor} />
                     </div>
                   )}
                   <h3
