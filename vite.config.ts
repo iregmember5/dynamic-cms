@@ -11,7 +11,6 @@ export default defineConfig({
         secure: false,
         configure: (proxy, _options) => {
           proxy.on("proxyReq", (proxyReq, req, _res) => {
-            // Forward the X-Frontend-Url header from client or set default
             const frontendUrl =
               req.headers["x-frontend-url"] || "http://localhost:5173";
             proxyReq.setHeader("X-Frontend-Url", frontendUrl);
@@ -20,5 +19,8 @@ export default defineConfig({
         rewrite: (path) => path,
       },
     },
+  },
+  build: {
+    outDir: "dist",
   },
 });

@@ -11,7 +11,7 @@ interface CardGridBlockProps {
 
 export const CardGridBlock: React.FC<CardGridBlockProps> = ({
   value,
-  theme,
+  theme: _theme,
   getFullImageUrl,
 }) => {
   if (!value || !value.cards) return null;

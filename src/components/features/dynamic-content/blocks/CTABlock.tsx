@@ -11,7 +11,7 @@ interface CTABlockProps {
 
 export const CTABlock: React.FC<CTABlockProps> = ({
   value,
-  theme,
+  theme: _theme,
   getFullImageUrl,
 }) => {
   if (!value) return null;
