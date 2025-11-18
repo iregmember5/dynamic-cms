@@ -16,7 +16,8 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   heading,
   description,
 }) => {
-  if (!testimonials || testimonials.length === 0) return null;
+  // Show section if there's a heading, description, or testimonials
+  if (!heading && !description && (!testimonials || testimonials.length === 0)) return null;
 
   return (
     <section
@@ -45,51 +46,64 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group animate-fadeInUp"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                {testimonial.photo && (
-                  <img
-                    src={getFullImageUrl(testimonial.photo.url)}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                )}
-                <div>
-                  <h4
-                    className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300"
-                    style={{ color: "var(--text-color)" }}
-                  >
-                    {testimonial.name}
-                  </h4>
-                  <p
-                    className="text-sm"
-                    style={{ color: "var(--neutral-color)" }}
-                  >
-                    {testimonial.title}
-                  </p>
-                  <p
-                    className="text-sm group-hover:translate-x-1 transition-transform duration-300"
-                    style={{ color: "var(--primary-color)" }}
-                  >
-                    {testimonial.company}
-                  </p>
-                </div>
-              </div>
-              <p
-                className="italic group-hover:translate-x-1 transition-transform duration-300"
-                style={{ color: "var(--neutral-color)" }}
+        {testimonials && testimonials.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group animate-fadeInUp"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                "{testimonial.quote}"
+                <div className="flex items-center gap-4 mb-6">
+                  {testimonial.photo && (
+                    <img
+                      src={getFullImageUrl(testimonial.photo.url)}
+                      alt={testimonial.name}
+                      className="w-16 h-16 rounded-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
+                  <div>
+                    <h4
+                      className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300"
+                      style={{ color: "var(--text-color)" }}
+                    >
+                      {testimonial.name}
+                    </h4>
+                    <p
+                      className="text-sm"
+                      style={{ color: "var(--neutral-color)" }}
+                    >
+                      {testimonial.title}
+                    </p>
+                    <p
+                      className="text-sm group-hover:translate-x-1 transition-transform duration-300"
+                      style={{ color: "var(--primary-color)" }}
+                    >
+                      {testimonial.company}
+                    </p>
+                  </div>
+                </div>
+                <p
+                  className="italic group-hover:translate-x-1 transition-transform duration-300"
+                  style={{ color: "var(--neutral-color)" }}
+                >
+                  "{testimonial.quote}"
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center max-w-4xl mx-auto">
+            <div
+              className="bg-white p-8 rounded-2xl shadow-lg animate-fadeInUp"
+              style={{ color: "var(--neutral-color)" }}
+            >
+              <p className="text-lg leading-relaxed whitespace-pre-line">
+                {description}
               </p>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -52,9 +52,10 @@ export const CTASection: React.FC<CTASectionProps> = ({
             )}
             {buttonText && (
               <a
-                href={buttonUrl}
+                href={buttonUrl || "#"}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 animate-fadeInUp animation-delay-400 animate-pulse-glow"
                 style={{ color: "var(--primary-color)" }}
+                {...(!buttonUrl && { onClick: (e) => e.preventDefault() })}
               >
                 {buttonText}
               </a>
@@ -91,8 +92,9 @@ export const CTASection: React.FC<CTASectionProps> = ({
           )}
           {buttonText && (
             <a
-              href={buttonUrl}
+              href={buttonUrl || "#"}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 animate-fadeInUp animation-delay-400 cta-button-gradient"
+              {...(!buttonUrl && { onClick: (e) => e.preventDefault() })}
             >
               {buttonText}
             </a>

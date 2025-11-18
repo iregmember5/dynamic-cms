@@ -7,3 +7,4 @@ export { CardSections } from "./CardSections";
 export { FAQSection } from "./FAQSection";
 export { TestimonialsSection } from "./TestimonialsSection";
 export { CTASection } from "./CTASection";
+export { PricingSection } from "./PricingSection";

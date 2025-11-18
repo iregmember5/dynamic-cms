@@ -19,6 +19,7 @@ import { CardSections } from "../sections/CardSections";
 import { FAQSection } from "../sections/FAQSection";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { CTASection } from "../sections/CTASection";
+import { PricingSection } from "../sections/PricingSection";
 
 export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
   const [data, setData] = useState<FeaturesPageData | null>(null);
@@ -139,6 +140,19 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
           theme={theme}
           heading={data.faq_section_heading}
           description={data.faq_section_description}
+        />
+      )}
+
+      {/* Pricing Section */}
+      {(data.pricing_heading || data.pricing_widget_code || data.show_pricing_cta) && (
+        <PricingSection
+          heading={data.pricing_heading}
+          description={data.pricing_description}
+          widgetCode={data.pricing_widget_code}
+          showCta={data.show_pricing_cta}
+          ctaText={data.pricing_cta_text}
+          ctaUrl={data.pricing_cta_url}
+          theme={theme}
         />
       )}
 

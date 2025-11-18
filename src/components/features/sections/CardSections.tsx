@@ -84,8 +84,9 @@ export const CardSections: React.FC<CardSectionsProps> = ({
                 </p>
                 {card.button_text && (
                   <a
-                    href={card.button_url}
+                    href={card.button_url || "#"}
                     className="inline-block px-6 py-3 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg card-button-gradient"
+                    {...(!card.button_url && { onClick: (e) => e.preventDefault() })}
                   >
                     {card.button_text}
                   </a>
