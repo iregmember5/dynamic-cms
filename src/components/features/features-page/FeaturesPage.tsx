@@ -180,7 +180,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
 // Custom Styles Component
 const CustomStyles: React.FC<{ theme: Theme }> = ({ theme }) => (
   <style>{`
-    .features-page {
+    :root {
       --primary-color: ${theme.primaryColor};
       --secondary-color: ${theme.secondaryColor};
       --accent-color: ${theme.accentColor};
