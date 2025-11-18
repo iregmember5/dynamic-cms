@@ -1,6 +1,8 @@
 import React from "react";
 import type { Theme } from "../../../../types/features-page";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface CardGridBlockProps {
   value: any;
   theme: Theme;
@@ -24,21 +26,15 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
     }[columns] || "md:grid-cols-3";
 
   return (
-    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
+    <section className="py-16" style={{ backgroundColor: "var(--background-color)" }}>
       <div className="container mx-auto px-4">
         {value.heading && (
-          <h2
-            className="text-4xl font-bold text-center mb-4"
-            style={{ color: theme.textColor }}
-          >
+          <h2 className="text-4xl font-bold text-center mb-4" style={{ color: "var(--text-color)" }}>
             {value.heading}
           </h2>
         )}
         {value.subheading && (
-          <p
-            className="text-xl text-center mb-12"
-            style={{ color: theme.neutralColor }}
-          >
+          <p className="text-xl text-center mb-12" style={{ color: "var(--neutral-color)" }}>
             {value.subheading}
           </p>
         )}
@@ -69,13 +65,10 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
                   />
                 )}
                 <div className="p-6">
-                  <h3
-                    className="text-2xl font-bold mb-3"
-                    style={{ color: theme.textColor }}
-                  >
+                  <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--text-color)" }}>
                     {card.custom_title || card.card_content?.title}
                   </h3>
-                  <p style={{ color: theme.neutralColor }}>
+                  <p style={{ color: "var(--neutral-color)" }}>
                     {card.custom_description ||
                       card.card_content?.description ||
                       ""}

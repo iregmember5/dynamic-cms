@@ -7,6 +7,10 @@ interface ErrorStateProps {
 
 export const ErrorState: React.FC<ErrorStateProps> = ({ error, onRetry }) => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-orange-50">
+    <style>{`
+      .error-button { background: linear-gradient(135deg, var(--primary-color, #3B82F6) 0%, var(--accent-color, #10B981) 100%); }
+      .error-button:hover { background: linear-gradient(135deg, var(--accent-color, #10B981) 0%, var(--primary-color, #3B82F6) 100%); }
+    `}</style>
     <div className="text-center max-w-md mx-auto px-4">
       <div className="text-red-500 mb-6">
         <svg
@@ -23,13 +27,13 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ error, onRetry }) => (
           />
         </svg>
       </div>
-      <h2 className="text-3xl font-bold text-gray-800 mb-3">
+      <h2 className="text-3xl font-bold mb-3" style={{ color: "var(--text-color, #1F2937)" }}>
         Unable to Load Page
       </h2>
-      <p className="text-gray-600 mb-8 text-lg">{error}</p>
+      <p className="mb-8 text-lg" style={{ color: "var(--neutral-color, #6B7280)" }}>{error}</p>
       <button
         onClick={onRetry}
-        className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
+        className="px-8 py-4 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl font-semibold error-button"
       >
         Try Again
       </button>

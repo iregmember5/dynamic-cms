@@ -180,7 +180,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
 // Custom Styles Component
 const CustomStyles: React.FC<{ theme: Theme }> = ({ theme }) => (
   <style>{`
-    :root {
+    .features-page {
       --primary-color: ${theme.primaryColor};
       --secondary-color: ${theme.secondaryColor};
       --accent-color: ${theme.accentColor};
@@ -190,12 +190,12 @@ const CustomStyles: React.FC<{ theme: Theme }> = ({ theme }) => (
     }
     
     body {
-      background-color: var(--background-color) !important;
-      color: var(--text-color);
+      background-color: ${theme.bgColor} !important;
+      color: ${theme.textColor};
     }
     
     .features-page {
-      background-color: var(--background-color);
+      background-color: ${theme.bgColor};
       min-height: 100vh;
     }
     

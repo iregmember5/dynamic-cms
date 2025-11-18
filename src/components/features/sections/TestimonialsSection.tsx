@@ -2,6 +2,8 @@ import React from "react";
 import type { Testimonial, Theme } from "../../../types/features-page";
 import { getFullImageUrl } from "../utils/imageUtils";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   theme: Theme;
@@ -18,27 +20,16 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section
-      className="py-16 sm:py-24"
-      style={{
-        background: `linear-gradient(135deg, ${theme.primaryColor}05 0%, ${theme.accentColor}05 100%)`,
-      }}
-    >
+    <section className="py-16 sm:py-24" style={{ background: `linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 5%, transparent) 0%, color-mix(in srgb, var(--accent-color) 5%, transparent) 100%)` }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           {heading && (
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp"
-              style={{ color: theme.textColor }}
-            >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
               {heading}
             </h2>
           )}
           {description && (
-            <p
-              className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200"
-              style={{ color: theme.neutralColor }}
-            >
+            <p className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
               {description}
             </p>
           )}
@@ -60,27 +51,18 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   />
                 )}
                 <div>
-                  <h4
-                    className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300"
-                    style={{ color: theme.textColor }}
-                  >
+                  <h4 className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--text-color)" }}>
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm" style={{ color: theme.neutralColor }}>
+                  <p className="text-sm" style={{ color: "var(--neutral-color)" }}>
                     {testimonial.title}
                   </p>
-                  <p
-                    className="text-sm group-hover:translate-x-1 transition-transform duration-300"
-                    style={{ color: theme.primaryColor }}
-                  >
+                  <p className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--primary-color)" }}>
                     {testimonial.company}
                   </p>
                 </div>
               </div>
-              <p
-                className="italic group-hover:translate-x-1 transition-transform duration-300"
-                style={{ color: theme.neutralColor }}
-              >
+              <p className="italic group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--neutral-color)" }}>
                 "{testimonial.quote}"
               </p>
             </div>
