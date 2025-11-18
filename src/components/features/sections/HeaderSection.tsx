@@ -8,11 +8,15 @@ interface HeaderSectionProps {
 }
 
 export const HeaderSection: React.FC<HeaderSectionProps> = ({ data }) => {
+  console.log("HeaderSection data:", {
+    header_cta_text: data.header_cta_text,
+    header_cta_url: data.header_cta_url,
+  });
   return (
     <section
       className="relative py-20 sm:py-32 overflow-hidden"
       style={{
-        background: `linear-gradient(135deg, var(--primary-color)10 0%, var(--accent-color)10 100%)`,
+        background: `linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 10%, transparent) 0%, color-mix(in srgb, var(--accent-color) 10%, transparent) 100%)`,
       }}
     >
       <style>{`
@@ -56,17 +60,22 @@ export const HeaderSection: React.FC<HeaderSectionProps> = ({ data }) => {
               {data.header_description}
             </p>
           )}
-          {data.header_cta_text && (
+          {data.header_cta_text ? (
             <a
               href={data.header_cta_url || "#"}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl relative overflow-hidden group animate-fadeInUp animate-pulse-glow header-gradient-bg"
-              style={{ animationDelay: "0.4s" }}
-              {...(!data.header_cta_url && { onClick: (e) => e.preventDefault() })}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold shadow-lg transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--primary-color, #3B82F6) 0%, var(--accent-color, #10B981) 100%)",
+                animationDelay: "0.4s",
+              }}
+              {...(!data.header_cta_url && {
+                onClick: (e) => e.preventDefault(),
+              })}
             >
               <span className="relative z-10">{data.header_cta_text}</span>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 header-gradient-hover" />
             </a>
-          )}
+          ) : null}
         </div>
 
         {data.header_image && (
