@@ -12,23 +12,32 @@ interface FAQSectionProps {
 
 export const FAQSection: React.FC<FAQSectionProps> = ({
   faqs,
-  theme,
+
   heading,
   description,
 }) => {
   if (!faqs || faqs.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-24" style={{ backgroundColor: "var(--background-color)" }}>
+    <section
+      className="py-16 sm:py-24"
+      style={{ backgroundColor: "var(--background-color)" }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         <div className="text-center mb-16">
           {heading && (
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
+            <h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp"
+              style={{ color: "var(--text-color)" }}
+            >
               {heading}
             </h2>
           )}
           {description && (
-            <p className="text-xl animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
+            <p
+              className="text-xl animate-fadeInUp animation-delay-200"
+              style={{ color: "var(--neutral-color)" }}
+            >
               {description}
             </p>
           )}
@@ -46,7 +55,10 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                 style={{ color: "var(--text-color)" }}
               >
                 {faq.question}
-                <span className="text-2xl group-open:rotate-180 transition-transform duration-300 group-hover:scale-125" style={{ color: "var(--primary-color)" }}>
+                <span
+                  className="text-2xl group-open:rotate-180 transition-transform duration-300 group-hover:scale-125"
+                  style={{ color: "var(--primary-color)" }}
+                >
                   ▼
                 </span>
               </summary>

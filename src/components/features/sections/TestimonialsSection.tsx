@@ -13,23 +13,33 @@ interface TestimonialsSectionProps {
 
 export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   testimonials,
-  theme,
   heading,
   description,
 }) => {
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-24" style={{ background: `linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 5%, transparent) 0%, color-mix(in srgb, var(--accent-color) 5%, transparent) 100%)` }}>
+    <section
+      className="py-16 sm:py-24"
+      style={{
+        background: `linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 5%, transparent) 0%, color-mix(in srgb, var(--accent-color) 5%, transparent) 100%)`,
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           {heading && (
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
+            <h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fadeInUp"
+              style={{ color: "var(--text-color)" }}
+            >
               {heading}
             </h2>
           )}
           {description && (
-            <p className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
+            <p
+              className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200"
+              style={{ color: "var(--neutral-color)" }}
+            >
               {description}
             </p>
           )}
@@ -51,18 +61,30 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                   />
                 )}
                 <div>
-                  <h4 className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--text-color)" }}>
+                  <h4
+                    className="font-bold text-lg group-hover:translate-x-1 transition-transform duration-300"
+                    style={{ color: "var(--text-color)" }}
+                  >
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm" style={{ color: "var(--neutral-color)" }}>
+                  <p
+                    className="text-sm"
+                    style={{ color: "var(--neutral-color)" }}
+                  >
                     {testimonial.title}
                   </p>
-                  <p className="text-sm group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--primary-color)" }}>
+                  <p
+                    className="text-sm group-hover:translate-x-1 transition-transform duration-300"
+                    style={{ color: "var(--primary-color)" }}
+                  >
                     {testimonial.company}
                   </p>
                 </div>
               </div>
-              <p className="italic group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--neutral-color)" }}>
+              <p
+                className="italic group-hover:translate-x-1 transition-transform duration-300"
+                style={{ color: "var(--neutral-color)" }}
+              >
                 "{testimonial.quote}"
               </p>
             </div>

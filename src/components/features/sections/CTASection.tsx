@@ -20,7 +20,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
   buttonText,
   buttonUrl,
   backgroundImage,
-  theme,
+
   isPrimary = false,
 }) => {
   if (isPrimary) {
@@ -66,17 +66,26 @@ export const CTASection: React.FC<CTASectionProps> = ({
   }
 
   return (
-    <section className="py-16 sm:py-24" style={{ backgroundColor: "var(--background-color)" }}>
+    <section
+      className="py-16 sm:py-24"
+      style={{ backgroundColor: "var(--background-color)" }}
+    >
       <style>{`
         .cta-button-gradient { background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); }
       `}</style>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
+          <h2
+            className="text-3xl sm:text-4xl font-bold mb-6 animate-fadeInUp"
+            style={{ color: "var(--text-color)" }}
+          >
             {heading}
           </h2>
           {description && (
-            <p className="text-xl mb-10 animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
+            <p
+              className="text-xl mb-10 animate-fadeInUp animation-delay-200"
+              style={{ color: "var(--neutral-color)" }}
+            >
               {description}
             </p>
           )}

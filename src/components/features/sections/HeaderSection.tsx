@@ -7,10 +7,7 @@ interface HeaderSectionProps {
   theme: Theme;
 }
 
-export const HeaderSection: React.FC<HeaderSectionProps> = ({
-  data,
-  theme,
-}) => {
+export const HeaderSection: React.FC<HeaderSectionProps> = ({ data }) => {
   return (
     <section
       className="relative py-20 sm:py-32 overflow-hidden"
@@ -31,19 +28,31 @@ export const HeaderSection: React.FC<HeaderSectionProps> = ({
       `}</style>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20 blur-3xl animate-float header-gradient-bg" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-20 blur-3xl header-gradient-hover" style={{ animationDelay: "3s" }} />
+        <div
+          className="absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-20 blur-3xl header-gradient-hover"
+          style={{ animationDelay: "3s" }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
+          <h1
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fadeInUp"
+            style={{ color: "var(--text-color)" }}
+          >
             {data.header_title}
           </h1>
-          <p className="text-xl sm:text-2xl mb-8 animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
+          <p
+            className="text-xl sm:text-2xl mb-8 animate-fadeInUp animation-delay-200"
+            style={{ color: "var(--neutral-color)" }}
+          >
             {data.header_subtitle}
           </p>
           {data.header_description && (
-            <p className="text-lg mb-10 max-w-3xl mx-auto animate-fadeInUp" style={{ color: "var(--neutral-color)", animationDelay: "0.3s" }}>
+            <p
+              className="text-lg mb-10 max-w-3xl mx-auto animate-fadeInUp"
+              style={{ color: "var(--neutral-color)", animationDelay: "0.3s" }}
+            >
               {data.header_description}
             </p>
           )}
@@ -60,7 +69,10 @@ export const HeaderSection: React.FC<HeaderSectionProps> = ({
         </div>
 
         {data.header_image && (
-          <div className="mt-16 max-w-5xl mx-auto animate-fadeInUp" style={{ animationDelay: "0.5s" }}>
+          <div
+            className="mt-16 max-w-5xl mx-auto animate-fadeInUp"
+            style={{ animationDelay: "0.5s" }}
+          >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:scale-105 header-shadow">
               <img
                 src={getFullImageUrl(data.header_image.url)}

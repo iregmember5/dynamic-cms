@@ -11,12 +11,15 @@ interface EnhancedFeaturesProps {
 
 export const EnhancedFeatures: React.FC<EnhancedFeaturesProps> = ({
   features,
-  theme,
+
   heading,
   description,
 }) => {
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden" style={{ backgroundColor: "var(--background-color)" }}>
+    <section
+      className="py-16 sm:py-24 relative overflow-hidden"
+      style={{ backgroundColor: "var(--background-color)" }}
+    >
       <style>{`
         .features-bg-circle-primary { background-color: var(--primary-color); }
         .features-bg-circle-accent { background-color: var(--accent-color); }
@@ -32,12 +35,18 @@ export const EnhancedFeatures: React.FC<EnhancedFeaturesProps> = ({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           {heading && (
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 animate-fadeInUp" style={{ color: "var(--text-color)" }}>
+            <h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 animate-fadeInUp"
+              style={{ color: "var(--text-color)" }}
+            >
               {heading}
             </h2>
           )}
           {description && (
-            <p className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200" style={{ color: "var(--neutral-color)" }}>
+            <p
+              className="text-xl max-w-3xl mx-auto animate-fadeInUp animation-delay-200"
+              style={{ color: "var(--neutral-color)" }}
+            >
               {description}
             </p>
           )}
@@ -62,11 +71,17 @@ export const EnhancedFeatures: React.FC<EnhancedFeaturesProps> = ({
                 </div>
               )}
 
-              <h3 className="text-2xl font-bold mb-4 relative z-10 group-hover:translate-x-2 transition-transform duration-300" style={{ color: "var(--text-color)" }}>
+              <h3
+                className="text-2xl font-bold mb-4 relative z-10 group-hover:translate-x-2 transition-transform duration-300"
+                style={{ color: "var(--text-color)" }}
+              >
                 {feature.title}
               </h3>
 
-              <p className="text-lg leading-relaxed relative z-10 group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--neutral-color)" }}>
+              <p
+                className="text-lg leading-relaxed relative z-10 group-hover:translate-x-1 transition-transform duration-300"
+                style={{ color: "var(--neutral-color)" }}
+              >
                 {feature.description}
               </p>
 
