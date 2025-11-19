@@ -80,11 +80,11 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Text Content - Left Side - Made smaller */}
           <div className="lg:w-1/2 text-center lg:text-left">
-            <div className="max-w-lg">
+            <div className="max-w-xl">
               {" "}
               {/* Reduced from max-w-2xl */}
               {/* Subtitle - Smaller */}
@@ -219,8 +219,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           </div>
 
           {/* Image Section - Right Side */}
-          <div className="lg:w-1/2 flex items-center justify-center mt-6 lg:mt-0">
-            <div className="relative w-full max-w-md">
+          <div className="lg:w-1/2 flex items-center justify-center lg:justify-end mt-6 lg:mt-0">
+            <div className="relative w-full max-w-lg">
               {rightImageUrl ? (
                 <div className="relative group animate-fadeInUp animation-delay-500">
                   {/* Main Image Container */}
