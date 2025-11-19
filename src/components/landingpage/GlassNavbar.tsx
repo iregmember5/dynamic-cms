@@ -205,9 +205,9 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     <img
                       src={getFullImageUrl(logo.url)}
                       alt={logo.title || siteName}
-                      className="h-12 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="h-12 w-32 object-contain transition-transform duration-500 group-hover:scale-105"
                       style={{
-                        maxWidth: logo.width ? `${logo.width}px` : "400px",
+                        maxWidth: logo.width ? `${logo.width}px` : "300px",
                         maxHeight: logo.height ? `${logo.height}px` : "80px",
                         minWidth: "150px", // Added minimum width
                         minHeight: "40px", // Added minimum height
