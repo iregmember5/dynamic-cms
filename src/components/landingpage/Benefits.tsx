@@ -143,7 +143,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
-          {displayBenefits.map((benefit: Benefit, index: number) => (
+          {displayBenefits.map((benefit: Benefit) => (
             <div key={benefit.id} className="group relative">
               {/* Card */}
               <div
@@ -226,17 +226,6 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                       background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`,
                     }}
                   />
-                </div>
-
-                {/* Number badge */}
-                <div
-                  className="absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
-                    color: "#FFFFFF",
-                  }}
-                >
-                  {index + 1}
                 </div>
               </div>
             </div>
