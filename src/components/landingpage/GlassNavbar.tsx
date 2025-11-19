@@ -213,17 +213,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     />
                   </div>
                 </div>
-                <div
-                  className="font-bold text-xl transition-all duration-300 group-hover:scale-105"
-                  style={{
-                    color: textColor,
-                    textShadow: scrolled
-                      ? `0 0 20px ${primaryColor}20`
-                      : "none",
-                  }}
-                >
-                  {siteName}
-                </div>
               </div>
             ) : (
               <div className="flex items-center gap-3">
@@ -286,7 +275,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div className="absolute top-full left-1/2 translate-x-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
+                            <div className="absolute top-full left-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
                               {/* Invisible hover area above dropdown */}
                               <div
                                 className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
