@@ -28,7 +28,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
       <div key={card.id} className="group relative h-full">
         {/* Card container */}
         <div
-          className="relative h-full p-8 lg:p-10 rounded-3xl transition-all duration-500 hover:shadow-2xl border backdrop-blur-sm overflow-hidden"
+          className="relative h-full p-6 rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm overflow-hidden"
           style={{
             backgroundColor: bgColor,
             borderColor: `${primaryColor}12`,
@@ -36,7 +36,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
         >
           {/* Subtle hover gradient */}
           <div
-            className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
             style={{
               background: `radial-gradient(circle at top right, ${primaryColor}05, transparent 60%)`,
             }}
@@ -44,7 +44,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
           {/* Top accent line */}
           <div
-            className="absolute top-0 left-0 right-0 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"
+            className="absolute top-0 left-0 right-0 h-0.5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
             style={{
               background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`,
             }}
@@ -52,25 +52,25 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
           {/* Icon container */}
           {card.icon && (
-            <div className="mb-6">
+            <div className="mb-4">
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden"
+                className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 relative overflow-hidden"
                 style={{
                   backgroundColor: `${primaryColor}10`,
                 }}
               >
                 <EasyIcon
                   icon={card.icon}
-                  size={26}
+                  size={22}
                   color={primaryColor}
-                  className="relative z-10 transition-transform duration-500 group-hover:rotate-12"
+                  className="relative z-10 transition-transform duration-300 group-hover:rotate-6"
                 />
 
                 {/* Shine effect */}
                 <div
-                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
                   style={{
-                    background: `linear-gradient(90deg, transparent, ${primaryColor}25, transparent)`,
+                    background: `linear-gradient(90deg, transparent, ${primaryColor}20, transparent)`,
                   }}
                 />
               </div>
@@ -79,7 +79,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
           {/* Title */}
           <h3
-            className="text-2xl lg:text-3xl font-bold mb-4 leading-tight transition-colors duration-300"
+            className="text-xl font-bold mb-3 leading-tight transition-colors duration-300 line-clamp-2"
             style={{ color: textColor }}
           >
             {card.title}
@@ -88,7 +88,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
           {/* Description */}
           {card.description && (
             <p
-              className="text-base lg:text-lg leading-relaxed mb-6"
+              className="text-sm leading-relaxed mb-4 text-pretty line-clamp-3"
               style={{ color: neutralColor }}
             >
               {card.description}
@@ -97,17 +97,17 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
           {/* Features List */}
           {card.features && card.features.length > 0 && (
-            <ul className="space-y-3 mb-6">
+            <ul className="space-y-2 mb-4">
               {card.features.map((feature, idx) => (
-                <li key={idx} className="flex items-start gap-3 group/item">
+                <li key={idx} className="flex items-start gap-2 group/item">
                   <div
-                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 group-hover/item:scale-110"
+                    className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-200 group-hover/item:scale-110"
                     style={{ backgroundColor: `${accentColor}15` }}
                   >
-                    <EasyIcon icon="FiCheck" size={12} color={accentColor} />
+                    <EasyIcon icon="FiCheck" size={10} color={accentColor} />
                   </div>
                   <span
-                    className="text-base leading-relaxed"
+                    className="text-sm leading-relaxed text-pretty"
                     style={{ color: neutralColor }}
                   >
                     {feature}
@@ -119,27 +119,27 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
           {/* Button */}
           {card.button_text && card.button_url && (
-            <div className="mt-auto pt-6">
+            <div className="mt-auto pt-4">
               <a
                 href={card.button_url}
-                className="inline-flex items-center gap-2 font-semibold text-base transition-all duration-300 hover:gap-3 group/btn"
+                className="inline-flex items-center gap-1.5 font-semibold text-sm transition-all duration-300 hover:gap-2 group/btn"
                 style={{ color: primaryColor }}
               >
                 {card.button_text}
                 <EasyIcon
                   icon="FiArrowRight"
-                  size={16}
+                  size={14}
                   color={primaryColor}
-                  className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                  className="transition-transform duration-300 group-hover/btn:translate-x-0.5"
                 />
               </a>
             </div>
           )}
 
           {/* Bottom accent bar - appears on hover */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-3xl">
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden rounded-b-2xl">
             <div
-              className="h-full w-0 group-hover:w-full transition-all duration-700 ease-out"
+              className="h-full w-0 group-hover:w-full transition-all duration-500 ease-out"
               style={{
                 background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`,
               }}
@@ -152,7 +152,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
   return (
     <section
-      className="py-20 sm:py-32 relative overflow-hidden"
+      className="py-16 sm:py-24 relative overflow-hidden"
       style={{ backgroundColor: bgColor }}
     >
       {/* Subtle background pattern */}
@@ -160,19 +160,19 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
         className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, ${textColor} 1px, transparent 0)`,
-          backgroundSize: "48px 48px",
+          backgroundSize: "40px 40px",
         }}
       />
 
       {/* Gradient orbs */}
       <div
-        className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full blur-[140px] opacity-15 pointer-events-none"
+        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[80px] opacity-10 pointer-events-none"
         style={{
           background: `radial-gradient(circle, ${primaryColor}, transparent 65%)`,
         }}
       />
       <div
-        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-12 pointer-events-none"
+        className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[60px] opacity-8 pointer-events-none"
         style={{
           background: `radial-gradient(circle, ${accentColor}, transparent 65%)`,
         }}
@@ -181,9 +181,9 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         {heading && (
-          <div className="text-center mb-20 max-w-4xl mx-auto">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
             <div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-4 border"
               style={{
                 backgroundColor: `${primaryColor}08`,
                 color: primaryColor,
@@ -197,7 +197,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
               Features
             </div>
             <h2
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight mb-4 text-balance"
               style={{ color: textColor }}
             >
               {heading}
@@ -206,22 +206,22 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
         )}
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 max-w-6xl mx-auto mb-12">
           {cards.map((card) => renderCard(card))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto">
           <p
-            className="text-lg lg:text-xl mb-8 leading-relaxed"
+            className="text-base mb-6 leading-relaxed text-balance"
             style={{ color: neutralColor }}
           >
             Ready to get started with our comprehensive features?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <a
               href="#contact"
-              className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               style={{
                 background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
                 color: "#FFFFFF",
@@ -230,14 +230,14 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
               Get Started Today
               <EasyIcon
                 icon="FiRocket"
-                size={20}
+                size={16}
                 color="#FFFFFF"
-                className="transition-transform duration-300 group-hover/btn:translate-y-[-2px]"
+                className="transition-transform duration-300 group-hover/btn:translate-y-[-1px]"
               />
             </a>
             <a
               href="#learn-more"
-              className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold border-2 transition-all duration-300 hover:scale-105"
+              className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold border transition-all duration-300 hover:scale-105 text-sm"
               style={{
                 borderColor: primaryColor,
                 color: primaryColor,
@@ -247,9 +247,9 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
               Learn More
               <EasyIcon
                 icon="FiBookOpen"
-                size={20}
+                size={16}
                 color={primaryColor}
-                className="transition-transform duration-300 group-hover/btn:translate-y-[-2px]"
+                className="transition-transform duration-300 group-hover/btn:translate-y-[-1px]"
               />
             </a>
           </div>
