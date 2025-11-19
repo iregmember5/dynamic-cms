@@ -118,7 +118,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   };
 
   const logo = headerConfig?.logo;
-  const siteName = headerConfig?.site_name || data.title || "My Powerly";
+  const siteName = headerConfig?.site_name || data.title;
   const navbarCTA = headerConfig?.navbar_cta;
   const navbarStyle = headerConfig?.navbar_style || "default";
   const stickyNavbar = headerConfig?.sticky_navbar !== false;
@@ -207,8 +207,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                       alt={logo.title || siteName}
                       className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
                       style={{
-                        maxWidth: logo.width ? `${logo.width}px` : "150px",
-                        maxHeight: logo.height ? `${logo.height}px` : "40px",
+                        maxWidth: logo.width ? `${logo.width}px` : "200px",
+                        maxHeight: logo.height ? `${logo.height}px` : "50px",
                       }}
                     />
                   </div>
@@ -286,7 +286,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
+                            <div className="absolute top-full left-1/2 translate-x-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
                               {/* Invisible hover area above dropdown */}
                               <div
                                 className="absolute -top-4 left-0 right-0 h-4 bg-transparent"

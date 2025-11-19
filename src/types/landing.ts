@@ -128,7 +128,6 @@ export interface NavigationItem {
 
 export interface HeaderConfig {
   id: number;
-  name: string;
   logo?: {
     id: number;
     url: string;
