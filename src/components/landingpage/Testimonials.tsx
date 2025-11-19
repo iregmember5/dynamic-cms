@@ -80,104 +80,118 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   const displayTestimonials =
     testimonials && testimonials.length > 0 ? testimonials : sampleTestimonials;
 
+  const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
+
   return (
-    <section className="py-16 sm:py-24" style={{ backgroundColor: bgColor }}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 relative overflow-hidden" style={{ backgroundColor: bgColor }}>
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full" style={{ background: gradientBg }} />
+        <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full" style={{ background: gradientBg }} />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+        <div className="text-center mb-12 max-w-3xl mx-auto">
           {testimonials_head && (
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
-              style={{ color: textColor }}
-            >
-              {testimonials_head}
-            </h2>
+            <div className="relative inline-block mb-4">
+              <h2
+                className="text-3xl sm:text-4xl font-bold relative z-10"
+                style={{ color: textColor }}
+              >
+                {testimonials_head}
+              </h2>
+              <div
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 rounded-full w-20"
+                style={{ background: gradientBg }}
+              />
+            </div>
           )}
 
           {testimonials_introduction && (
             <p
-              className="text-lg sm:text-xl leading-relaxed"
+              className="text-lg leading-relaxed"
               style={{ color: neutralColor }}
             >
               {testimonials_introduction}
             </p>
           )}
-
-          {/* Show info message when using sample testimonials */}
-          {(!testimonials || testimonials.length === 0) && (
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-4"
-              style={{
-                backgroundColor: `${primaryColor}15`,
-                color: primaryColor,
-              }}
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Showing sample testimonials
-            </div>
-          )}
         </div>
 
-        {/* Testimonials Carousel */}
-        <div className="max-w-4xl mx-auto relative">
-          {/* Main Testimonial Card */}
-          <div className="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 relative overflow-hidden">
-            {/* Quote Icon */}
+        {/* Testimonials Grid */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {displayTestimonials.map((testimonial, index) => (
             <div
-              className="absolute top-8 left-8 text-6xl opacity-10 font-serif"
-              style={{ color: primaryColor }}
+              key={testimonial.id}
+              className="group relative p-6 rounded-xl transition-all duration-500 hover:shadow-xl hover:-translate-y-2 bg-white overflow-hidden"
+              style={{
+                border: `1px solid ${primaryColor}20`,
+              }}
             >
-              "
-            </div>
+              {/* Gradient overlay on hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
+                style={{ background: gradientBg }}
+              />
 
-            {/* Content */}
-            <div className="relative z-10">
-              {/* Quote */}
-              <blockquote
-                className="text-xl sm:text-2xl leading-relaxed mb-8 italic"
-                style={{ color: textColor }}
+              {/* Quote Icon */}
+              <div
+                className="absolute top-4 right-4 text-4xl opacity-10 font-serif"
+                style={{ color: primaryColor }}
               >
-                "{displayTestimonials[activeIndex].quote}"
-              </blockquote>
+                "
+              </div>
 
-              {/* Author Info */}
-              <div className="flex items-center gap-6">
-                {/* Photo Placeholder */}
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg"
-                  style={{ backgroundColor: primaryColor }}
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Quote */}
+                <blockquote
+                  className="text-base leading-relaxed mb-6 italic"
+                  style={{ color: textColor }}
                 >
-                  {displayTestimonials[activeIndex].name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase()}
-                </div>
+                  "{testimonial.quote}"
+                </blockquote>
 
-                {/* Details */}
-                <div>
-                  <p className="font-bold text-lg" style={{ color: textColor }}>
-                    {displayTestimonials[activeIndex].name}
-                  </p>
-                  <p className="text-sm" style={{ color: neutralColor }}>
-                    {displayTestimonials[activeIndex].title}
-                  </p>
-                  <p
-                    className="text-sm font-semibold"
-                    style={{ color: accentColor }}
+                {/* Author Info */}
+                <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: `${primaryColor}20` }}>
+                  {/* Photo Placeholder */}
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                    style={{ background: gradientBg }}
                   >
-                    {displayTestimonials[activeIndex].company}
-                  </p>
+                    {testimonial.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()}
+                  </div>
+
+                  {/* Details */}
+                  <div>
+                    <p className="font-bold text-sm" style={{ color: textColor }}>
+                      {testimonial.name}
+                    </p>
+                    <p className="text-xs" style={{ color: neutralColor }}>
+                      {testimonial.title}
+                    </p>
+                    <p
+                      className="text-xs font-semibold"
+                      style={{ color: accentColor }}
+                    >
+                      {testimonial.company}
+                    </p>
+                  </div>
                 </div>
               </div>
+
+              {/* Animated corner accent */}
+              <div
+                className="absolute bottom-0 right-0 w-0 h-0.5 group-hover:w-16 transition-all duration-500"
+                style={{ background: gradientBg }}
+              />
             </div>
-          </div>
+          ))}
+        </div>
 
           {/* Navigation Buttons */}
           {/* {displayTestimonials.length > 1 && (
@@ -226,27 +240,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
             </>
           )} */}
 
-          {/* Dots Navigation */}
-          {displayTestimonials.length > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
-              {displayTestimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className="w-3 h-3 rounded-full transition-all duration-300"
-                  style={{
-                    backgroundColor:
-                      index === activeIndex
-                        ? primaryColor
-                        : `${neutralColor}40`,
-                    transform:
-                      index === activeIndex ? "scale(1.2)" : "scale(1)",
-                  }}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-          )}
+
         </div>
 
         {/* Call to add testimonials */}
