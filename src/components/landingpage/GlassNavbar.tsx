@@ -193,24 +193,27 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             {logo ? (
               <div className="flex items-center gap-3">
                 <div
-                  className="relative p-1 rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                  className="relative rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
                   style={{
                     background: gradientBg,
                     boxShadow: scrolled
-                      ? `0 8px 24px ${primaryColor}30`
+                      ? `0 4px 12px ${primaryColor}20` // Reduced shadow
                       : "none",
+                    border: `1px solid ${primaryColor}20`, // Thin border
                   }}
                 >
-                  <div className="bg-white rounded-lg p-2">
+                  <div className="bg-white rounded-lg p-3">
+                    {" "}
+                    {/* Increased padding */}
                     <img
                       src={getFullImageUrl(logo.url)}
                       alt={logo.title || siteName}
-                      className="h-12 w-32 object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105" // Larger logo
                       style={{
-                        maxWidth: logo.width ? `${logo.width}px` : "300px",
-                        maxHeight: logo.height ? `${logo.height}px` : "80px",
-                        minWidth: "150px", // Added minimum width
-                        minHeight: "40px", // Added minimum height
+                        maxWidth: logo.width ? `${logo.width}px` : "350px",
+                        maxHeight: logo.height ? `${logo.height}px` : "90px",
+                        minWidth: "180px",
+                        minHeight: "50px",
                       }}
                     />
                   </div>
@@ -222,7 +225,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                   className="h-12 w-12 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6"
                   style={{
                     background: gradientBg,
-                    boxShadow: `0 4px 16px ${primaryColor}40`,
+                    boxShadow: `0 2px 8px ${primaryColor}30`, // Lighter shadow
+                    border: `1px solid ${primaryColor}30`, // Thin border
                   }}
                 >
                   <span className="font-bold text-lg">
