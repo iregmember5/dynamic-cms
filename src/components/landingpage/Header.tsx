@@ -222,7 +222,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
           {/* Image Section - Right Side */}
           <div className="lg:w-1/2 flex items-center justify-center">
-            <div className="relative w-full max-w-2xl">
+            <div className="relative w-full max-w-md">
               {rightImageUrl ? (
                 <div className="relative group animate-fadeInUp animation-delay-500">
                   {/* Main Image Container */}
@@ -244,7 +244,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
                   {/* Floating Cards - Updated to match image */}
                   <div
-                    className="absolute -top-4 -left-4 w-28 h-28 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
+                    className="absolute -top-4 -left-4 w-20 h-20 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${primaryColor}20`,
@@ -266,7 +266,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </div>
 
                   <div
-                    className="absolute -bottom-4 -right-4 w-32 h-32 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
+                    className="absolute -bottom-4 -right-4 w-20 h-20 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${accentColor}20`,
