@@ -199,7 +199,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     boxShadow: scrolled
                       ? `0 4px 12px ${primaryColor}20` // Reduced shadow
                       : "none",
-                    border: `2px solid ${primaryColor}20`, // Thin border
+                    // border: `2px solid ${primaryColor}20`, // Thin border
                   }}
                 >
                   <div className="bg-white rounded-lg p-3">
