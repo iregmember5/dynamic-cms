@@ -93,7 +93,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
         {/* Features Grid */}
         {features && features.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
-            {features.map((feature: Feature, index: number) => (
+            {features.map((feature: Feature) => (
               <div
                 key={feature.id}
                 id={`feature-${feature.id}`}
@@ -177,15 +177,6 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
                   </div>
 
                   {/* Number badge */}
-                  <div
-                    className="absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg transition-all duration-300 group-hover:scale-110"
-                    style={{
-                      background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    {index + 1}
-                  </div>
                 </div>
               </div>
             ))}

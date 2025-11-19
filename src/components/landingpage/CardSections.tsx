@@ -23,7 +23,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
   const neutralColor = color_theme?.neutral_color || "#6B7280";
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
-  const renderCard = (card: CardContent, index: number) => {
+  const renderCard = (card: CardContent) => {
     return (
       <div key={card.id} className="group relative h-full">
         {/* Card container */}
@@ -145,17 +145,6 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
               }}
             />
           </div>
-
-          {/* Number badge */}
-          <div
-            className="absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg transition-all duration-300 group-hover:scale-110"
-            style={{
-              background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
-              color: "#FFFFFF",
-            }}
-          >
-            {index + 1}
-          </div>
         </div>
       </div>
     );
@@ -218,7 +207,7 @@ const CardSections: React.FC<CardSectionsProps> = ({ data }) => {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto mb-16">
-          {cards.map((card, index) => renderCard(card, index))}
+          {cards.map((card) => renderCard(card))}
         </div>
 
         {/* CTA Section */}
