@@ -199,21 +199,21 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     boxShadow: scrolled
                       ? `0 4px 12px ${primaryColor}20` // Reduced shadow
                       : "none",
-                    border: `2px solid ${primaryColor}20`, // Thin border
+                    border: `1px solid ${primaryColor}20`, // Thinner border
                   }}
                 >
-                  <div className="bg-white rounded-lg p-3">
+                  <div className="bg-white rounded-lg p-1">
                     {" "}
-                    {/* Increased padding */}
+                    {/* Reduced padding */}
                     <img
                       src={getFullImageUrl(logo.url)}
                       alt={logo.title || siteName}
-                      className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-105" // Larger logo
+                      className="h-7 w-auto object-contain transition-transform duration-500 group-hover:scale-105" // Slightly smaller logo
                       style={{
-                        maxWidth: logo.width ? `${logo.width}px` : "350px",
-                        maxHeight: logo.height ? `${logo.height}px` : "50px",
-                        minWidth: "180px",
-                        minHeight: "50px",
+                        maxWidth: logo.width ? `${logo.width}px` : "250px",
+                        maxHeight: logo.height ? `${logo.height}px` : "40px",
+                        minWidth: "120px",
+                        minHeight: "30px",
                       }}
                     />
                   </div>
