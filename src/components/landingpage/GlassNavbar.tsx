@@ -283,10 +283,10 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         </div>
 
                         {/* Features Pages Dropdown - Connected to button with padding */}
-                        {/* Features Pages Dropdown - Clean Layout */}
+
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
+                            <div className="absolute top-full left-0 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
                               {/* Invisible hover area above dropdown */}
                               <div
                                 className="absolute -top-4 left-0 right-0 h-4 bg-transparent"

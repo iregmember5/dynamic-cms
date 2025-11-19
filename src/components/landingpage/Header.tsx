@@ -80,16 +80,18 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
-          {/* Text Content - Left Side */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+          {/* Text Content - Left Side - Made smaller */}
           <div className="lg:w-1/2 text-center lg:text-left">
-            <div className="max-w-md">
-              {/* Subtitle - Exactly like the image */}
+            <div className="max-w-lg">
+              {" "}
+              {/* Reduced from max-w-2xl */}
+              {/* Subtitle - Smaller */}
               {header_subtitle && (
-                <div className="mb-6 animate-fadeInUp">
+                <div className="mb-4 animate-fadeInUp">
                   <p
-                    className="text-sm font-semibold uppercase tracking-wider"
+                    className="text-xs font-semibold uppercase tracking-wider"
                     style={{
                       color: primaryColor,
                     }}
@@ -98,42 +100,39 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </p>
                 </div>
               )}
-
-              {/* Main Title */}
+              {/* Main Title - Smaller */}
               {header_title && (
                 <h1
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp animation-delay-200"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight animate-fadeInUp animation-delay-200"
                   style={{ color: textColor }}
                 >
                   {header_title}
                 </h1>
               )}
-
-              {/* Description */}
+              {/* Description - Smaller */}
               {header_description && (
                 <p
-                  className="text-lg lg:text-xl mb-8 leading-relaxed animate-fadeInUp animation-delay-400"
+                  className="text-base lg:text-lg mb-6 leading-relaxed animate-fadeInUp animation-delay-400"
                   style={{ color: neutralColor }}
                 >
                   {header_description}
                 </p>
               )}
-
-              {/* CTAs with modern layout - Exactly like the image */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 animate-fadeInUp animation-delay-600">
+              {/* CTAs - Smaller buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 mb-6 animate-fadeInUp animation-delay-600">
                 {header_cta_primary && (
                   <>
                     {header_cta_primary_url ? (
                       <a
                         href={header_cta_primary_url}
-                        className="group/primary relative px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl transform cursor-pointer text-center overflow-hidden"
+                        className="group/primary relative px-6 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform cursor-pointer text-center overflow-hidden"
                         style={{ background: gradientBg }}
                       >
-                        <span className="relative z-10 flex items-center gap-3">
+                        <span className="relative z-10 flex items-center gap-2">
                           {header_cta_primary}
                           <EasyIcon
                             icon="FiArrowRight"
-                            size={20}
+                            size={18}
                             color="#FFFFFF"
                             className="transition-transform duration-300 group-hover/primary:translate-x-1"
                           />
@@ -142,14 +141,14 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     ) : (
                       <button
                         onClick={onShowLogin}
-                        className="group/primary relative px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl transform cursor-pointer text-center overflow-hidden"
+                        className="group/primary relative px-6 py-3 rounded-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform cursor-pointer text-center overflow-hidden"
                         style={{ background: gradientBg }}
                       >
-                        <span className="relative z-10 flex items-center gap-3">
+                        <span className="relative z-10 flex items-center gap-2">
                           {header_cta_primary}
                           <EasyIcon
                             icon="FiArrowRight"
-                            size={20}
+                            size={18}
                             color="#FFFFFF"
                             className="transition-transform duration-300 group-hover/primary:translate-x-1"
                           />
@@ -165,7 +164,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     header_cta_secondary_url !== "#login" ? (
                       <a
                         href={header_cta_secondary_url}
-                        className="group/secondary px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-3 border-2"
+                        className="group/secondary px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2 border-2"
                         style={{
                           borderColor: primaryColor,
                           color: primaryColor,
@@ -177,7 +176,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     ) : (
                       <button
                         onClick={onShowLogin}
-                        className="group/secondary px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-3 border-2"
+                        className="group/secondary px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2 border-2"
                         style={{
                           borderColor: primaryColor,
                           color: primaryColor,
@@ -190,11 +189,10 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </>
                 )}
               </div>
-
-              {/* Trial Info - Exactly like the image */}
-              <div className="animate-fadeInUp animation-delay-800 mb-12">
+              {/* Trial Info - Smaller */}
+              <div className="animate-fadeInUp animation-delay-800 mb-8">
                 <div
-                  className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-sm"
+                  className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 text-xs"
                   style={{ color: neutralColor }}
                 >
                   <div className="flex items-center gap-2">
@@ -205,7 +203,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     Free 14-day trial
                   </div>
                   <div
-                    className="hidden sm:block w-px h-4 opacity-30"
+                    className="hidden sm:block w-px h-3 opacity-30"
                     style={{ background: neutralColor }}
                   />
                   <div className="flex items-center gap-2">
@@ -244,13 +242,13 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
                   {/* Floating Cards - Updated to match image */}
                   <div
-                    className="absolute -top-4 -left-4 w-20 h-20 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
+                    className="absolute -top-4 -left-4 w-20 h-20 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${primaryColor}20`,
                     }}
                   >
-                    <EasyIcon icon="FiMail" size={20} color={primaryColor} />
+                    <EasyIcon icon="FiMail" size={18} color={primaryColor} />
                     <span
                       className="text-xs font-semibold mt-1 text-center"
                       style={{ color: textColor }}
@@ -266,13 +264,13 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </div>
 
                   <div
-                    className="absolute -bottom-4 -right-4 w-20 h-20 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
+                    className="absolute -bottom-4 -right-4 w-20 h-20 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${accentColor}20`,
                     }}
                   >
-                    <EasyIcon icon="FiZap" size={24} color={accentColor} />
+                    <EasyIcon icon="FiZap" size={20} color={accentColor} />
                     <span
                       className="text-xs font-semibold mt-1 text-center"
                       style={{ color: textColor }}
@@ -289,7 +287,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 </div>
               ) : (
                 <div
-                  className="group w-full h-96 rounded-3xl flex flex-col items-center justify-center shadow-2xl p-8 text-center transition-all duration-500 hover:scale-105 relative overflow-hidden"
+                  className="group w-full h-80 rounded-3xl flex flex-col items-center justify-center shadow-2xl p-8 text-center transition-all duration-500 hover:scale-105 relative overflow-hidden"
                   style={{
                     background: subtleGradient,
                     border: `2px dashed ${primaryColor}20`,
@@ -297,12 +295,12 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 >
                   <EasyIcon
                     icon="FiImage"
-                    size={64}
+                    size={56}
                     color={primaryColor}
                     className="mb-4 opacity-30 transition-all duration-500 group-hover:scale-110"
                   />
                   <p
-                    className="transition-colors duration-500"
+                    className="text-sm transition-colors duration-500"
                     style={{ color: primaryColor, opacity: 0.7 }}
                   >
                     Add an image to showcase your product
