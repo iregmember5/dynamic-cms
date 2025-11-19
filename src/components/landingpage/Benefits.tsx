@@ -67,7 +67,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
   return (
     <section
-      className="py-20 sm:py-32 relative overflow-hidden"
+      className="py-16 sm:py-24 relative overflow-hidden"
       style={{ backgroundColor: bgColor }}
     >
       {/* Subtle grid pattern overlay */}
@@ -81,13 +81,13 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
       {/* Gradient orbs */}
       <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
+        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[80px] opacity-15"
         style={{
           background: `radial-gradient(circle, ${primaryColor}, transparent 70%)`,
         }}
       />
       <div
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-15"
+        className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[60px] opacity-10"
         style={{
           background: `radial-gradient(circle, ${accentColor}, transparent 70%)`,
         }}
@@ -95,11 +95,11 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
           {benefits_head && (
-            <div className="mb-6">
+            <div className="mb-4">
               <div
-                className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-6"
+                className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-4"
                 style={{
                   backgroundColor: `${primaryColor}10`,
                   color: primaryColor,
@@ -109,7 +109,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 Benefits
               </div>
               <h2
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
+                className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4"
                 style={{ color: textColor }}
               >
                 {benefits_head}
@@ -119,7 +119,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
           {benefits_introduction && (
             <p
-              className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto"
+              className="text-base sm:text-lg leading-relaxed text-balance"
               style={{ color: neutralColor }}
             >
               {benefits_introduction}
@@ -128,26 +128,26 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
           {(!benefits || benefits.length === 0) && (
             <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-6 border"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs mt-4 border"
               style={{
                 backgroundColor: `${primaryColor}08`,
                 color: primaryColor,
                 borderColor: `${primaryColor}20`,
               }}
             >
-              <EasyIcon icon="FiInfo" size={16} color={primaryColor} />
+              <EasyIcon icon="FiInfo" size={14} color={primaryColor} />
               <span>Discover the benefits of our platform</span>
             </div>
           )}
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {displayBenefits.map((benefit: Benefit) => (
             <div key={benefit.id} className="group relative">
               {/* Card */}
               <div
-                className="relative h-full p-8 lg:p-10 rounded-3xl transition-all duration-500 hover:shadow-xl border backdrop-blur-sm"
+                className="relative h-full p-6 rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm"
                 style={{
                   backgroundColor: `${bgColor}`,
                   borderColor: `${primaryColor}15`,
@@ -155,24 +155,24 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
               >
                 {/* Hover gradient overlay */}
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
                   style={{
                     background: `linear-gradient(135deg, ${primaryColor}03 0%, ${accentColor}03 100%)`,
                   }}
                 />
 
                 {/* Icon container */}
-                <div className="flex items-start justify-between mb-6">
+                <div className="flex items-start justify-between mb-4">
                   {benefit.icon && (
                     <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden"
                       style={{
                         backgroundColor: `${primaryColor}12`,
                       }}
                     >
                       <EasyIcon
                         icon={benefit.icon}
-                        size={26}
+                        size={22}
                         color={primaryColor}
                         className="relative z-10 transition-transform duration-500 group-hover:rotate-6"
                       />
@@ -189,7 +189,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
                   {benefit.stats && (
                     <div
-                      className="text-right font-bold text-2xl lg:text-3xl transition-all duration-300 group-hover:scale-105"
+                      className="text-right font-bold text-lg lg:text-xl transition-all duration-300 group-hover:scale-105"
                       style={{
                         background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
                         WebkitBackgroundClip: "text",
@@ -204,7 +204,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
                 {/* Title */}
                 <h3
-                  className="text-2xl lg:text-3xl font-bold mb-4 transition-colors duration-300"
+                  className="text-lg lg:text-xl font-bold mb-3 transition-colors duration-300 line-clamp-2"
                   style={{ color: textColor }}
                 >
                   {benefit.title}
@@ -212,14 +212,14 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
                 {/* Description */}
                 <p
-                  className="text-base lg:text-lg leading-relaxed"
+                  className="text-sm leading-relaxed text-pretty line-clamp-3"
                   style={{ color: neutralColor }}
                 >
                   {benefit.description}
                 </p>
 
                 {/* Bottom accent bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-3xl">
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 overflow-hidden rounded-b-2xl">
                   <div
                     className="h-full w-0 group-hover:w-full transition-all duration-700 ease-out"
                     style={{
@@ -234,15 +234,15 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
         {/* CTA */}
         {(!benefits || benefits.length === 0) && (
-          <div className="text-center mt-20">
+          <div className="text-center mt-16">
             <p
-              className="text-lg lg:text-xl mb-8"
+              className="text-base mb-6 text-balance"
               style={{ color: neutralColor }}
             >
               Ready to experience these benefits for your business?
             </p>
             <button
-              className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               style={{
                 background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
                 color: "#FFFFFF",
@@ -251,7 +251,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
               Start Saving Today
               <EasyIcon
                 icon="FiArrowRight"
-                size={20}
+                size={16}
                 color="#FFFFFF"
                 className="transition-transform duration-300 group-hover/btn:translate-x-1"
               />
