@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        paddingTop: "4rem",
+        paddingTop: "2rem",
       }}
     >
       {/* Modern background with geometric shapes */}
@@ -242,7 +242,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
                   {/* Floating Cards - Updated to match image */}
                   <div
-                    className="absolute -top-4 -left-4 w-20 h-20 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
+                    className="absolute -top-4 -left-4 w-24 h-24 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${primaryColor}20`,
@@ -264,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </div>
 
                   <div
-                    className="absolute -bottom-4 -right-4 w-20 h-20 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
+                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${accentColor}20`,
