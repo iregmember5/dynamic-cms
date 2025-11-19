@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        paddingTop: "6rem",
+        paddingTop: "4rem",
       }}
     >
       {/* Modern background with geometric shapes */}
@@ -80,8 +80,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-16 py-16">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
           {/* Text Content - Left Side - Made smaller */}
           <div className="lg:w-1/2 text-center lg:text-left">
             <div className="max-w-lg">
@@ -219,7 +219,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           </div>
 
           {/* Image Section - Right Side */}
-          <div className="lg:w-1/2 flex items-center justify-center">
+          <div className="lg:w-1/2 flex items-center justify-center mt-6 lg:mt-0">
             <div className="relative w-full max-w-md">
               {rightImageUrl ? (
                 <div className="relative group animate-fadeInUp animation-delay-500">
