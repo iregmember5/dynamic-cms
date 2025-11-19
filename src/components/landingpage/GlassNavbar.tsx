@@ -256,7 +256,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 .map((link) => (
                   <div key={link.id} className="relative">
                     {isFeatureDropdown(link) ? (
-                      // Features Dropdown with FeaturesPages - Fixed hover area
                       <div
                         className="relative h-full"
                         onMouseEnter={() => setActiveDropdown(link.id)}
@@ -285,113 +284,60 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         </div>
 
                         {/* Features Pages Dropdown - Connected to button with padding */}
+                        {/* Features Pages Dropdown - Clean Layout */}
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div
-                              className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0 w-[600px] backdrop-blur-xl bg-white/95 rounded-2xl shadow-2xl overflow-hidden animate-slideDown border-2"
-                              style={{
-                                border: `2px solid transparent`,
-                                backgroundImage: `linear-gradient(white, white), ${gradientBg}`,
-                                backgroundOrigin: "border-box",
-                                backgroundClip: "padding-box, border-box",
-                                boxShadow: `0 20px 40px ${primaryColor}20`,
-                              }}
-                            >
+                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
                               {/* Invisible hover area above dropdown */}
                               <div
                                 className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
                                 onMouseEnter={() => setActiveDropdown(link.id)}
                               />
 
-                              <div
-                                className="px-6 py-4 font-bold text-lg text-white"
-                                style={{ background: gradientBg }}
-                              >
-                                All Features
+                              {/* Header */}
+                              <div className="px-6 py-4 border-b border-gray-100">
+                                <h3
+                                  className="font-bold text-lg"
+                                  style={{ color: primaryColor }}
+                                >
+                                  Features
+                                </h3>
+                                <p className="text-sm text-gray-600 mt-1">
+                                  Everything you need to grow your business
+                                </p>
                               </div>
 
+                              {/* Features Grid */}
                               <div className="p-6">
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-3 gap-x-6 gap-y-4">
                                   {featuresPages.map((page, index) => (
                                     <a
                                       key={page.id}
                                       href={`#features/${page.slug}`}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="block p-4 rounded-xl transition-all duration-300 relative overflow-hidden group hover:shadow-lg border border-gray-100 hover:border-transparent"
-                                      style={{
-                                        color: textColor,
-                                        animationDelay: `${index * 0.03}s`,
-                                      }}
-                                      onMouseEnter={() =>
-                                        setHoveredItem(page.id)
-                                      }
-                                      onMouseLeave={() => setHoveredItem(null)}
+                                      className="flex items-start gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-gray-50 group"
                                       onClick={() => {
                                         setActiveDropdown(null);
                                       }}
                                     >
-                                      <div className="relative z-10">
-                                        <div className="flex items-center gap-3 mb-2">
-                                          <div
-                                            className="w-3 h-3 rounded-full transition-all duration-300 flex-shrink-0"
-                                            style={{
-                                              background:
-                                                hoveredItem === page.id
-                                                  ? gradientBg
-                                                  : primaryColor,
-                                              transform:
-                                                hoveredItem === page.id
-                                                  ? "scale(1.2)"
-                                                  : "scale(1)",
-                                              boxShadow:
-                                                hoveredItem === page.id
-                                                  ? `0 0 8px ${primaryColor}`
-                                                  : "none",
-                                            }}
-                                          />
-                                          <h3 className="font-semibold text-sm leading-tight group-hover:translate-x-1 transition-transform duration-300">
-                                            {page.title}
-                                          </h3>
-                                        </div>
-                                        <p className="text-xs text-gray-600 mt-1 line-clamp-2">
-                                          {page.search_description}
-                                        </p>
+                                      {/* Icon */}
+                                      <div className="w-8 h-8 rounded flex-shrink-0 flex items-center justify-center text-xl">
+                                        {index === 0 && "📧"}
+                                        {index === 1 && "👥"}
+                                        {index === 2 && "📊"}
+                                        {index === 3 && "📋"}
+                                        {index === 4 && "💬"}
+                                        {index === 5 && "🔒"}
                                       </div>
 
-                                      {/* Hover background effect */}
-                                      <div
-                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-                                        style={{
-                                          background: `linear-gradient(135deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
-                                        }}
-                                      />
-
-                                      {/* Border animation on hover */}
-                                      <div
-                                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                        style={{
-                                          background: gradientBg,
-                                        }}
-                                      >
-                                        <div className="absolute inset-[2px] rounded-xl bg-white" />
+                                      {/* Text */}
+                                      <div className="flex-1 min-w-0">
+                                        <h4
+                                          className="font-medium text-sm leading-tight group-hover:text-blue-600 transition-colors"
+                                          style={{ color: textColor }}
+                                        >
+                                          {page.title}
+                                        </h4>
                                       </div>
-
-                                      {/* External link icon */}
-                                      <svg
-                                        className="absolute top-3 right-3 w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        style={{ color: primaryColor }}
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          strokeWidth={2}
-                                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                        />
-                                      </svg>
                                     </a>
                                   ))}
                                 </div>
