@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-4 py-16">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-8">
           {/* Text Content - Left Side - Made smaller */}
           <div className="lg:w-1/2 text-center lg:text-left">
             <div className="max-w-lg">
