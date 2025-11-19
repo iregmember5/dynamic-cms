@@ -308,7 +308,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 {featuresPages.map((page, index) => (
                                   <a
                                     key={page.id}
-                                    href={`/features/${page.slug}`}
+                                    href={`/#features/${page.slug}`}
                                     className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
                                     onClick={() => setActiveDropdown(null)}
                                   >
