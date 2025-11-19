@@ -276,13 +276,17 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
                             <div
-                              className="absolute top-full left-1/2 mt-3 transform -translate-x-1/2 
-      w-[650px] bg-white backdrop-blur-xl border border-gray-200 
-      rounded-2xl shadow-2xl z-50 animate-slideDown"
+                              className="absolute top-full left-1/2 mt-2 w-[650px] bg-white backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl z-50"
+                              style={{
+                                transform: "translateX(-50%)",
+                                opacity: 1,
+                                animation:
+                                  "dropdownFadeIn 0.2s ease-out forwards",
+                              }}
                             >
                               {/* Drop shadow hover area */}
                               <div
-                                className="absolute -top-4 left-0 right-0 h-4"
+                                className="absolute -top-2 left-0 right-0 h-2"
                                 onMouseEnter={() => setActiveDropdown(link.id)}
                               />
 
@@ -651,6 +655,17 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
+          @keyframes dropdownFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
       `}</style>
     </nav>
   );
