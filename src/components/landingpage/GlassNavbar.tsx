@@ -22,7 +22,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
   const [featuresPages, setFeaturesPages] = useState<FeaturesPageData[]>([]);
 
   // Get header config
@@ -261,7 +261,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         onMouseEnter={() => setActiveDropdown(link.id)}
                         onMouseLeave={() => {
                           setActiveDropdown(null);
-                          setHoveredItem(null);
                         }}
                       >
                         <div className="h-full flex items-center">
