@@ -146,6 +146,114 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
       features_cta_button_text: "Get Started",
       features_cta_button_url: "#",
     },
+    {
+      id: 4,
+      title: "Project Management",
+      slug: "project-management",
+      url: "/features/project-management",
+      seo_title: "Project Management Features",
+      search_description: "Manage projects efficiently",
+      live: true,
+      locked: false,
+      first_published_at: null,
+      last_published_at: null,
+      header_title: "Project Management",
+      header_subtitle: "Organize and track your projects",
+      header_description: "Complete project management solution",
+      header_cta_text: "Manage Projects",
+      header_cta_url: "#",
+      features_intro_heading: "Project Tools",
+      features_intro_description: "Everything for project success",
+      features: [],
+      categories_heading: "",
+      categories_description: "",
+      key_features_heading: "",
+      key_features_description: "",
+      comparison_heading: "",
+      comparison_description: "",
+      integrations_heading: "",
+      integrations_description: "",
+      specifications_heading: "",
+      specifications_description: "",
+      use_cases_heading: "",
+      use_cases_description: "",
+      features_cta_heading: "Ready to manage projects?",
+      features_cta_description: "Start organizing today",
+      features_cta_button_text: "Get Started",
+      features_cta_button_url: "#",
+    },
+    {
+      id: 5,
+      title: "Customer Support",
+      slug: "customer-support",
+      url: "/features/customer-support",
+      seo_title: "Customer Support Features",
+      search_description: "Excellent customer service tools",
+      live: true,
+      locked: false,
+      first_published_at: null,
+      last_published_at: null,
+      header_title: "Customer Support",
+      header_subtitle: "Support your customers better",
+      header_description: "Complete customer support solution",
+      header_cta_text: "Support Customers",
+      header_cta_url: "#",
+      features_intro_heading: "Support Tools",
+      features_intro_description: "Tools for customer satisfaction",
+      features: [],
+      categories_heading: "",
+      categories_description: "",
+      key_features_heading: "",
+      key_features_description: "",
+      comparison_heading: "",
+      comparison_description: "",
+      integrations_heading: "",
+      integrations_description: "",
+      specifications_heading: "",
+      specifications_description: "",
+      use_cases_heading: "",
+      use_cases_description: "",
+      features_cta_heading: "Ready to support?",
+      features_cta_description: "Start helping customers today",
+      features_cta_button_text: "Get Started",
+      features_cta_button_url: "#",
+    },
+    {
+      id: 6,
+      title: "Security & Compliance",
+      slug: "security-compliance",
+      url: "/features/security-compliance",
+      seo_title: "Security & Compliance Features",
+      search_description: "Secure and compliant operations",
+      live: true,
+      locked: false,
+      first_published_at: null,
+      last_published_at: null,
+      header_title: "Security & Compliance",
+      header_subtitle: "Keep your data safe and compliant",
+      header_description: "Enterprise-grade security features",
+      header_cta_text: "Learn More",
+      header_cta_url: "#",
+      features_intro_heading: "Security Tools",
+      features_intro_description: "Protection and compliance features",
+      features: [],
+      categories_heading: "",
+      categories_description: "",
+      key_features_heading: "",
+      key_features_description: "",
+      comparison_heading: "",
+      comparison_description: "",
+      integrations_heading: "",
+      integrations_description: "",
+      specifications_heading: "",
+      specifications_description: "",
+      use_cases_heading: "",
+      use_cases_description: "",
+      features_cta_heading: "Ready to secure?",
+      features_cta_description: "Start protecting your data today",
+      features_cta_button_text: "Get Started",
+      features_cta_button_url: "#",
+    },
   ];
 
   // Load FeaturesPages on mount, fallback to dummy if none
@@ -365,37 +473,39 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                 .map((link) => (
                   <div key={link.id} className="relative">
                     {isFeatureDropdown(link) ? (
-                      // Features Dropdown with FeaturesPages
+                      // Features Dropdown with FeaturesPages - Fixed hover area
                       <div
-                        className="relative"
+                        className="relative h-full"
                         onMouseEnter={() => setActiveDropdown(link.id)}
                         onMouseLeave={() => {
                           setActiveDropdown(null);
                           setHoveredItem(null);
                         }}
                       >
-                        <button
-                          className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
-                          style={{ color: textColor }}
-                        >
-                          {link.title}
-                          <ChevronDown
-                            size={16}
-                            className={`transition-transform duration-300 ${
-                              activeDropdown === link.id ? "rotate-180" : ""
-                            }`}
-                          />
-                          <span
-                            className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
-                            style={{ background: gradientBg }}
-                          />
-                        </button>
+                        <div className="h-full flex items-center">
+                          <button
+                            className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
+                            style={{ color: textColor }}
+                          >
+                            {link.title}
+                            <ChevronDown
+                              size={16}
+                              className={`transition-transform duration-300 ${
+                                activeDropdown === link.id ? "rotate-180" : ""
+                              }`}
+                            />
+                            <span
+                              className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
+                              style={{ background: gradientBg }}
+                            />
+                          </button>
+                        </div>
 
-                        {/* Features Pages Dropdown */}
+                        {/* Features Pages Dropdown - Connected to button with padding */}
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
                             <div
-                              className="absolute top-full left-0 mt-4 w-80 backdrop-blur-xl bg-white/95 rounded-2xl shadow-2xl overflow-hidden animate-slideDown"
+                              className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0 w-[600px] backdrop-blur-xl bg-white/95 rounded-2xl shadow-2xl overflow-hidden animate-slideDown border-2"
                               style={{
                                 border: `2px solid transparent`,
                                 backgroundImage: `linear-gradient(white, white), ${gradientBg}`,
@@ -404,58 +514,94 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 boxShadow: `0 20px 40px ${primaryColor}20`,
                               }}
                             >
+                              {/* Invisible hover area above dropdown */}
                               <div
-                                className="px-5 py-3 font-bold text-sm text-white"
+                                className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
+                                onMouseEnter={() => setActiveDropdown(link.id)}
+                              />
+
+                              <div
+                                className="px-6 py-4 font-bold text-lg text-white"
                                 style={{ background: gradientBg }}
                               >
-                                Feature Pages
+                                All Features
                               </div>
 
-                              <div className="max-h-96 overflow-y-auto custom-scrollbar">
-                                {featuresPages.map((page, index) => (
-                                  <a
-                                    key={page.id}
-                                    href={`#features/${page.slug}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block px-5 py-3 text-sm font-medium transition-all duration-300 relative overflow-hidden group"
-                                    style={{
-                                      color: textColor,
-                                      animationDelay: `${index * 0.03}s`,
-                                    }}
-                                    onMouseEnter={() => setHoveredItem(page.id)}
-                                    onMouseLeave={() => setHoveredItem(null)}
-                                    onClick={() => {
-                                      setActiveDropdown(null);
-                                    }}
-                                  >
-                                    <div className="relative z-10 flex items-center gap-3">
-                                      <span
-                                        className="w-2 h-2 rounded-full transition-all duration-300"
+                              <div className="p-6">
+                                <div className="grid grid-cols-3 gap-4">
+                                  {featuresPages.map((page, index) => (
+                                    <a
+                                      key={page.id}
+                                      href={`#features/${page.slug}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="block p-4 rounded-xl transition-all duration-300 relative overflow-hidden group hover:shadow-lg border border-gray-100 hover:border-transparent"
+                                      style={{
+                                        color: textColor,
+                                        animationDelay: `${index * 0.03}s`,
+                                      }}
+                                      onMouseEnter={() =>
+                                        setHoveredItem(page.id)
+                                      }
+                                      onMouseLeave={() => setHoveredItem(null)}
+                                      onClick={() => {
+                                        setActiveDropdown(null);
+                                      }}
+                                    >
+                                      <div className="relative z-10">
+                                        <div className="flex items-center gap-3 mb-2">
+                                          <div
+                                            className="w-3 h-3 rounded-full transition-all duration-300 flex-shrink-0"
+                                            style={{
+                                              background:
+                                                hoveredItem === page.id
+                                                  ? gradientBg
+                                                  : primaryColor,
+                                              transform:
+                                                hoveredItem === page.id
+                                                  ? "scale(1.2)"
+                                                  : "scale(1)",
+                                              boxShadow:
+                                                hoveredItem === page.id
+                                                  ? `0 0 8px ${primaryColor}`
+                                                  : "none",
+                                            }}
+                                          />
+                                          <h3 className="font-semibold text-sm leading-tight group-hover:translate-x-1 transition-transform duration-300">
+                                            {page.title}
+                                          </h3>
+                                        </div>
+                                        <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+                                          {page.search_description ||
+                                            "Discover powerful features"}
+                                        </p>
+                                      </div>
+
+                                      {/* Hover background effect */}
+                                      <div
+                                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
                                         style={{
-                                          background:
-                                            hoveredItem === page.id
-                                              ? gradientBg
-                                              : primaryColor,
-                                          transform:
-                                            hoveredItem === page.id
-                                              ? "scale(1.5)"
-                                              : "scale(1)",
-                                          boxShadow:
-                                            hoveredItem === page.id
-                                              ? `0 0 12px ${primaryColor}`
-                                              : "none",
+                                          background: `linear-gradient(135deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
                                         }}
                                       />
-                                      <span className="flex-1">
-                                        {page.title}
-                                      </span>
+
+                                      {/* Border animation on hover */}
+                                      <div
+                                        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        style={{
+                                          background: gradientBg,
+                                        }}
+                                      >
+                                        <div className="absolute inset-[2px] rounded-xl bg-white" />
+                                      </div>
+
                                       {/* External link icon */}
                                       <svg
-                                        className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity"
+                                        className="absolute top-3 right-3 w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
+                                        style={{ color: primaryColor }}
                                       >
                                         <path
                                           strokeLinecap="round"
@@ -464,19 +610,36 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                                         />
                                       </svg>
-                                    </div>
-                                    <div
-                                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                      style={{
-                                        background: `linear-gradient(90deg, ${primaryColor}08 0%, ${accentColor}08 100%)`,
-                                      }}
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Footer with view all link */}
+                              <div
+                                className="px-6 py-4 border-t border-gray-100 bg-gray-50/50"
+                                style={{ borderColor: `${primaryColor}15` }}
+                              >
+                                <a
+                                  href="#all-features"
+                                  className="text-sm font-semibold transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 group"
+                                  style={{ color: primaryColor }}
+                                >
+                                  View All Features
+                                  <svg
+                                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M9 5l7 7-7 7"
                                     />
-                                    <div
-                                      className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1 transition-all duration-300"
-                                      style={{ background: gradientBg }}
-                                    />
-                                  </a>
-                                ))}
+                                  </svg>
+                                </a>
                               </div>
                             </div>
                           )}
@@ -484,37 +647,45 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     ) : hasDropdownChildren(link) ? (
                       // Regular dropdown
                       <div
-                        className="relative"
+                        className="relative h-full"
                         onMouseEnter={() => setActiveDropdown(link.id)}
                         onMouseLeave={() => setActiveDropdown(null)}
                       >
-                        <button
-                          className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
-                          style={{ color: textColor }}
-                        >
-                          {link.title}
-                          <ChevronDown
-                            size={16}
-                            className={`transition-transform duration-300 ${
-                              activeDropdown === link.id ? "rotate-180" : ""
-                            }`}
-                          />
-                          <span
-                            className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
-                            style={{ background: gradientBg }}
-                          />
-                        </button>
+                        <div className="h-full flex items-center">
+                          <button
+                            className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2"
+                            style={{ color: textColor }}
+                          >
+                            {link.title}
+                            <ChevronDown
+                              size={16}
+                              className={`transition-transform duration-300 ${
+                                activeDropdown === link.id ? "rotate-180" : ""
+                              }`}
+                            />
+                            <span
+                              className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300 rounded-full"
+                              style={{ background: gradientBg }}
+                            />
+                          </button>
+                        </div>
 
                         {activeDropdown === link.id &&
                           link.children &&
                           link.children.length > 0 && (
                             <div
-                              className="absolute top-full left-0 mt-2 w-48 backdrop-blur-md bg-white/95 border rounded-xl shadow-lg py-2 z-50"
+                              className="absolute top-full left-0 mt-0 w-48 backdrop-blur-md bg-white/95 border rounded-xl shadow-lg py-2 z-50"
                               style={{
                                 borderColor: `${primaryColor}30`,
                                 boxShadow: `0 10px 30px ${primaryColor}15`,
                               }}
                             >
+                              {/* Invisible hover area above dropdown */}
+                              <div
+                                className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
+                                onMouseEnter={() => setActiveDropdown(link.id)}
+                              />
+
                               {link.children.map((child) => (
                                 <a
                                   key={child.id}
@@ -785,6 +956,13 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%);
+        }
+
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </nav>
