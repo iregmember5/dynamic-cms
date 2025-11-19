@@ -264,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </div>
 
                   <div
-                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
+                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-xl flex flex-col items-center justify-center shadow-xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border p-2"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.95)",
                       borderColor: `${accentColor}20`,
@@ -278,7 +278,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       AI Automation
                     </span>
                     <span
-                      className="text-xs font-bold mt-1"
+                      className="text-xs font-bold mt-1 text-center"
                       style={{ color: primaryColor }}
                     >
                       Save 8+ hours/day
