@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
           {/* Text Content - Left Side */}
           <div className="lg:w-1/2 text-center lg:text-left">
-            <div className="max-w-2xl">
+            <div className="max-w-md">
               {/* Subtitle - Exactly like the image */}
               {header_subtitle && (
                 <div className="mb-6 animate-fadeInUp">
