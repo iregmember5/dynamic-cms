@@ -290,49 +290,6 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </div>
 
                   {/* Floating Cards - Updated to match image */}
-                  <div
-                    className="absolute -top-4 -right-4 w-28 h-28 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.95)",
-                      borderColor: `${primaryColor}20`,
-                    }}
-                  >
-                    <EasyIcon icon="FiMail" size={20} color={primaryColor} />
-                    <span
-                      className="text-xs font-semibold mt-1 text-center"
-                      style={{ color: textColor }}
-                    >
-                      Email Campaigns
-                    </span>
-                    <span
-                      className="text-xs font-bold mt-1"
-                      style={{ color: accentColor }}
-                    >
-                      +247%
-                    </span>
-                  </div>
-
-                  <div
-                    className="absolute -bottom-4 -left-4 w-32 h-32 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.95)",
-                      borderColor: `${accentColor}20`,
-                    }}
-                  >
-                    <EasyIcon icon="FiZap" size={24} color={accentColor} />
-                    <span
-                      className="text-xs font-semibold mt-1 text-center"
-                      style={{ color: textColor }}
-                    >
-                      AI Automation
-                    </span>
-                    <span
-                      className="text-xs font-bold mt-1"
-                      style={{ color: primaryColor }}
-                    >
-                      Save 8+ hours/day
-                    </span>
-                  </div>
                 </div>
               ) : (
                 <div
@@ -358,24 +315,6 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Modern Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-        <div className="flex flex-col items-center gap-2">
-          <span
-            className="text-sm uppercase tracking-wider"
-            style={{ color: neutralColor }}
-          >
-            Scroll to explore
-          </span>
-          <div
-            className="w-px h-8 bg-gradient-to-b"
-            style={{
-              background: `linear-gradient(to bottom, ${primaryColor}, transparent)`,
-            }}
-          />
         </div>
       </div>
 

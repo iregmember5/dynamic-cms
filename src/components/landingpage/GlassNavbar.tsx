@@ -572,8 +572,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                           </h3>
                                         </div>
                                         <p className="text-xs text-gray-600 mt-1 line-clamp-2">
-                                          {page.search_description ||
-                                            "Discover powerful features"}
+                                          {page.search_description}
                                         </p>
                                       </div>
 
@@ -613,33 +612,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                     </a>
                                   ))}
                                 </div>
-                              </div>
-
-                              {/* Footer with view all link */}
-                              <div
-                                className="px-6 py-4 border-t border-gray-100 bg-gray-50/50"
-                                style={{ borderColor: `${primaryColor}15` }}
-                              >
-                                <a
-                                  href="#all-features"
-                                  className="text-sm font-semibold transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 group"
-                                  style={{ color: primaryColor }}
-                                >
-                                  View All Features
-                                  <svg
-                                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M9 5l7 7-7 7"
-                                    />
-                                  </svg>
-                                </a>
                               </div>
                             </div>
                           )}
