@@ -275,7 +275,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div className="absolute top-full left-1/2 mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
+                            <div className="absolute top-full mx-auto mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
                               {/* Invisible hover area above dropdown */}
                               <div
                                 className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
@@ -302,7 +302,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                     <a
                                       key={page.id}
                                       href={`#features/${page.slug}`}
-                                      className="flex items-start gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-gray-50 group"
+                                      className="flex items-start gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 group group-hover:scale-105"
                                       onClick={() => {
                                         setActiveDropdown(null);
                                       }}
