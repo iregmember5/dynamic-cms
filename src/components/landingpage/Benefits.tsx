@@ -23,10 +23,6 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
   const neutralColor = color_theme?.neutral_color || "#6B7280";
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
-  // Gradient styles
-  const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
-  const gradientHover = `linear-gradient(135deg, ${accentColor} 0%, ${primaryColor} 100%)`;
-
   const sampleBenefits = [
     {
       id: 1,
@@ -71,62 +67,72 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
   return (
     <section
-      className="py-16 sm:py-24 relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, ${bgColor} 0%, ${primaryColor}08 100%)`,
-      }}
+      className="py-20 sm:py-32 relative overflow-hidden"
+      style={{ backgroundColor: bgColor }}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-0 left-0 w-96 h-96 rounded-full opacity-10 blur-3xl animate-float"
-          style={{ background: gradientBg }}
-        />
-        <div
-          className="absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-10 blur-3xl animate-float-delayed"
-          style={{ background: gradientHover }}
-        />
-      </div>
+      {/* Subtle grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, ${textColor} 1px, transparent 0)`,
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      {/* Gradient orbs */}
+      <div
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20"
+        style={{
+          background: `radial-gradient(circle, ${primaryColor}, transparent 70%)`,
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-15"
+        style={{
+          background: `radial-gradient(circle, ${accentColor}, transparent 70%)`,
+        }}
+      />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header with Gradient Animation */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-20 max-w-3xl mx-auto">
           {benefits_head && (
-            <div className="relative inline-block mb-6">
+            <div className="mb-6">
+              <div
+                className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-6"
+                style={{
+                  backgroundColor: `${primaryColor}10`,
+                  color: primaryColor,
+                  border: `1px solid ${primaryColor}20`,
+                }}
+              >
+                Benefits
+              </div>
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold relative z-10 animate-fadeInUp"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
                 style={{ color: textColor }}
               >
                 {benefits_head}
               </h2>
-              {/* Gradient underline */}
-              <div
-                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 rounded-full animate-expandWidth"
-                style={{
-                  background: gradientBg,
-                  width: "80%",
-                  boxShadow: `0 4px 12px ${primaryColor}40`,
-                }}
-              />
             </div>
           )}
 
           {benefits_introduction && (
             <p
-              className="text-lg sm:text-xl leading-relaxed animate-fadeInUp animation-delay-200"
+              className="text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto"
               style={{ color: neutralColor }}
             >
               {benefits_introduction}
             </p>
           )}
 
-          {/* Show info message when using sample benefits */}
           {(!benefits || benefits.length === 0) && (
             <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-4 animate-fadeInUp animation-delay-400"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm mt-6 border"
               style={{
-                backgroundColor: `${primaryColor}15`,
+                backgroundColor: `${primaryColor}08`,
                 color: primaryColor,
+                borderColor: `${primaryColor}20`,
               }}
             >
               <EasyIcon icon="FiInfo" size={16} color={primaryColor} />
@@ -136,83 +142,46 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {displayBenefits.map((benefit: Benefit, index: number) => (
-            <div
-              key={benefit.id}
-              className="group relative p-8 rounded-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 bg-white overflow-hidden animate-fadeInUp"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-                border: `2px solid transparent`,
-                backgroundImage: `linear-gradient(white, white), ${gradientBg}`,
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-              }}
-            >
-              {/* Gradient overlay on hover */}
+            <div key={benefit.id} className="group relative">
+              {/* Card */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
-                style={{ background: gradientBg }}
-              />
+                className="relative h-full p-8 lg:p-10 rounded-3xl transition-all duration-500 hover:shadow-xl border backdrop-blur-sm"
+                style={{
+                  backgroundColor: `${bgColor}`,
+                  borderColor: `${primaryColor}15`,
+                }}
+              >
+                {/* Hover gradient overlay */}
+                <div
+                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                  style={{
+                    background: `linear-gradient(135deg, ${primaryColor}03 0%, ${accentColor}03 100%)`,
+                  }}
+                />
 
-              {/* Animated corner accents */}
-              <div
-                className="absolute top-0 left-0 w-0 h-0.5 group-hover:w-12 transition-all duration-500"
-                style={{ background: gradientBg }}
-              />
-              <div
-                className="absolute top-0 left-0 w-0.5 h-0 group-hover:h-12 transition-all duration-500"
-                style={{ background: gradientBg }}
-              />
-              <div
-                className="absolute bottom-0 right-0 w-0 h-0.5 group-hover:w-12 transition-all duration-500"
-                style={{ background: gradientHover }}
-              />
-              <div
-                className="absolute bottom-0 right-0 w-0.5 h-0 group-hover:h-12 transition-all duration-500"
-                style={{ background: gradientHover }}
-              />
-
-              <div className="relative z-10">
-                {/* Icon & Stats Row */}
+                {/* Icon container */}
                 <div className="flex items-start justify-between mb-6">
                   {benefit.icon && (
-                    <div className="relative">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden"
+                      style={{
+                        backgroundColor: `${primaryColor}12`,
+                      }}
+                    >
+                      <EasyIcon
+                        icon={benefit.icon}
+                        size={26}
+                        color={primaryColor}
+                        className="relative z-10 transition-transform duration-500 group-hover:rotate-6"
+                      />
+
+                      {/* Shine effect */}
                       <div
-                        className="w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 relative overflow-hidden"
+                        className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
                         style={{
-                          background: `linear-gradient(135deg, ${primaryColor}15 0%, ${accentColor}15 100%)`,
-                        }}
-                      >
-                        {/* Gradient border effect */}
-                        <div
-                          className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                          style={{
-                            background: gradientBg,
-                            padding: "2px",
-                            WebkitMask:
-                              "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                            WebkitMaskComposite: "xor",
-                            maskComposite: "exclude",
-                          }}
-                        />
-
-                        <EasyIcon
-                          icon={benefit.icon}
-                          size={24}
-                          color={primaryColor}
-                          className="relative z-10 transition-all duration-500 group-hover:scale-110"
-                        />
-
-                        {/* Shine effect */}
-                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                      </div>
-
-                      {/* Pulsing ring effect */}
-                      <div
-                        className="absolute inset-0 w-14 h-14 rounded-xl opacity-0 group-hover:opacity-100 group-hover:scale-150 transition-all duration-700"
-                        style={{
-                          background: `radial-gradient(circle, ${primaryColor}20 0%, transparent 70%)`,
+                          background: `linear-gradient(90deg, transparent, ${primaryColor}20, transparent)`,
                         }}
                       />
                     </div>
@@ -220,156 +189,87 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
                   {benefit.stats && (
                     <div
-                      className="text-right font-bold text-2xl transition-all duration-500 group-hover:scale-110"
-                      style={{ color: accentColor }}
+                      className="text-right font-bold text-2xl lg:text-3xl transition-all duration-300 group-hover:scale-105"
+                      style={{
+                        background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
                     >
                       {benefit.stats}
                     </div>
                   )}
                 </div>
 
-                {/* Title with Gradient on Hover */}
+                {/* Title */}
                 <h3
-                  className="text-xl sm:text-2xl font-bold mb-4 transition-all duration-300 relative group-hover:scale-105"
+                  className="text-2xl lg:text-3xl font-bold mb-4 transition-colors duration-300"
                   style={{ color: textColor }}
                 >
                   {benefit.title}
-                  {/* Gradient text effect on hover */}
-                  <span
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: gradientBg,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {benefit.title}
-                  </span>
                 </h3>
 
                 {/* Description */}
                 <p
-                  className="leading-relaxed relative z-10 transition-colors duration-300"
+                  className="text-base lg:text-lg leading-relaxed"
                   style={{ color: neutralColor }}
                 >
                   {benefit.description}
                 </p>
 
-                {/* Animated Gradient Line */}
-                <div className="relative mt-6 h-1 bg-gray-100 rounded-full overflow-hidden">
+                {/* Bottom accent bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-3xl">
                   <div
-                    className="absolute inset-0 w-0 group-hover:w-full transition-all duration-700 rounded-full"
+                    className="h-full w-0 group-hover:w-full transition-all duration-700 ease-out"
                     style={{
-                      background: gradientBg,
-                      boxShadow: `0 0 12px ${primaryColor}60`,
+                      background: `linear-gradient(90deg, ${primaryColor}, ${accentColor})`,
                     }}
                   />
                 </div>
-              </div>
 
-              {/* Floating number badge */}
-              <div
-                className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white transition-all duration-500 group-hover:scale-125 group-hover:rotate-12"
-                style={{
-                  background: gradientBg,
-                  boxShadow: `0 4px 12px ${primaryColor}40`,
-                }}
-              >
-                {index + 1}
+                {/* Number badge */}
+                <div
+                  className="absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-lg transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {index + 1}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Additional CTA for empty state */}
+        {/* CTA */}
         {(!benefits || benefits.length === 0) && (
-          <div className="text-center mt-16 animate-fadeInUp animation-delay-600">
-            <p className="text-lg mb-6" style={{ color: neutralColor }}>
+          <div className="text-center mt-20">
+            <p
+              className="text-lg lg:text-xl mb-8"
+              style={{ color: neutralColor }}
+            >
               Ready to experience these benefits for your business?
             </p>
             <button
-              className="px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto group/btn"
+              className="group/btn inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base lg:text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               style={{
-                backgroundColor: primaryColor,
+                background: `linear-gradient(135deg, ${primaryColor}, ${accentColor})`,
                 color: "#FFFFFF",
               }}
             >
+              Start Saving Today
               <EasyIcon
                 icon="FiArrowRight"
                 size={20}
                 color="#FFFFFF"
                 className="transition-transform duration-300 group-hover/btn:translate-x-1"
               />
-              Start Saving Today
             </button>
           </div>
         )}
       </div>
-
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes expandWidth {
-          from {
-            width: 0%;
-          }
-          to {
-            width: 80%;
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translate(0, 0) rotate(0deg);
-          }
-          33% {
-            transform: translate(30px, -30px) rotate(120deg);
-          }
-          66% {
-            transform: translate(-20px, 20px) rotate(240deg);
-          }
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-expandWidth {
-          animation: expandWidth 1s ease-out forwards;
-        }
-
-        .animate-float {
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float 25s ease-in-out infinite;
-          animation-delay: -5s;
-        }
-
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-        }
-
-        .animation-delay-600 {
-          animation-delay: 0.6s;
-        }
-      `}</style>
     </section>
   );
 };

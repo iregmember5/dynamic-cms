@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import type { LandingPageData } from "../../types/landing";
 
 interface TestimonialsProps {
   data: LandingPageData;
+}
+
+interface Testimonial {
+  id: number;
+  quote: string;
+  name: string;
+  title: string;
+  company: string;
+  photo: string | null;
+  order: number;
 }
 
 const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
@@ -12,7 +22,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
     testimonials,
     color_theme,
   } = data;
-  const [activeIndex, setActiveIndex] = useState(0);
 
   // Only hide if there's absolutely no content
   if (
@@ -29,22 +38,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   const neutralColor = color_theme?.neutral_color || "#6B7280";
   const bgColor = color_theme?.background_color || "#FFFFFF";
 
-  // const handleNext = () => {
-  //   if (testimonials && testimonials.length > 0) {
-  //     setActiveIndex((prev) => (prev + 1) % testimonials.length);
-  //   }
-  // };
-
-  // const handlePrev = () => {
-  //   if (testimonials && testimonials.length > 0) {
-  //     setActiveIndex(
-  //       (prev) => (prev - 1 + testimonials.length) % testimonials.length
-  //     );
-  //   }
-  // };
-
   // Sample testimonials for when the array is empty
-  const sampleTestimonials = [
+  const sampleTestimonials: Testimonial[] = [
     {
       id: 1,
       quote:
@@ -82,12 +77,31 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
 
   const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
 
+  const getInitials = (name: string): string => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
-    <section className="py-16 sm:py-20 relative overflow-hidden" style={{ backgroundColor: bgColor }}>
+    <section
+      className="py-16 sm:py-20 relative overflow-hidden"
+      style={{ backgroundColor: bgColor }}
+      aria-labelledby="testimonials-heading"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full" style={{ background: gradientBg }} />
-        <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full" style={{ background: gradientBg }} />
+        <div
+          className="absolute top-0 right-0 w-96 h-96 rounded-full"
+          style={{ background: gradientBg }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-96 h-96 rounded-full"
+          style={{ background: gradientBg }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -96,6 +110,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           {testimonials_head && (
             <div className="relative inline-block mb-4">
               <h2
+                id="testimonials-heading"
                 className="text-3xl sm:text-4xl font-bold relative z-10"
                 style={{ color: textColor }}
               >
@@ -110,7 +125,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
 
           {testimonials_introduction && (
             <p
-              className="text-lg leading-relaxed"
+              className="text-lg leading-relaxed text-balance"
               style={{ color: neutralColor }}
             >
               {testimonials_introduction}
@@ -119,13 +134,13 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {displayTestimonials.map((testimonial, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          {displayTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="group relative p-6 rounded-xl transition-all duration-500 hover:shadow-xl hover:-translate-y-2 bg-white overflow-hidden"
+              className="group relative p-6 rounded-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 bg-white/80 backdrop-blur-sm overflow-hidden border"
               style={{
-                border: `1px solid ${primaryColor}20`,
+                borderColor: `${primaryColor}15`,
               }}
             >
               {/* Gradient overlay on hover */}
@@ -136,8 +151,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
 
               {/* Quote Icon */}
               <div
-                className="absolute top-4 right-4 text-4xl opacity-10 font-serif"
+                className="absolute top-4 right-4 text-4xl opacity-10 font-serif select-none"
                 style={{ color: primaryColor }}
+                aria-hidden="true"
               >
                 "
               </div>
@@ -145,37 +161,42 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
               {/* Content */}
               <div className="relative z-10">
                 {/* Quote */}
-                <blockquote
-                  className="text-base leading-relaxed mb-6 italic"
-                  style={{ color: textColor }}
-                >
-                  "{testimonial.quote}"
+                <blockquote className="text-base leading-relaxed mb-6 italic text-pretty">
+                  <span style={{ color: textColor }}>
+                    "{testimonial.quote}"
+                  </span>
                 </blockquote>
 
                 {/* Author Info */}
-                <div className="flex items-center gap-3 pt-4 border-t" style={{ borderColor: `${primaryColor}20` }}>
-                  {/* Photo Placeholder */}
+                <div
+                  className="flex items-center gap-4 pt-4 border-t"
+                  style={{ borderColor: `${primaryColor}20` }}
+                >
+                  {/* Avatar */}
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-md"
                     style={{ background: gradientBg }}
+                    aria-hidden="true"
                   >
-                    {testimonial.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")
-                      .toUpperCase()}
+                    {getInitials(testimonial.name)}
                   </div>
 
                   {/* Details */}
-                  <div>
-                    <p className="font-bold text-sm" style={{ color: textColor }}>
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className="font-bold text-sm truncate"
+                      style={{ color: textColor }}
+                    >
                       {testimonial.name}
                     </p>
-                    <p className="text-xs" style={{ color: neutralColor }}>
+                    <p
+                      className="text-xs truncate"
+                      style={{ color: neutralColor }}
+                    >
                       {testimonial.title}
                     </p>
                     <p
-                      className="text-xs font-semibold"
+                      className="text-xs font-semibold truncate"
                       style={{ color: accentColor }}
                     >
                       {testimonial.company}
@@ -188,59 +209,10 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
               <div
                 className="absolute bottom-0 right-0 w-0 h-0.5 group-hover:w-16 transition-all duration-500"
                 style={{ background: gradientBg }}
+                aria-hidden="true"
               />
             </div>
           ))}
-        </div>
-
-          {/* Navigation Buttons */}
-          {/* {displayTestimonials.length > 1 && (
-            <>
-              <button
-                onClick={handlePrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-6 w-12 h-12 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center z-20"
-                style={{ backgroundColor: primaryColor }}
-                aria-label="Previous testimonial"
-              >
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-
-              <button
-                onClick={handleNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6 w-12 h-12 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center z-20"
-                style={{ backgroundColor: primaryColor }}
-                aria-label="Next testimonial"
-              >
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </>
-          )} */}
-
-
         </div>
 
         {/* Call to add testimonials */}
@@ -250,7 +222,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
               Have experience with our platform? We'd love to hear from you!
             </p>
             <button
-              className="px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+              className="px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl active:scale-95"
               style={{
                 backgroundColor: primaryColor,
                 color: "#FFFFFF",
