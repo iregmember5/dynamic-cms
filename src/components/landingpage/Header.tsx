@@ -10,6 +10,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   const {
     header_title,
+    header_subtitle,
     header_description,
     header_cta_primary,
     header_cta_primary_url,
@@ -84,25 +85,19 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           {/* Text Content - Left Side */}
           <div className="lg:w-1/2 text-center lg:text-left">
             <div className="max-w-2xl">
-              {/* AI Badge */}
-              <div
-                className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border backdrop-blur-sm animate-fadeInUp"
-                style={{
-                  borderColor: `${primaryColor}30`,
-                  background: `${primaryColor}08`,
-                }}
-              >
-                <div
-                  className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ background: gradientBg }}
-                />
-                <span
-                  className="text-sm font-medium uppercase tracking-wider"
-                  style={{ color: primaryColor }}
-                >
-                  Powered With AI Agents
-                </span>
-              </div>
+              {/* Subtitle - Exactly like the image */}
+              {header_subtitle && (
+                <div className="mb-6 animate-fadeInUp">
+                  <p
+                    className="text-sm font-semibold uppercase tracking-wider"
+                    style={{
+                      color: primaryColor,
+                    }}
+                  >
+                    {header_subtitle}
+                  </p>
+                </div>
+              )}
 
               {/* Main Title */}
               {header_title && (
@@ -117,15 +112,15 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               {/* Description */}
               {header_description && (
                 <p
-                  className="text-xl lg:text-2xl mb-8 leading-relaxed font-light animate-fadeInUp animation-delay-400"
+                  className="text-lg lg:text-xl mb-8 leading-relaxed animate-fadeInUp animation-delay-400"
                   style={{ color: neutralColor }}
                 >
                   {header_description}
                 </p>
               )}
 
-              {/* CTAs with modern layout */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 mb-12 animate-fadeInUp animation-delay-600">
+              {/* CTAs with modern layout - Exactly like the image */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 animate-fadeInUp animation-delay-600">
                 {header_cta_primary && (
                   <>
                     {header_cta_primary_url ? (
@@ -165,73 +160,57 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 )}
 
                 {header_cta_secondary && (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-px h-6 opacity-30"
-                      style={{ background: neutralColor }}
-                    />
-                    <>
-                      {header_cta_secondary_url &&
-                      header_cta_secondary_url !== "#login" ? (
-                        <a
-                          href={header_cta_secondary_url}
-                          className="group/secondary px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2 border"
-                          style={{
-                            borderColor: `${primaryColor}20`,
-                            color: primaryColor,
-                            backgroundColor: `${primaryColor}05`,
-                          }}
-                        >
-                          {header_cta_secondary}
-                          <EasyIcon
-                            icon="FiPlay"
-                            size={18}
-                            color={primaryColor}
-                          />
-                        </a>
-                      ) : (
-                        <button
-                          onClick={onShowLogin}
-                          className="group/secondary px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2 border"
-                          style={{
-                            borderColor: `${primaryColor}20`,
-                            color: primaryColor,
-                            backgroundColor: `${primaryColor}05`,
-                          }}
-                        >
-                          {header_cta_secondary}
-                          <EasyIcon
-                            icon="FiPlay"
-                            size={18}
-                            color={primaryColor}
-                          />
-                        </button>
-                      )}
-                    </>
-                  </div>
+                  <>
+                    {header_cta_secondary_url &&
+                    header_cta_secondary_url !== "#login" ? (
+                      <a
+                        href={header_cta_secondary_url}
+                        className="group/secondary px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-3 border-2"
+                        style={{
+                          borderColor: primaryColor,
+                          color: primaryColor,
+                          backgroundColor: "transparent",
+                        }}
+                      >
+                        {header_cta_secondary}
+                      </a>
+                    ) : (
+                      <button
+                        onClick={onShowLogin}
+                        className="group/secondary px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-3 border-2"
+                        style={{
+                          borderColor: primaryColor,
+                          color: primaryColor,
+                          backgroundColor: "transparent",
+                        }}
+                      >
+                        {header_cta_secondary}
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
 
-              {/* Trial Info */}
-              <div className="animate-fadeInUp animation-delay-800">
+              {/* Trial Info - Exactly like the image */}
+              <div className="animate-fadeInUp animation-delay-800 mb-12">
                 <div
-                  className="flex items-center justify-center lg:justify-start gap-4 text-sm"
+                  className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-sm"
                   style={{ color: neutralColor }}
                 >
                   <div className="flex items-center gap-2">
                     <div
-                      className="w-2 h-2 rounded-full"
+                      className="w-1.5 h-1.5 rounded-full"
                       style={{ background: accentColor }}
                     />
                     Free 14-day trial
                   </div>
                   <div
-                    className="w-px h-4 opacity-30"
+                    className="hidden sm:block w-px h-4 opacity-30"
                     style={{ background: neutralColor }}
                   />
                   <div className="flex items-center gap-2">
                     <div
-                      className="w-2 h-2 rounded-full"
+                      className="w-1.5 h-1.5 rounded-full"
                       style={{ background: accentColor }}
                     />
                     No credit card required
@@ -239,47 +218,48 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 </div>
               </div>
 
-              {/* Stats Grid */}
-              <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-8 animate-fadeInUp animation-delay-1000">
+              {/* Stats Grid - Updated to match image exactly */}
+              <div className="flex flex-col sm:flex-row gap-6 animate-fadeInUp animation-delay-1000">
                 {[
-                  { value: "2,476", label: "engagement", icon: "FiMail" },
                   {
-                    value: "AI Automation",
-                    label: "Save & Work Smart",
-                    icon: "FiZap",
+                    icon: "FiMail",
+                    title: "Email Campaigns",
+                    value: "+247% engagement",
+                    color: primaryColor,
                   },
-                  { value: "99.9%", label: "Uptime", icon: "FiServer" },
+                  {
+                    icon: "FiZap",
+                    title: "AI Automation",
+                    value: "Save 8+ hours/day",
+                    color: accentColor,
+                  },
                 ].map((stat, index) => (
                   <div
                     key={index}
-                    className="text-center lg:text-left group/stat p-4 rounded-2xl transition-all duration-300 hover:scale-105"
+                    className="flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 hover:scale-105 group/stat"
                     style={{ background: subtleGradient }}
                   >
-                    <div className="flex items-center gap-3 mb-2">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover/stat:scale-110"
+                      style={{
+                        background: `linear-gradient(135deg, ${stat.color}20 0%, ${stat.color}10 100%)`,
+                      }}
+                    >
+                      <EasyIcon icon={stat.icon} size={20} color={stat.color} />
+                    </div>
+                    <div className="text-left">
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300"
-                        style={{
-                          background: `linear-gradient(135deg, ${primaryColor}20 0%, ${accentColor}20 100%)`,
-                        }}
+                        className="text-sm font-semibold mb-1"
+                        style={{ color: textColor }}
                       >
-                        <EasyIcon
-                          icon={stat.icon}
-                          size={18}
-                          color={primaryColor}
-                        />
+                        {stat.title}
                       </div>
                       <div
-                        className="text-lg font-bold"
-                        style={{ color: textColor }}
+                        className="text-xs font-medium"
+                        style={{ color: stat.color }}
                       >
                         {stat.value}
                       </div>
-                    </div>
-                    <div
-                      className="text-xs uppercase tracking-wider font-medium"
-                      style={{ color: neutralColor }}
-                    >
-                      {stat.label}
                     </div>
                   </div>
                 ))}
@@ -309,45 +289,48 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     />
                   </div>
 
-                  {/* Floating Cards */}
+                  {/* Floating Cards - Updated to match image */}
                   <div
-                    className="absolute -top-6 -right-6 w-32 h-32 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm"
+                    className="absolute -top-4 -right-4 w-28 h-28 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 backdrop-blur-sm border"
                     style={{
-                      background: `linear-gradient(135deg, ${primaryColor}15 0%, ${accentColor}10 100%)`,
-                      border: `1px solid ${primaryColor}20`,
+                      backgroundColor: "rgba(255, 255, 255, 0.95)",
+                      borderColor: `${primaryColor}20`,
                     }}
                   >
-                    <EasyIcon icon="FiMail" size={24} color={primaryColor} />
+                    <EasyIcon icon="FiMail" size={20} color={primaryColor} />
                     <span
-                      className="text-sm font-semibold mt-2"
+                      className="text-xs font-semibold mt-1 text-center"
                       style={{ color: textColor }}
                     >
                       Email Campaigns
                     </span>
-                    <span className="text-xs" style={{ color: accentColor }}>
-                      +2476 engagement
+                    <span
+                      className="text-xs font-bold mt-1"
+                      style={{ color: accentColor }}
+                    >
+                      +247%
                     </span>
                   </div>
 
                   <div
-                    className="absolute -bottom-6 -left-6 w-36 h-36 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm"
+                    className="absolute -bottom-4 -left-4 w-32 h-32 rounded-2xl flex flex-col items-center justify-center shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:translate-y-2 backdrop-blur-sm border"
                     style={{
-                      background: `linear-gradient(135deg, ${accentColor}15 0%, ${primaryColor}10 100%)`,
-                      border: `1px solid ${accentColor}20`,
+                      backgroundColor: "rgba(255, 255, 255, 0.95)",
+                      borderColor: `${accentColor}20`,
                     }}
                   >
-                    <EasyIcon icon="FiZap" size={28} color={accentColor} />
+                    <EasyIcon icon="FiZap" size={24} color={accentColor} />
                     <span
-                      className="text-sm font-semibold mt-2"
+                      className="text-xs font-semibold mt-1 text-center"
                       style={{ color: textColor }}
                     >
                       AI Automation
                     </span>
                     <span
-                      className="text-xs text-center"
+                      className="text-xs font-bold mt-1"
                       style={{ color: primaryColor }}
                     >
-                      Save & Work Smart
+                      Save 8+ hours/day
                     </span>
                   </div>
                 </div>
