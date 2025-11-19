@@ -275,14 +275,18 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
                         {activeDropdown === link.id &&
                           featuresPages.length > 0 && (
-                            <div className="absolute top-full mx-auto mt-2 w-[700px] bg-white rounded-lg shadow-2xl overflow-hidden animate-slideDown border border-gray-200">
-                              {/* Invisible hover area above dropdown */}
+                            <div
+                              className="absolute top-full left-1/2 mt-3 transform -translate-x-1/2 
+      w-[650px] bg-white backdrop-blur-xl border border-gray-200 
+      rounded-2xl shadow-2xl z-50 animate-slideDown"
+                            >
+                              {/* Drop shadow hover area */}
                               <div
-                                className="absolute -top-4 left-0 right-0 h-4 bg-transparent"
+                                className="absolute -top-4 left-0 right-0 h-4"
                                 onMouseEnter={() => setActiveDropdown(link.id)}
                               />
 
-                              {/* Header */}
+                              {/* Dropdown Header */}
                               <div className="px-6 py-4 border-b border-gray-100">
                                 <h3
                                   className="font-bold text-lg"
@@ -296,39 +300,33 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                               </div>
 
                               {/* Features Grid */}
-                              <div className="p-6">
-                                <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-                                  {featuresPages.map((page, index) => (
-                                    <a
-                                      key={page.id}
-                                      href={`#features/${page.slug}`}
-                                      className="flex items-start gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 group group-hover:scale-105"
-                                      onClick={() => {
-                                        setActiveDropdown(null);
-                                      }}
-                                    >
-                                      {/* Icon */}
-                                      <div className="w-8 h-8 rounded flex-shrink-0 flex items-center justify-center text-xl">
-                                        {index === 0 && "📧"}
-                                        {index === 1 && "👥"}
-                                        {index === 2 && "📊"}
-                                        {index === 3 && "📋"}
-                                        {index === 4 && "💬"}
-                                        {index === 5 && "🔒"}
-                                      </div>
+                              <div className="p-6 grid grid-cols-3 gap-5">
+                                {featuresPages.map((page, index) => (
+                                  <a
+                                    key={page.id}
+                                    href={`/features/${page.slug}`}
+                                    className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
+                                    onClick={() => setActiveDropdown(null)}
+                                  >
+                                    <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl">
+                                      {index === 0 && "📧"}
+                                      {index === 1 && "👥"}
+                                      {index === 2 && "📊"}
+                                      {index === 3 && "📋"}
+                                      {index === 4 && "💬"}
+                                      {index === 5 && "🔒"}
+                                    </div>
 
-                                      {/* Text */}
-                                      <div className="flex-1 min-w-0">
-                                        <h4
-                                          className="font-medium text-sm leading-tight group-hover:text-blue-600 transition-colors"
-                                          style={{ color: textColor }}
-                                        >
-                                          {page.title}
-                                        </h4>
-                                      </div>
-                                    </a>
-                                  ))}
-                                </div>
+                                    <div className="flex-1 min-w-0">
+                                      <h4
+                                        className="font-medium text-sm leading-tight group-hover:text-blue-600"
+                                        style={{ color: textColor }}
+                                      >
+                                        {page.title}
+                                      </h4>
+                                    </div>
+                                  </a>
+                                ))}
                               </div>
                             </div>
                           )}
