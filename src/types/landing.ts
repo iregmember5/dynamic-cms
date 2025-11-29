@@ -61,6 +61,9 @@ export interface CardContent {
   title: string;
   subtitle: string;
   description: string;
+  card_content: string;
+  custom_title: string;
+  custom_description: string;
   card_style: "basic" | "feature" | "testimonial" | "pricing" | "team";
   icon: string;
   card_image?: ImageData;
@@ -167,6 +170,65 @@ export interface FAQSection {
   faqs: FAQItem[];
 }
 
+export interface ProblemSolutionItem {
+  problem: string;
+  solution: string;
+  icon?: string;
+}
+
+export interface ProblemSolutionSection {
+  heading: string;
+  introduction?: string;
+  items: ProblemSolutionItem[];
+  background_image?: ImageData | null;
+}
+
+export interface HowItWorksStep {
+  step_number?: string;
+  title?: string;
+  description?: string;
+  icon?: string;
+  content?: Array<{
+    icon?: string;
+    title?: string;
+    description?: string;
+  }>;
+  video?: {
+    id?: number;
+    title?: string;
+    video_source?: string;
+    video_url: string;
+    thumbnail?: {
+      id?: number;
+      title?: string;
+      url?: string;
+      width?: number;
+      height?: number;
+    };
+  };
+  image?: string;
+}
+
+export interface HowItWorksSection {
+  heading: string;
+  description?: string;
+  icon?: string;
+  image?: string | null;
+  background_image?: string | null;
+  steps: HowItWorksStep[];
+}
+
+export interface PricingSection {
+  heading: string;
+  description?: string;
+  widget_code?: string;
+  show_cta: boolean;
+  cta?: {
+    text: string;
+    url: string;
+  };
+}
+
 export interface LandingPageData {
   header_config?: HeaderConfig;
   footer_config?: FooterConfig;
@@ -211,6 +273,9 @@ export interface LandingPageData {
   cta_secondary_text?: string;
   cta_secondary_url?: string;
   cta_offer?: string;
+  secondary_cta_heading?: string;
+  secondary_cta_description?: string;
+  secondary_cta_button_text?: string;
   meta_title?: string;
   meta_description?: string;
   og_image?: ImageData;
@@ -226,6 +291,10 @@ export interface LandingPageData {
   };
   dynamic_content?: DynamicContentBlock[];
   allowed_frontends?: FrontendSite[];
+  problem_solution_section?: ProblemSolutionSection;
+  how_it_works_section?: HowItWorksSection;
+  pricing_section?: PricingSection;
+  section_order?: string[];
 }
 
 // ===== NEW: FeaturesPage Interface =====
