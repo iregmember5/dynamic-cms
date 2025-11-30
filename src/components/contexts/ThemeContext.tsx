@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { ColorTheme } from '../types/landing';
+import type { ColorTheme } from '../../types/landing';
 
 interface ThemeContextType {
   theme: ColorTheme | null;
