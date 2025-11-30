@@ -18,7 +18,6 @@ function App() {
       const path = window.location.pathname;
       const hash = window.location.hash;
 
-      // Debug pages
       if (
         path.includes("/debug-features") ||
         hash.includes("#debug-features")
@@ -32,13 +31,11 @@ function App() {
         return;
       }
 
-      // Legacy debug route defaults to features
       if (path.includes("/debug") || hash.includes("#debug")) {
         setCurrentView({ type: "debug-features" });
         return;
       }
 
-      // Check if we're on a blog post page
       if (path.includes("/blog/") || hash.includes("#blog/")) {
         const slugMatch =
           path.match(/\/blog\/([^\/]+)/) || hash.match(/#blog\/([^\/]+)/);
@@ -51,7 +48,6 @@ function App() {
         return;
       }
 
-      // Check if we're on blog index
       if (path.includes("/blog") || hash.includes("#blog")) {
         setCurrentView({ type: "blog" });
         return;
