@@ -60,7 +60,7 @@ const DebugLandingAPI = () => {
         const isDevelopment = import.meta.env.DEV;
         const frontendUrl = isDevelopment
           ? "http://localhost:5173"
-          : "https://dynamic-cms-zeta.vercel.app";
+          : "https://mypowerly.vercel.app";
 
         const baseApiUrl = isDevelopment
           ? "/blogs/api/v2"
