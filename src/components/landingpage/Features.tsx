@@ -15,6 +15,16 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
   console.log("🎯 Features Component - features array:", features);
   console.log("🎯 Features Component - features length:", features?.length);
 
+  // Auto-scroll effect
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) =>
+        prev === (features?.length || 1) - 1 ? 0 : prev + 1
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [features?.length]);
+
   const handlePrev = () => {
     setCurrentIndex((prev) =>
       prev === 0 ? (features?.length || 1) - 1 : prev - 1
@@ -91,7 +101,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
 
         {/* Features Carousel */}
         {features && features.length > 0 ? (
-          <div className="relative max-w-4xl mx-auto px-4">
+          <div className="relative max-w-6xl mx-auto px-4">
             {/* Carousel Container */}
             <div className="relative overflow-hidden">
               <div
@@ -108,116 +118,58 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
                   >
                     {/* Card container */}
                     <div className="relative h-full p-8 sm:p-10 rounded-2xl transition-all duration-500 border backdrop-blur-sm overflow-hidden bg-theme-background border-theme-primary hover:shadow-lg">
-                      {/* Always visible gradient (changes opacity on navigation) */}
-                      <div
-                        className="absolute inset-0 rounded-2xl opacity-20 transition-opacity duration-500 -z-10 hover:opacity-80"
-                        style={{
-                          background: `radial-gradient(circle at top left, var(--color-primary), transparent 60%)`,
-                        }}
-                      />
+                      {/* Always visible gradient */}
+                      <div className="absolute inset-0 rounded-2xl opacity-20 transition-opacity duration-500 -z-10 hover:opacity-80" />
 
                       {/* Top accent line */}
-                      <div
-                        className="absolute top-0 left-0 right-0 h-1 origin-left"
-                        style={{
-                          background: `linear-gradient(90deg, var(--color-primary), var(--color-accent))`,
-                        }}
-                      />
+                      <div className="absolute top-0 left-0 right-0 h-1 origin-left" />
 
-                      {/* Image or Icon container */}
-                      {feature.image ? (
-                        <div className="mb-6">
-                          <img
-                            src={`https://esign-admin.signmary.com${feature.image.url}`}
-                            alt={feature.title}
-                            className="w-full h-48 object-cover rounded-xl"
-                          />
-                        </div>
-                      ) : feature.icon ? (
-                        <div className="mb-6">
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative overflow-hidden bg-theme-primary/10">
-                            <EasyIcon
-                              icon={feature.icon}
-                              size={32}
-                              color="var(--color-primary)"
-                              className="relative z-10 transition-transform duration-300 hover:rotate-6 sm:w-10 sm:h-10"
-                            />
-
-                            {/* Shine effect */}
-                            <div
-                              className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-700"
-                              style={{
-                                background: `linear-gradient(90deg, transparent, var(--color-primary)20, transparent)`,
-                              }}
-                            />
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {/* Title */}
-                      <h3 className="text-2xl sm:text-3xl font-bold mb-4 leading-tight transition-colors duration-300 text-theme-text">
-                        {feature.title}
-                      </h3>
-
-                      {/* Description with auto-formatting */}
-                      {(() => {
-                        const description = feature.description || "";
-                        // Split by bullet point indicators (•, -, *, or newlines with dashes)
-                        const bulletRegex = /[•\-\*]\s+/;
-                        const parts = description
-                          .split(/\n|(?=[•\-\*]\s+)/)
-                          .filter((text) => text.trim());
-
-                        // Check if we have bullet points
-                        const hasBullets = parts.some((part) =>
-                          bulletRegex.test(part)
-                        );
-
-                        if (hasBullets && parts.length > 1) {
-                          // Extract intro text (before first bullet)
-                          const introText = parts[0]
-                            .replace(bulletRegex, "")
-                            .trim();
-                          const showIntro =
-                            introText && !bulletRegex.test(parts[0]);
-
-                          // Extract bullet items
-                          const bullets = parts
-                            .slice(showIntro ? 1 : 0)
-                            .map((part) => part.replace(bulletRegex, "").trim())
-                            .filter(Boolean);
-
-                          return (
-                            <div>
-                              {showIntro && (
-                                <p className="text-sm sm:text-base leading-relaxed mb-6 text-theme-neutral">
-                                  {introText}
-                                </p>
-                              )}
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                                {bullets.map((bullet, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="flex items-start gap-3 p-3 rounded-lg transition-all duration-300 bg-theme-primary/5 border border-theme-primary/10"
-                                  >
-                                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2 bg-theme-primary" />
-                                    <p className="text-sm leading-relaxed text-theme-neutral flex-1">
-                                      {bullet}
-                                    </p>
-                                  </div>
-                                ))}
+                      {/* Two column layout: text left, image right */}
+                      <div className="flex flex-col lg:flex-row gap-8 items-center">
+                        {/* Left: Text content */}
+                        <div className="flex-1">
+                          {/* Icon */}
+                          {feature.icon && (
+                            <div className="mb-6">
+                              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative overflow-hidden bg-theme-primary/10">
+                                <EasyIcon
+                                  icon={feature.icon}
+                                  size={32}
+                                  color="var(--color-primary)"
+                                  className="relative z-10 transition-transform duration-300 hover:rotate-6 sm:w-10 sm:h-10"
+                                />
+                                <div
+                                  className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-700"
+                                  style={{
+                                    background: `linear-gradient(90deg, transparent, var(--color-primary)20, transparent)`,
+                                  }}
+                                />
                               </div>
                             </div>
-                          );
-                        }
+                          )}
 
-                        // No bullets, show as regular text
-                        return (
+                          {/* Title */}
+                          <h3 className="text-2xl sm:text-3xl font-bold mb-4 leading-tight transition-colors duration-300 text-theme-text">
+                            {feature.title}
+                          </h3>
+
+                          {/* Description */}
                           <p className="text-sm sm:text-base leading-relaxed text-pretty text-theme-neutral">
-                            {description}
+                            {feature.description}
                           </p>
-                        );
-                      })()}
+                        </div>
+
+                        {/* Right: Image */}
+                        {feature.image && (
+                          <div className="flex-1 lg:max-w-md">
+                            <img
+                              src={`https://esign-admin.signmary.com${feature.image.url}`}
+                              alt={feature.title}
+                              className="w-full h-64 lg:h-80 object-cover rounded-xl shadow-lg"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
