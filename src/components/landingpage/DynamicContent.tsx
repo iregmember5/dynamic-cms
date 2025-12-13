@@ -478,26 +478,45 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
       const dynamicListData = block.value || {};
 
       return (
-        <div className="mb-16">
-          {dynamicListData.heading && (
-            <h3 className="text-4xl font-bold mb-4 text-center text-theme-text">
-              {dynamicListData.heading}
-            </h3>
-          )}
-          {dynamicListData.description && (
-            <p className="text-gray-600 mb-10 text-xl leading-relaxed text-center max-w-3xl mx-auto">
-              {dynamicListData.description}
-            </p>
-          )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {Array.isArray(dynamicListData.items) &&
-              dynamicListData.items.map((item: any, idx: number) => {
-                if (!item || typeof item !== "object") return null;
+        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-200">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="space-y-6 mb-16">
+              {dynamicListData.heading && (
+                <h2 className="text-4xl md:text-5xl font-bold text-theme-text">
+                  {dynamicListData.heading}
+                </h2>
+              )}
+              {dynamicListData.description && (
+                <p className="text-lg md:text-xl text-theme-neutral leading-relaxed max-w-3xl mx-auto">
+                  {dynamicListData.description}
+                </p>
+              )}
+            </div>
 
-                return <ScrollAnimateItem key={idx} item={item} />;
-              })}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.isArray(dynamicListData.items) &&
+                dynamicListData.items.map((item: any, idx: number) => {
+                  if (!item || typeof item !== "object") return null;
+
+                  return (
+                    <div key={idx} className="group">
+                      <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-theme-primary">
+                        <div className="flex flex-col items-center text-center space-y-4">
+                          <h3 className="text-xl font-semibold text-theme-text group-hover:text-theme-primary transition-colors">
+                            {item.title}
+                          </h3>
+                          <div
+                            className="text-theme-neutral leading-relaxed"
+                            dangerouslySetInnerHTML={{ __html: item.content }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
-        </div>
+        </section>
       );
 
     case "dynamic_list_old":
