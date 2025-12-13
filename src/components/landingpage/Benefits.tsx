@@ -114,10 +114,25 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto px-4">
-          {displayBenefits.map((benefit: Benefit) => (
+          {displayBenefits.map((benefit: Benefit) => {
+            const hasImage = benefit.image?.url;
+            const imageUrl = hasImage ? `https://esign-admin.signmary.com${hasImage}` : null;
+            
+            return (
             <div key={benefit.id} className="group relative">
               {/* Card */}
-              <div className="relative h-full p-6 rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm bg-theme-background border-theme-primary/10">
+              <div className="relative h-full p-6 rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm bg-theme-background border-theme-primary/10 overflow-hidden">
+                {/* Image Background */}
+                {imageUrl && (
+                  <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                    <img 
+                      src={imageUrl} 
+                      alt={benefit.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
                 {/* Hover gradient overlay */}
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
@@ -127,7 +142,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 />
 
                 {/* Icon container */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-4 relative z-10">
                   {benefit.icon && (
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden bg-theme-primary/10">
                       <EasyIcon
@@ -163,12 +178,12 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 transition-colors duration-300 line-clamp-2 text-theme-text">
+                <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 transition-colors duration-300 line-clamp-2 text-theme-text relative z-10">
                   {benefit.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm leading-relaxed text-pretty line-clamp-3 text-theme-neutral">
+                <p className="text-xs sm:text-sm leading-relaxed text-pretty line-clamp-3 text-theme-neutral relative z-10">
                   {benefit.description}
                 </p>
 
@@ -183,7 +198,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 </div>
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
         {/* CTA */}

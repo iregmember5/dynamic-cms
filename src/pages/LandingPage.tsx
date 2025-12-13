@@ -63,6 +63,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         setLoading(true);
         const pageData = await fetchLandingPageData();
         
+        console.log("📦 LandingPage received data:", pageData);
+        console.log("🎨 Features data:", pageData.features);
+        console.log("🎯 Benefits data:", pageData.benefits);
+        console.log("💬 Testimonials data:", pageData.testimonials);
+        
         // Set theme colors first for loading screen
         if (pageData.color_theme) {
           setThemeColors(pageData.color_theme);

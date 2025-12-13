@@ -10,6 +10,11 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features } = data;
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  console.log("🎯 Features Component - Received data:", data);
+  console.log("🎯 Features Component - features_head:", features_head);
+  console.log("🎯 Features Component - features array:", features);
+  console.log("🎯 Features Component - features length:", features?.length);
+
   const handlePrev = () => {
     setCurrentIndex((prev) =>
       prev === 0 ? (features?.length || 1) - 1 : prev - 1
