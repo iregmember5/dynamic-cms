@@ -1,6 +1,7 @@
 import React from "react";
 import type { Feature, Theme } from "../../../types/features-page";
 import EasyIcon from "../../landingpage/IconRenderer";
+import { getFullImageUrl } from "../utils/imageUtils";
 
 interface EnhancedFeaturesProps {
   features: Feature[];
@@ -59,14 +60,22 @@ export const EnhancedFeatures: React.FC<EnhancedFeaturesProps> = ({
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 features-gradient-bg" />
               <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 features-border-glow" />
 
-              {feature.icon && (
+              {feature.image ? (
+                <div className="relative mb-6">
+                  <img
+                    src={getFullImageUrl(feature.image.url)}
+                    alt={feature.title}
+                    className="w-full h-48 object-cover rounded-2xl transform transition-all duration-500 group-hover:scale-105 shadow-lg"
+                  />
+                </div>
+              ) : feature.icon ? (
                 <div className="relative mb-6">
                   <div className="w-20 h-20 rounded-2xl flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-lg relative overflow-hidden features-gradient-icon">
                     <EasyIcon icon={feature.icon} size={32} color="#FFFFFF" />
                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                   </div>
                 </div>
-              )}
+              ) : null}
 
               <h3
                 className="text-2xl font-bold mb-4 relative z-10 group-hover:translate-x-2 transition-transform duration-300 text-theme-text"

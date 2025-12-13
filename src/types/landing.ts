@@ -12,6 +12,7 @@ export interface Feature {
   title: string;
   description: string;
   icon: string;
+  image?: ImageData | null;
   order: number;
 }
 

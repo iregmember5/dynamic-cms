@@ -124,8 +124,16 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
                         }}
                       />
 
-                      {/* Icon container */}
-                      {feature.icon && (
+                      {/* Image or Icon container */}
+                      {feature.image ? (
+                        <div className="mb-6">
+                          <img
+                            src={`https://esign-admin.signmary.com${feature.image.url}`}
+                            alt={feature.title}
+                            className="w-full h-48 object-cover rounded-xl"
+                          />
+                        </div>
+                      ) : feature.icon ? (
                         <div className="mb-6">
                           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative overflow-hidden bg-theme-primary/10">
                             <EasyIcon
@@ -144,7 +152,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
                             />
                           </div>
                         </div>
-                      )}
+                      ) : null}
 
                       {/* Title */}
                       <h3 className="text-2xl sm:text-3xl font-bold mb-4 leading-tight transition-colors duration-300 text-theme-text">
