@@ -35,51 +35,73 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
           {value.items.map((item: any, idx: number) => {
             if (item.type === "feature") {
               return (
-                <div
-                  key={idx}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
-                >
-                  {item.value.icon && (
-                    <div className="mb-3 group-hover:scale-110 transition-transform duration-300">
-                      <EasyIcon icon={item.value.icon} size={32} color={theme.primaryColor} />
-                    </div>
-                  )}
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ color: theme.textColor }}
+                <div key={idx} className="group">
+                  <div
+                    className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200"
+                    style={{ borderColor: theme.primaryColor + '20' }}
                   >
-                    {item.value.title}
-                  </h3>
-                  <p style={{ color: theme.neutralColor }}>
-                    {item.value.description}
-                  </p>
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      {item.value.icon && (
+                        <div className="p-4 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors duration-300">
+                          <EasyIcon icon={item.value.icon} size={32} color={theme.primaryColor} />
+                        </div>
+                      )}
+                      {item.value.image && (
+                        <img
+                          src={getFullImageUrl(item.value.image.url)}
+                          alt={item.value.title}
+                          className="w-full h-48 object-cover rounded-xl"
+                        />
+                      )}
+                      <h3
+                        className="text-xl font-semibold transition-colors"
+                        style={{ color: theme.textColor }}
+                      >
+                        {item.value.title}
+                      </h3>
+                      <p className="leading-relaxed" style={{ color: theme.neutralColor }}>
+                        {item.value.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               );
             }
 
             if (item.type === "benefit") {
               return (
-                <div
-                  key={idx}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
-                >
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ color: theme.textColor }}
+                <div key={idx} className="group">
+                  <div
+                    className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200"
+                    style={{ borderColor: theme.primaryColor + '20' }}
                   >
-                    {item.value.title}
-                  </h3>
-                  {item.value.stat && (
-                    <div
-                      className="text-3xl font-bold mb-3 group-hover:scale-110 transition-transform duration-300"
-                      style={{ color: theme.primaryColor }}
-                    >
-                      {item.value.stat}
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      {item.value.image && (
+                        <img
+                          src={getFullImageUrl(item.value.image.url)}
+                          alt={item.value.title}
+                          className="w-full h-48 object-cover rounded-xl"
+                        />
+                      )}
+                      <h3
+                        className="text-xl font-semibold transition-colors"
+                        style={{ color: theme.textColor }}
+                      >
+                        {item.value.title}
+                      </h3>
+                      {item.value.stat && (
+                        <div
+                          className="text-2xl font-bold"
+                          style={{ color: theme.primaryColor }}
+                        >
+                          {item.value.stat}
+                        </div>
+                      )}
+                      <p className="leading-relaxed" style={{ color: theme.neutralColor }}>
+                        {item.value.description}
+                      </p>
                     </div>
-                  )}
-                  <p style={{ color: theme.neutralColor }}>
-                    {item.value.description}
-                  </p>
+                  </div>
                 </div>
               );
             }
