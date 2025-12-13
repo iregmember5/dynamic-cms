@@ -147,14 +147,14 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
                     variants={itemVariants}
                   >
-                    {header_title.split(" ").slice(0, -2).join(" ")}
+                    All-in-One Business
                     <br />
                     <motion.span
                       className="text-primary relative inline-block"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >
-                      {header_title.split(" ").slice(-2).join(" ")}
+                      Automation Platform
                       <motion.div
                         className="absolute -inset-2 bg-blue-500/10 rounded-lg -z-10"
                         initial={{ scale: 0, opacity: 0 }}
@@ -187,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   {header_cta_primary_url ? (
                     <a
                       href={header_cta_primary_url}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 gradient-theme-primary"
                     >
                       <span>{header_cta_primary}</span>
                       <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -195,7 +195,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   ) : (
                     <button
                       onClick={handleGetStartedClick}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white bg-primary hover:bg-primary rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 gradient-theme-primary"
                     >
                       <span>{header_cta_primary}</span>
                       <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 group-hover:translate-x-1 transition-transform" />
