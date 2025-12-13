@@ -20,6 +20,14 @@ import { FAQSection } from "../sections/FAQSection";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { CTASection } from "../sections/CTASection";
 import { PricingSection } from "../sections/PricingSection";
+import {
+  ESignatureLayout,
+  W9ChaserLayout,
+  BulkSMSLayout,
+  BulkWhatsAppLayout,
+  BulkEmailLayout,
+  DocumentMergeLayout,
+} from "../layouts";
 
 export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
   const [data, setData] = useState<FeaturesPageData | null>(null);
@@ -73,13 +81,32 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
 
   const theme: Theme = createTheme(data.color_theme);
 
-  return (
-    <div className="features-page" style={{ backgroundColor: theme.bgColor }}>
-      <CustomStyles theme={theme} />
+  // Render layout based on page_layout field
+  const renderLayout = () => {
+    switch (data.page_layout) {
+      case 'esignature':
+        return <ESignatureLayout data={data} theme={theme} />;
+      case 'w9_chaser':
+        return <W9ChaserLayout data={data} theme={theme} />;
+      case 'bulk_sms':
+        return <BulkSMSLayout data={data} theme={theme} />;
+      case 'bulk_whatsapp':
+        return <BulkWhatsAppLayout data={data} theme={theme} />;
+      case 'bulk_email':
+        return <BulkEmailLayout data={data} theme={theme} />;
+      case 'document_merge':
+        return <DocumentMergeLayout data={data} theme={theme} />;
+      default:
+        return renderDefaultLayout();
+    }
+  };
+
+  const renderDefaultLayout = () => (
+    <>
+      <HeaderSection data={data} theme={theme} />
 
       <HeaderSection data={data} theme={theme} />
 
-      {/* Dynamic Content Sections */}
       {data.dynamic_content && data.dynamic_content.length > 0 && (
         <div>
           {data.dynamic_content.map((block, index) => (
@@ -187,6 +214,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
           isPrimary={false}
         />
       )}
+    </>
+  );
+
+  return (
+    <div className="features-page" style={{ backgroundColor: theme.bgColor }}>
+      <CustomStyles theme={theme} />
+      {renderLayout()}
     </div>
   );
 };

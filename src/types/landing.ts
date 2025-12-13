@@ -313,6 +313,9 @@ export interface FeaturesPageData {
   first_published_at: string | null;
   last_published_at: string | null;
 
+  // Layout Selection
+  page_layout?: 'esignature' | 'w9_chaser' | 'bulk_sms' | 'bulk_whatsapp' | 'bulk_email' | 'document_merge';
+
   // Header Section
   header_title: string;
   header_subtitle: string;

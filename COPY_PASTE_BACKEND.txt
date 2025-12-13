@@ -1,0 +1,54 @@
+===========================================
+COPY-PASTE CODE FOR BACKEND
+===========================================
+
+STEP 1: Add this field to FeaturesPage class
+-------------------------------------------
+Location: After line "class FeaturesPage(Page):"
+
+    # ===== LAYOUT SELECTION =====
+    LAYOUT_CHOICES = [
+        ('esignature', 'ESignature Layout'),
+        ('w9_chaser', 'W9 Chaser Layout'),
+        ('bulk_sms', 'Bulk SMS Layout'),
+        ('bulk_whatsapp', 'Bulk WhatsApp Layout'),
+        ('bulk_email', 'Bulk Email Layout'),
+        ('document_merge', 'Document Merge Layout'),
+    ]
+    
+    page_layout = models.CharField(
+        max_length=20,
+        choices=LAYOUT_CHOICES,
+        default='esignature',
+        blank=True,
+        help_text="Choose the layout style for this feature page"
+    )
+
+
+STEP 2: Add this to content_panels
+-------------------------------------------
+Location: First item in content_panels list
+
+        # Layout Selection
+        FieldPanel('page_layout'),
+
+
+STEP 3: Run these commands
+-------------------------------------------
+python manage.py makemigrations blogs_app
+python manage.py migrate blogs_app
+
+
+STEP 4: Update pages in Wagtail Admin
+-------------------------------------------
+1. Go to Wagtail Admin → Pages
+2. Edit "ESignature" page → Select "ESignature Layout" → Save
+3. Edit "W9 Chaser" page → Select "W9 Chaser Layout" → Save
+4. Edit "Bulk SMS Campaign" page → Select "Bulk SMS Layout" → Save
+5. Edit "Bulk Sms WhatsApp" page → Select "Bulk WhatsApp Layout" → Save
+6. Edit "Bulk Email Campaign" page → Select "Bulk Email Layout" → Save
+7. Edit "Document Merge" page → Select "Document Merge Layout" → Save
+
+
+DONE! Test your frontend.
+===========================================

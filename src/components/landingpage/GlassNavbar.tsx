@@ -263,29 +263,36 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
                               {/* Features Grid */}
                               <div className="p-6 grid grid-cols-3 gap-5">
-                                {featuresPages.map((page, index) => (
-                                  <a
-                                    key={page.id}
-                                    href={`/#features/${page.slug}`}
-                                    className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
-                                    onClick={() => setActiveDropdown(null)}
-                                  >
-                                    <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl">
-                                      {index === 0 && "📧"}
-                                      {index === 1 && "👥"}
-                                      {index === 2 && "📊"}
-                                      {index === 3 && "📋"}
-                                      {index === 4 && "💬"}
-                                      {index === 5 && "🔒"}
-                                    </div>
+                                {featuresPages.map((page) => {
+                                  const layoutIcons: Record<string, string> = {
+                                    esignature: "✍️",
+                                    w9_chaser: "📋",
+                                    bulk_sms: "📱",
+                                    bulk_whatsapp: "💬",
+                                    bulk_email: "📧",
+                                    document_merge: "📄",
+                                  };
+                                  const icon = page.page_layout ? layoutIcons[page.page_layout] : "📊";
+                                  
+                                  return (
+                                    <a
+                                      key={page.id}
+                                      href={`/#features/${page.slug}`}
+                                      className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
+                                      onClick={() => setActiveDropdown(null)}
+                                    >
+                                      <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl">
+                                        {icon}
+                                      </div>
 
-                                    <div className="flex-1 min-w-0">
-                                      <h4 className="font-medium text-sm leading-tight group-hover:text-blue-600 text-theme-text">
-                                        {page.title}
-                                      </h4>
-                                    </div>
-                                  </a>
-                                ))}
+                                      <div className="flex-1 min-w-0">
+                                        <h4 className="font-medium text-sm leading-tight group-hover:text-blue-600 text-theme-text">
+                                          {page.title}
+                                        </h4>
+                                      </div>
+                                    </a>
+                                  );
+                                })}
                               </div>
                             </div>
                           )}
