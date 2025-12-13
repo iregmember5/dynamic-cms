@@ -49,6 +49,15 @@ const EasyIcon: React.FC<EasyIconProps> = ({
   color,
   className = "",
 }) => {
+  // Check if it's an emoji (not a React icon name)
+  if (icon && !/^[A-Z][a-z]/.test(icon)) {
+    return (
+      <span className={className} style={{ fontSize: size, lineHeight: 1 }}>
+        {icon}
+      </span>
+    );
+  }
+
   // Find the icon component
   const IconComponent = ALL_ICONS[icon as keyof typeof ALL_ICONS] as any;
 
