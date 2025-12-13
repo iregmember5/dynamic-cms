@@ -125,7 +125,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                 <div className="relative h-full rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm bg-theme-background border-theme-primary/10 overflow-hidden">
                   {/* Image at top */}
                   {imageUrl && (
-                    <div className="w-full h-40 overflow-hidden">
+                    <div className="w-full h-32 overflow-hidden">
                       <img
                         src={imageUrl}
                         alt={benefit.title}
@@ -134,7 +134,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                     </div>
                   )}
 
-                  <div className="p-6">
+                  <div className="p-4">
                     {/* Hover gradient overlay */}
                     <div
                       className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
@@ -146,12 +146,12 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                     {/* Icon container */}
                     <div className="flex items-start justify-between mb-4 relative z-10">
                       {benefit.icon && (
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden bg-theme-primary/10">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden bg-theme-primary/10">
                           <EasyIcon
                             icon={benefit.icon}
-                            size={20}
+                            size={18}
                             color="var(--color-primary)"
-                            className="relative z-10 transition-transform duration-500 group-hover:rotate-6 sm:w-[22px] sm:h-[22px]"
+                            className="relative z-10 transition-transform duration-500 group-hover:rotate-6"
                           />
 
                           {/* Shine effect */}
@@ -166,7 +166,7 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
                       {benefit.stats && (
                         <div
-                          className="text-right font-bold text-base sm:text-lg lg:text-xl transition-all duration-300 group-hover:scale-105"
+                          className="text-right font-bold text-sm sm:text-base transition-all duration-300 group-hover:scale-105"
                           style={{
                             background: `linear-gradient(135deg, var(--color-primary), var(--color-accent))`,
                             WebkitBackgroundClip: "text",
@@ -180,12 +180,12 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 transition-colors duration-300 line-clamp-2 text-theme-text relative z-10">
+                    <h3 className="text-sm sm:text-base font-bold mb-2 transition-colors duration-300 line-clamp-2 text-theme-text relative z-10">
                       {benefit.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm leading-relaxed text-pretty line-clamp-3 text-theme-neutral relative z-10">
+                    <p className="text-xs leading-relaxed text-pretty line-clamp-3 text-theme-neutral relative z-10">
                       {benefit.description}
                     </p>
                   </div>

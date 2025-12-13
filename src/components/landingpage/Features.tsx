@@ -21,7 +21,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
       setCurrentIndex((prev) =>
         prev === (features?.length || 1) - 1 ? 0 : prev + 1
       );
-    }, 5000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [features?.length]);
 
@@ -55,27 +55,11 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
       className="py-16 sm:py-24 relative overflow-hidden bg-theme-background"
     >
       {/* Subtle background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.015]"
-        style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--color-text) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+      <div className="absolute inset-0 opacity-[0.015]" />
 
       {/* Gradient orbs */}
-      <div
-        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[80px] opacity-10 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, var(--color-primary), transparent 65%)`,
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[60px] opacity-8 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, var(--color-accent), transparent 65%)`,
-        }}
-      />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[80px] opacity-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[60px] opacity-8 pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
