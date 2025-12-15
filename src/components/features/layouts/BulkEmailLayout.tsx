@@ -46,16 +46,19 @@ export const BulkEmailLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.faq_section_description}
       />
     )}
-    {data.primary_cta_heading && (
-      <CTASection
-        heading={data.primary_cta_heading}
-        description={data.primary_cta_description}
-        buttonText={data.primary_cta_button_text}
-        buttonUrl={data.primary_cta_button_url}
-        backgroundImage={data.primary_cta_background_image}
-        theme={theme}
-        isPrimary={true}
-      />
-    )}
+    {data.primary_cta_sections &&
+      data.primary_cta_sections.length > 0 &&
+      data.primary_cta_sections.map((cta: any, i: number) => (
+        <CTASection
+          key={i}
+          heading={cta.heading}
+          description={cta.description}
+          buttonText={cta.button_text}
+          buttonUrl={cta.button_url}
+          backgroundImage={cta.background_image}
+          theme={theme}
+          isPrimary={true}
+        />
+      ))}
   </>
 );
