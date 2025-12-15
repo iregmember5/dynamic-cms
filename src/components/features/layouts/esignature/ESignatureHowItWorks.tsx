@@ -66,7 +66,7 @@ export const ESignatureHowItWorks: React.FC<{
       </div>
 
       {/* Steps grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {steps.map((step: any, i: number) => {
           const content = step.content?.[0] || {};
 
@@ -83,17 +83,17 @@ export const ESignatureHowItWorks: React.FC<{
                 </div>
               )}
 
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 h-full">
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 h-full">
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-indigo-50/0 to-blue-50/0 group-hover:from-blue-50/50 group-hover:via-indigo-50/30 group-hover:to-blue-50/50 transition-all duration-500"></div>
 
-                <div className="relative z-10 p-8">
+                <div className="relative z-10 p-6">
                   {/* Step number with elegant design */}
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-4">
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                      <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                        <span className="text-2xl font-bold text-white">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                      <div className="relative w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                        <span className="text-xl font-bold text-white">
                           {step.step_number}
                         </span>
                       </div>
@@ -118,12 +118,12 @@ export const ESignatureHowItWorks: React.FC<{
 
                   {/* Image with elegant frame */}
                   {step.image && (
-                    <div className="mb-6 relative overflow-hidden rounded-2xl">
+                    <div className="mb-4 relative overflow-hidden rounded-xl">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
                       <img
                         src={getFullImageUrl(step.image.url)}
                         alt={content.title}
-                        className="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-40 object-cover transform group-hover:scale-105 transition-transform duration-700"
                       />
                       {/* Overlay icon */}
                       <div className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -152,16 +152,16 @@ export const ESignatureHowItWorks: React.FC<{
 
                   {/* Content */}
                   <div>
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-gray-900 group-hover:text-blue-900 transition-colors">
+                    <h3 className="text-xl lg:text-2xl font-bold mb-3 text-gray-900 group-hover:text-blue-900 transition-colors">
                       {content.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-base lg:text-lg">
+                    <p className="text-gray-600 leading-relaxed text-sm lg:text-base">
                       {content.description}
                     </p>
                   </div>
 
                   {/* Bottom accent */}
-                  <div className="mt-6 pt-6 border-t border-gray-100">
+                  <div className="mt-4 pt-4 border-t border-gray-100">
                     <div className="flex items-center gap-2 text-sm font-medium text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <span>Step {step.step_number}</span>
                       <svg

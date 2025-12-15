@@ -6,37 +6,61 @@ export const ESignatureHeader: React.FC<{ data: FeaturesPageData }> = ({
   data,
 }) => (
   <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-    {/* Animated background elements */}
-    <div className="absolute inset-0">
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-      <div className="absolute top-40 right-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-700"></div>
-      <div className="absolute -bottom-32 left-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse delay-1000"></div>
-    </div>
-
-    {/* Signature pen stroke pattern */}
-    <div className="absolute inset-0 opacity-5">
+    {/* Geometric background pattern */}
+    <div className="absolute inset-0 opacity-10">
       <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern
-            id="signature-pattern"
+            id="geometric"
             x="0"
             y="0"
-            width="200"
-            height="200"
+            width="100"
+            height="100"
             patternUnits="userSpaceOnUse"
           >
-            <path
-              d="M20,100 Q60,80 100,100 T180,100"
-              stroke="white"
-              strokeWidth="2"
+            <rect
+              x="0"
+              y="0"
+              width="50"
+              height="50"
               fill="none"
+              stroke="white"
+              strokeWidth="0.5"
               opacity="0.3"
             />
-            <circle cx="30" cy="100" r="2" fill="white" opacity="0.4" />
+            <circle
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.5"
+              opacity="0.2"
+            />
+            <path
+              d="M0,0 L50,50 M50,0 L0,50"
+              stroke="white"
+              strokeWidth="0.5"
+              opacity="0.15"
+            />
+            <polygon points="75,25 85,40 65,40" fill="white" opacity="0.1" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#signature-pattern)" />
+        <rect width="100%" height="100%" fill="url(#geometric)" />
       </svg>
+    </div>
+
+    {/* Animated geometric shapes */}
+    <div className="absolute inset-0">
+      <div className="absolute top-20 left-10 w-32 h-32 border-4 border-blue-400/20 rotate-45 animate-pulse"></div>
+      <div className="absolute top-40 right-20 w-40 h-40 rounded-full border-4 border-purple-400/20 animate-pulse delay-700"></div>
+      <div
+        className="absolute bottom-32 left-40 w-36 h-36"
+        style={{ clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)" }}
+      >
+        <div className="w-full h-full border-4 border-indigo-400/20 animate-pulse delay-1000"></div>
+      </div>
+      <div className="absolute top-1/2 right-1/4 w-24 h-24 border-4 border-blue-300/20 rounded-lg rotate-12 animate-pulse delay-500"></div>
     </div>
 
     <div className="container mx-auto px-6 lg:px-8 relative z-10 py-20">
@@ -63,7 +87,7 @@ export const ESignatureHeader: React.FC<{ data: FeaturesPageData }> = ({
         </div>
 
         {/* Main heading with gradient text */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-center">
+        <h1 className="text-3xl md:text-7xl lg:text-8xl font-bold mb-8 text-center">
           <span className="block text-white mb-2">{data.header_title}</span>
         </h1>
 
