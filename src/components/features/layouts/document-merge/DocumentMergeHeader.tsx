@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeaturesPageData } from '../../../../types/features-page';
+import type { FeaturesPageData } from '../../../../types/features-page';
 import { getFullImageUrl } from '../../utils/imageUtils';
 
 export const DocumentMergeHeader: React.FC<{ data: FeaturesPageData }> = ({ data }) => (
