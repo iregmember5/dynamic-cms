@@ -25,7 +25,7 @@ export const ESignatureFeatures: React.FC<{
       </div>
 
       {/* Features grid */}
-      <div className="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-7xl mx-auto">
         {features.map((f: any, i: number) => (
           <div
             key={i}
