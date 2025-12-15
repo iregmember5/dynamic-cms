@@ -154,7 +154,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
         />
       )}
 
-      {(data.problem_solution_introduction || data.problem_solution_stream) && (
+      {(data.problem_solution_heading || data.problem_solution_introduction) && (
         <ProblemSolutionSection data={data} theme={theme} />
       )}
 

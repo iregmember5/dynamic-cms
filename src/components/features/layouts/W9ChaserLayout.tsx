@@ -20,7 +20,7 @@ interface LayoutProps {
 export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
     <HeaderSection data={data} theme={theme} />
-    {(data.problem_solution_stream || data.problem_solution_introduction) && (
+    {(data.problem_solution_heading || data.problem_solution_introduction) && (
       <ProblemSolutionSection data={data} theme={theme} />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (

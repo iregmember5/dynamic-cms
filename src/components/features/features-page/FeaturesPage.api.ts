@@ -33,7 +33,15 @@ export const fetchAllFeaturesPages = async (): Promise<FeaturesPageData[]> => {
       return [];
     }
 
-    return data.items;
+    return data.items.map((item: any) => ({
+      ...item,
+      how_it_works_steps: item.how_it_works_steps?.steps || [],
+      benefits: item.benefits?.items || [],
+      features: item.features?.items || [],
+      faqs: item.faqs?.items || [],
+      card_sections: item.card_sections?.items || [],
+      testimonials: item.testimonials?.items || [],
+    }));
   } catch (error) {
     console.error("Error fetching features pages:", error);
     return [];

@@ -12,7 +12,7 @@ interface ProblemSolutionSectionProps {
 export const ProblemSolutionSection: React.FC<ProblemSolutionSectionProps> = ({
   data,
 }) => {
-  if (!data.problem_solution_introduction && !data.problem_solution_stream) return null;
+  if (!data.problem_solution_heading && !data.problem_solution_introduction) return null;
 
   return (
     <section
@@ -41,15 +41,11 @@ export const ProblemSolutionSection: React.FC<ProblemSolutionSectionProps> = ({
           )}
         </div>
 
-        {data.problem_solution_stream && data.problem_solution_stream.length > 0 && (
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {data.problem_solution_stream.map((item: any, index: number) => (
-              <div key={index} className="bg-white p-8 rounded-2xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <div className="prose prose-lg" style={{ color: "var(--neutral-color)" }}>
-                  {item.value && <div dangerouslySetInnerHTML={{ __html: JSON.stringify(item.value) }} />}
-                </div>
-              </div>
-            ))}
+        {data.problem_solution_ending_note && (
+          <div className="mt-8 text-center max-w-3xl mx-auto">
+            <p className="text-lg" style={{ color: "var(--neutral-color)" }}>
+              {data.problem_solution_ending_note}
+            </p>
           </div>
         )}
 
