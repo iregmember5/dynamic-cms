@@ -3,13 +3,11 @@ import {
   type FeaturesPageData,
   type Theme,
 } from "../../../types/features-page";
-import { HeaderSection } from "../sections/HeaderSection";
-import { EnhancedBenefits } from "../sections/EnhancedBenefits";
+import { BulkSMSHeader } from "./bulk-sms/BulkSMSHeader";
+import { BulkSMSFeatures } from "./bulk-sms/BulkSMSFeatures";
 import { BulkSMSHowItWorks } from "./bulk-sms/BulkSMSHowItWorks";
-import { EnhancedFeatures } from "../sections/EnhancedFeatures";
-import { TestimonialsSection } from "../sections/TestimonialsSection";
-import { PricingSection } from "../sections/PricingSection";
-import { FAQSection } from "../sections/FAQSection";
+import { BulkSMSBenefits } from "./bulk-sms/BulkSMSBenefits";
+import { BulkSMSFAQ } from "./bulk-sms/BulkSMSFAQ";
 import { CTASection } from "../sections/CTASection";
 
 interface LayoutProps {
@@ -19,13 +17,12 @@ interface LayoutProps {
 
 export const BulkSMSLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
-    <HeaderSection data={data} theme={theme} />
-    {data.benefits && data.benefits.length > 0 && (
-      <EnhancedBenefits
-        benefits={data.benefits}
-        theme={theme}
-        heading={data.benefits_heading}
-        description={data.benefits_description}
+    <BulkSMSHeader data={data} />
+    {data.features && data.features.length > 0 && (
+      <BulkSMSFeatures
+        features={data.features}
+        heading={data.features_intro_heading}
+        description={data.features_intro_description}
       />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
@@ -35,39 +32,16 @@ export const BulkSMSLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.how_it_works_description}
       />
     )}
-    {data.features && data.features.length > 0 && (
-      <EnhancedFeatures
-        features={data.features}
-        theme={theme}
-        heading={data.features_intro_heading}
-        description={data.features_intro_description}
-      />
-    )}
-    {data.testimonials && data.testimonials.length > 0 && (
-      <TestimonialsSection
-        testimonials={data.testimonials}
-        theme={theme}
-        heading={data.testimonials_heading}
-        description={data.testimonials_description}
-      />
-    )}
-    {(data.pricing_heading ||
-      data.pricing_widget_code ||
-      data.show_pricing_cta) && (
-      <PricingSection
-        heading={data.pricing_heading}
-        description={data.pricing_description}
-        widgetCode={data.pricing_widget_code}
-        showCta={data.show_pricing_cta}
-        ctaText={data.pricing_cta_text}
-        ctaUrl={data.pricing_cta_url}
-        theme={theme}
+    {data.benefits && data.benefits.length > 0 && (
+      <BulkSMSBenefits
+        benefits={data.benefits}
+        heading={data.benefits_heading}
+        description={data.benefits_description}
       />
     )}
     {data.faqs && data.faqs.length > 0 && (
-      <FAQSection
+      <BulkSMSFAQ
         faqs={data.faqs}
-        theme={theme}
         heading={data.faq_section_heading}
         description={data.faq_section_description}
       />
