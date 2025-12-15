@@ -25,11 +25,11 @@ export const ESignatureFeatures: React.FC<{
       </div>
 
       {/* Features grid */}
-      <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-4 lg:gap-6 max-w-7xl mx-auto">
         {features.map((f: any, i: number) => (
           <div
             key={i}
-            className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 hover:-translate-y-2"
+            className="group relative bg-white rounded-xl p-4 lg:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-blue-200 hover:-translate-y-2"
           >
             {/* Gradient overlay on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -37,11 +37,11 @@ export const ESignatureFeatures: React.FC<{
             {/* Content */}
             <div className="relative z-10">
               {/* Icon with elegant animation */}
-              <div className="relative w-12 h-12 mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl transform group-hover:rotate-6 transition-transform duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
+              <div className="relative w-10 h-10 mb-3">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg transform group-hover:rotate-6 transition-transform duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
                   <svg
-                    className="w-6 h-6 text-white"
+                    className="w-5 h-5 text-white"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -56,11 +56,11 @@ export const ESignatureFeatures: React.FC<{
                 <div className="absolute inset-0 bg-blue-400 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
               </div>
 
-              <h3 className="text-xl lg:text-2xl font-bold mb-3 text-gray-900 group-hover:text-blue-900 transition-colors">
+              <h3 className="text-lg lg:text-xl font-bold mb-2 text-gray-900 group-hover:text-blue-900 transition-colors">
                 {f.title}
               </h3>
 
-              <p className="text-gray-700 leading-relaxed text-sm lg:text-base whitespace-pre-line">
+              <p className="text-gray-700 leading-relaxed text-xs lg:text-sm whitespace-pre-line">
                 {f.description}
               </p>
 
