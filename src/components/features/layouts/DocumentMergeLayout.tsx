@@ -3,13 +3,13 @@ import {
   type FeaturesPageData,
   type Theme,
 } from "../../../types/features-page";
-import { HeaderSection } from "../sections/HeaderSection";
+import { DocumentMergeHeader } from "./document-merge/DocumentMergeHeader";
 import { DocumentMergeHowItWorks } from "./document-merge/DocumentMergeHowItWorks";
-import { EnhancedFeatures } from "../sections/EnhancedFeatures";
-import { EnhancedBenefits } from "../sections/EnhancedBenefits";
+import { DocumentMergeFeatures } from "./document-merge/DocumentMergeFeatures";
+import { DocumentMergeBenefits } from "./document-merge/DocumentMergeBenefits";
 import { CardSections } from "../sections/CardSections";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
-import { FAQSection } from "../sections/FAQSection";
+import { DocumentMergeFAQ } from "./document-merge/DocumentMergeFAQ";
 import { CTASection } from "../sections/CTASection";
 
 interface LayoutProps {
@@ -19,7 +19,7 @@ interface LayoutProps {
 
 export const DocumentMergeLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
-    <HeaderSection data={data} theme={theme} />
+    <DocumentMergeHeader data={data} />
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
       <DocumentMergeHowItWorks
         steps={data.how_it_works_steps}
@@ -28,17 +28,15 @@ export const DocumentMergeLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.features && data.features.length > 0 && (
-      <EnhancedFeatures
+      <DocumentMergeFeatures
         features={data.features}
-        theme={theme}
         heading={data.features_intro_heading}
         description={data.features_intro_description}
       />
     )}
     {data.benefits && data.benefits.length > 0 && (
-      <EnhancedBenefits
+      <DocumentMergeBenefits
         benefits={data.benefits}
-        theme={theme}
         heading={data.benefits_heading}
         description={data.benefits_description}
       />
@@ -60,9 +58,8 @@ export const DocumentMergeLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.faqs && data.faqs.length > 0 && (
-      <FAQSection
+      <DocumentMergeFAQ
         faqs={data.faqs}
-        theme={theme}
         heading={data.faq_section_heading}
         description={data.faq_section_description}
       />

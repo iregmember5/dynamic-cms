@@ -3,7 +3,7 @@ import {
   type FeaturesPageData,
   type Theme,
 } from "../../../types/features-page";
-import { HeaderSection } from "../sections/HeaderSection";
+import { ESignatureHeader } from "./esignature/ESignatureHeader";
 import { ESignatureFeatures } from "./esignature/ESignatureFeatures";
 import { ESignatureHowItWorks } from "./esignature/ESignatureHowItWorks";
 import { ESignatureBenefits } from "./esignature/ESignatureBenefits";
@@ -18,7 +18,7 @@ interface LayoutProps {
 
 export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
-    <HeaderSection data={data} theme={theme} />
+    <ESignatureHeader data={data} />
     {data.features && data.features.length > 0 && (
       <ESignatureFeatures
         features={data.features}

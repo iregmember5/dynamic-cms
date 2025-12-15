@@ -3,7 +3,7 @@ import {
   type FeaturesPageData,
   type Theme,
 } from "../../../types/features-page";
-import { HeaderSection } from "../sections/HeaderSection";
+import { W9ChaserHeader } from "./w9-chaser/W9ChaserHeader";
 import { ProblemSolutionSection } from "../sections/ProblemSolutionSection";
 import { W9ChaserHowItWorks } from "./w9-chaser/W9ChaserHowItWorks";
 import { W9ChaserBenefits } from "./w9-chaser/W9ChaserBenefits";
@@ -18,7 +18,7 @@ interface LayoutProps {
 
 export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
-    <HeaderSection data={data} theme={theme} />
+    <W9ChaserHeader data={data} />
     {(data.problem_solution_heading || data.problem_solution_introduction) && (
       <ProblemSolutionSection data={data} theme={theme} />
     )}
