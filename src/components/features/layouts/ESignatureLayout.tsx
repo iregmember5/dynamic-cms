@@ -5,12 +5,11 @@ import {
 } from "../../../types/features-page";
 import { HeaderSection } from "../sections/HeaderSection";
 import { EnhancedFeatures } from "../sections/EnhancedFeatures";
-import { EnhancedHowItWorks } from "../sections/EnhancedHowItWorks";
+import { ESignatureHowItWorks } from "./esignature/ESignatureHowItWorks";
 import { EnhancedBenefits } from "../sections/EnhancedBenefits";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-import { getFullImageUrl } from "../utils/imageUtils";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -29,10 +28,8 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
-      <EnhancedHowItWorks
+      <ESignatureHowItWorks
         steps={data.how_it_works_steps}
-        theme={theme}
-        getFullImageUrl={getFullImageUrl}
         heading={data.how_it_works_heading}
         description={data.how_it_works_description}
       />

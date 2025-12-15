@@ -4,14 +4,13 @@ import {
   type Theme,
 } from "../../../types/features-page";
 import { HeaderSection } from "../sections/HeaderSection";
-import { EnhancedHowItWorks } from "../sections/EnhancedHowItWorks";
+import { DocumentMergeHowItWorks } from "./document-merge/DocumentMergeHowItWorks";
 import { EnhancedFeatures } from "../sections/EnhancedFeatures";
 import { EnhancedBenefits } from "../sections/EnhancedBenefits";
 import { CardSections } from "../sections/CardSections";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-import { getFullImageUrl } from "../utils/imageUtils";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -22,10 +21,8 @@ export const DocumentMergeLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
     <HeaderSection data={data} theme={theme} />
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
-      <EnhancedHowItWorks
+      <DocumentMergeHowItWorks
         steps={data.how_it_works_steps}
-        theme={theme}
-        getFullImageUrl={getFullImageUrl}
         heading={data.how_it_works_heading}
         description={data.how_it_works_description}
       />

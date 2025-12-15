@@ -5,13 +5,12 @@ import {
 } from "../../../types/features-page";
 import { HeaderSection } from "../sections/HeaderSection";
 import { EnhancedBenefits } from "../sections/EnhancedBenefits";
-import { EnhancedHowItWorks } from "../sections/EnhancedHowItWorks";
+import { BulkSMSHowItWorks } from "./bulk-sms/BulkSMSHowItWorks";
 import { EnhancedFeatures } from "../sections/EnhancedFeatures";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { PricingSection } from "../sections/PricingSection";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-import { getFullImageUrl } from "../utils/imageUtils";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -30,10 +29,8 @@ export const BulkSMSLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
-      <EnhancedHowItWorks
+      <BulkSMSHowItWorks
         steps={data.how_it_works_steps}
-        theme={theme}
-        getFullImageUrl={getFullImageUrl}
         heading={data.how_it_works_heading}
         description={data.how_it_works_description}
       />

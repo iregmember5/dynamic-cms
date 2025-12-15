@@ -5,12 +5,11 @@ import {
 } from "../../../types/features-page";
 import { HeaderSection } from "../sections/HeaderSection";
 import { ProblemSolutionSection } from "../sections/ProblemSolutionSection";
-import { EnhancedHowItWorks } from "../sections/EnhancedHowItWorks";
+import { W9ChaserHowItWorks } from "./w9-chaser/W9ChaserHowItWorks";
 import { EnhancedBenefits } from "../sections/EnhancedBenefits";
 import { EnhancedFeatures } from "../sections/EnhancedFeatures";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-import { getFullImageUrl } from "../utils/imageUtils";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -24,10 +23,8 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       <ProblemSolutionSection data={data} theme={theme} />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
-      <EnhancedHowItWorks
+      <W9ChaserHowItWorks
         steps={data.how_it_works_steps}
-        theme={theme}
-        getFullImageUrl={getFullImageUrl}
         heading={data.how_it_works_heading}
         description={data.how_it_works_description}
       />

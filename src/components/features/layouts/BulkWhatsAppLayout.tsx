@@ -6,13 +6,12 @@ import {
 import { HeaderSection } from "../sections/HeaderSection";
 import { EnhancedFeatures } from "../sections/EnhancedFeatures";
 import { EnhancedBenefits } from "../sections/EnhancedBenefits";
-import { EnhancedHowItWorks } from "../sections/EnhancedHowItWorks";
+import { BulkWhatsAppHowItWorks } from "./bulk-whatsapp/BulkWhatsAppHowItWorks";
 import { CardSections } from "../sections/CardSections";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { PricingSection } from "../sections/PricingSection";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-import { getFullImageUrl } from "../utils/imageUtils";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -39,10 +38,8 @@ export const BulkWhatsAppLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (
-      <EnhancedHowItWorks
+      <BulkWhatsAppHowItWorks
         steps={data.how_it_works_steps}
-        theme={theme}
-        getFullImageUrl={getFullImageUrl}
         heading={data.how_it_works_heading}
         description={data.how_it_works_description}
       />
