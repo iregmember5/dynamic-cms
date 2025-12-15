@@ -64,8 +64,11 @@ export const EnhancedHowItWorks: React.FC<EnhancedHowItWorksProps> = ({
           )}
         </div>
 
-        {steps.map((step, index) => {
+        {steps.map((step: any, index) => {
           const isEven = index % 2 === 0;
+          const content = step.content?.[0] || {};
+          const title = content.title || step.title;
+          const description = content.description || step.description;
 
           return (
             <div
@@ -87,14 +90,14 @@ export const EnhancedHowItWorks: React.FC<EnhancedHowItWorksProps> = ({
                     className="text-2xl lg:text-3xl font-bold"
                     style={{ color: "var(--text-color)" }}
                   >
-                    {step.title}
+                    {title}
                   </h3>
                 </div>
                 <p
                   className="text-lg lg:text-xl leading-relaxed"
                   style={{ color: "var(--neutral-color)" }}
                 >
-                  {step.description}
+                  {description}
                 </p>
               </div>
 
