@@ -82,18 +82,18 @@ export const ESignatureBenefits: React.FC<{
             style={{ animationDelay: `${i * 75}ms` }}
           >
             {/* Card with glass morphism effect */}
-            <div className="relative h-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:-translate-y-3 hover:shadow-blue-500/50">
+            <div className="relative h-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl hover:bg-white/15 hover:border-white/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-blue-500/50">
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 via-indigo-400/0 to-purple-400/0 group-hover:from-blue-400/20 group-hover:via-indigo-400/20 group-hover:to-purple-400/20 rounded-3xl transition-all duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 via-indigo-400/0 to-purple-400/0 group-hover:from-blue-400/20 group-hover:via-indigo-400/20 group-hover:to-purple-400/20 rounded-3xl transition-all duration-300"></div>
 
               <div className="relative z-10 flex flex-col items-center text-center h-full">
                 {/* Icon with sophisticated animation */}
                 <div className="relative mb-6">
                   {/* Pulsing background ring */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 group-hover:scale-125 transition-all duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-300"></div>
 
                   {/* Main icon container */}
-                  <div className="relative w-20 h-20 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl transform group-hover:rotate-6 group-hover:scale-110 transition-all duration-500">
+                  <div className="relative w-20 h-20 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-2xl transform group-hover:scale-105 transition-all duration-300">
                     <div className="text-4xl">
                       {/* Dynamic icons based on benefit type */}
                       {i === 0 && "⚡"}
@@ -105,8 +105,8 @@ export const ESignatureBenefits: React.FC<{
                   </div>
 
                   {/* Decorative corner elements */}
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Content */}
@@ -122,7 +122,7 @@ export const ESignatureBenefits: React.FC<{
 
                 {/* Bottom indicator */}
                 <div className="mt-6 pt-4 border-t border-white/10 w-full">
-                  <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                  <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
                     <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full"></div>
                     <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
@@ -130,14 +130,11 @@ export const ESignatureBenefits: React.FC<{
                 </div>
               </div>
 
-              {/* Shine effect on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 rounded-3xl"></div>
-              </div>
+
             </div>
 
             {/* Floating number badge */}
-            <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-xl transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 z-20">
+            <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-xl transform group-hover:scale-105 transition-all duration-300 z-20">
               {i + 1}
             </div>
           </div>

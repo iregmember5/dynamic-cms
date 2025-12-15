@@ -87,7 +87,7 @@ export const ESignatureHeader: React.FC<{ data: FeaturesPageData }> = ({
         </div>
 
         {/* Main heading with gradient text */}
-        <h1 className="text-3xl md:text-7xl lg:text-8xl font-bold mb-8 text-center">
+        <h1 className="text-3xl md:text-7xl lg:text-5xl font-bold mb-8 text-center">
           <span className="block text-white mb-2">{data.header_title}</span>
         </h1>
 
