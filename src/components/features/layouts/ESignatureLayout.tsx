@@ -4,11 +4,11 @@ import {
   type Theme,
 } from "../../../types/features-page";
 import { HeaderSection } from "../sections/HeaderSection";
-import { EnhancedFeatures } from "../sections/EnhancedFeatures";
+import { ESignatureFeatures } from "./esignature/ESignatureFeatures";
 import { ESignatureHowItWorks } from "./esignature/ESignatureHowItWorks";
-import { EnhancedBenefits } from "../sections/EnhancedBenefits";
+import { ESignatureBenefits } from "./esignature/ESignatureBenefits";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
-import { FAQSection } from "../sections/FAQSection";
+import { ESignatureFAQ } from "./esignature/ESignatureFAQ";
 import { CTASection } from "../sections/CTASection";
 
 interface LayoutProps {
@@ -20,9 +20,8 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
   <>
     <HeaderSection data={data} theme={theme} />
     {data.features && data.features.length > 0 && (
-      <EnhancedFeatures
+      <ESignatureFeatures
         features={data.features}
-        theme={theme}
         heading={data.features_intro_heading}
         description={data.features_intro_description}
       />
@@ -35,9 +34,8 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.benefits && data.benefits.length > 0 && (
-      <EnhancedBenefits
+      <ESignatureBenefits
         benefits={data.benefits}
-        theme={theme}
         heading={data.benefits_heading}
         description={data.benefits_description}
       />
@@ -51,9 +49,8 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.faqs && data.faqs.length > 0 && (
-      <FAQSection
+      <ESignatureFAQ
         faqs={data.faqs}
-        theme={theme}
         heading={data.faq_section_heading}
         description={data.faq_section_description}
       />

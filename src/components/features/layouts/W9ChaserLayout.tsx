@@ -6,9 +6,9 @@ import {
 import { HeaderSection } from "../sections/HeaderSection";
 import { ProblemSolutionSection } from "../sections/ProblemSolutionSection";
 import { W9ChaserHowItWorks } from "./w9-chaser/W9ChaserHowItWorks";
-import { EnhancedBenefits } from "../sections/EnhancedBenefits";
-import { EnhancedFeatures } from "../sections/EnhancedFeatures";
-import { FAQSection } from "../sections/FAQSection";
+import { W9ChaserBenefits } from "./w9-chaser/W9ChaserBenefits";
+import { W9ChaserFeatures } from "./w9-chaser/W9ChaserFeatures";
+import { W9ChaserFAQ } from "./w9-chaser/W9ChaserFAQ";
 import { CTASection } from "../sections/CTASection";
 
 interface LayoutProps {
@@ -30,25 +30,22 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
       />
     )}
     {data.benefits && data.benefits.length > 0 && (
-      <EnhancedBenefits
+      <W9ChaserBenefits
         benefits={data.benefits}
-        theme={theme}
         heading={data.benefits_heading}
         description={data.benefits_description}
       />
     )}
     {data.features && data.features.length > 0 && (
-      <EnhancedFeatures
+      <W9ChaserFeatures
         features={data.features}
-        theme={theme}
         heading={data.features_intro_heading}
         description={data.features_intro_description}
       />
     )}
     {data.faqs && data.faqs.length > 0 && (
-      <FAQSection
+      <W9ChaserFAQ
         faqs={data.faqs}
-        theme={theme}
         heading={data.faq_section_heading}
         description={data.faq_section_description}
       />
