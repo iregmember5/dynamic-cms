@@ -35,8 +35,8 @@ export const BulkEmailFeatures: React.FC<{
               <div className="relative w-10 h-10 mb-3">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg transform group-hover:rotate-6 transition-transform duration-300"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-600 to-red-700 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div className="absolute inset-0 bg-orange-400 rounded-lg blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>

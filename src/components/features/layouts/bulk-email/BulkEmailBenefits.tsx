@@ -14,11 +14,12 @@ export const BulkEmailBenefits: React.FC<{
       </div>
       <svg className="absolute inset-0 w-full h-full opacity-5" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="email-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M20,50 Q40,30 60,50 T100,50" stroke="white" strokeWidth="1.5" fill="none" />
+          <pattern id="email-bg-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M10,30 L50,50 L90,30 L90,70 L10,70 Z" stroke="white" strokeWidth="1" fill="none" />
+            <path d="M10,30 L50,50 L90,30" stroke="white" strokeWidth="1" fill="none" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#email-pattern)" />
+        <rect width="100%" height="100%" fill="url(#email-bg-pattern)" />
       </svg>
     </div>
 
@@ -49,13 +50,13 @@ export const BulkEmailBenefits: React.FC<{
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-all duration-300"></div>
                   <div className="relative w-20 h-20 bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-2xl transform group-hover:scale-105 transition-all duration-300">
-                    <div className="text-4xl">
-                      {i === 0 && "📧"}
-                      {i === 1 && "🎯"}
-                      {i === 2 && "📊"}
-                      {i === 3 && "⚡"}
-                      {i > 3 && "✨"}
-                    </div>
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      {i === 0 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />}
+                      {i === 1 && <><circle cx="12" cy="12" r="4" strokeWidth={2}/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></>}
+                      {i === 2 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />}
+                      {i === 3 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />}
+                      {i > 3 && <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />}
+                    </svg>
                   </div>
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-pink-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

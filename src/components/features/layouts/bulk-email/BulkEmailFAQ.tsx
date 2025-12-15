@@ -52,7 +52,7 @@ export const BulkEmailFAQ: React.FC<{
               </button>
               {openIndex === i && (
                 <div className="px-6 pb-6">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  <div className="text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: faq.answer }} />
                 </div>
               )}
             </div>
