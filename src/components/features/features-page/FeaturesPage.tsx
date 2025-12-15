@@ -81,24 +81,30 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
 
   const theme: Theme = createTheme(data.color_theme);
 
-  // Render layout based on page_layout field
+  // Render layout based on title
   const renderLayout = () => {
-    switch (data.page_layout) {
-      case 'esignature':
-        return <ESignatureLayout data={data} theme={theme} />;
-      case 'w9_chaser':
-        return <W9ChaserLayout data={data} theme={theme} />;
-      case 'bulk_sms':
-        return <BulkSMSLayout data={data} theme={theme} />;
-      case 'bulk_whatsapp':
-        return <BulkWhatsAppLayout data={data} theme={theme} />;
-      case 'bulk_email':
-        return <BulkEmailLayout data={data} theme={theme} />;
-      case 'document_merge':
-        return <DocumentMergeLayout data={data} theme={theme} />;
-      default:
-        return renderDefaultLayout();
+    const title = data.title.toLowerCase().replace(/[\s-]/g, '');
+    
+    if (title.includes('esignature') || title.includes('esign')) {
+      return <ESignatureLayout data={data} theme={theme} />;
     }
+    if (title.includes('w9') && title.includes('chaser')) {
+      return <W9ChaserLayout data={data} theme={theme} />;
+    }
+    if (title.includes('bulk') && title.includes('sms')) {
+      return <BulkSMSLayout data={data} theme={theme} />;
+    }
+    if (title.includes('bulk') && title.includes('whatsapp')) {
+      return <BulkWhatsAppLayout data={data} theme={theme} />;
+    }
+    if (title.includes('bulk') && title.includes('email')) {
+      return <BulkEmailLayout data={data} theme={theme} />;
+    }
+    if (title.includes('document') && title.includes('merge')) {
+      return <DocumentMergeLayout data={data} theme={theme} />;
+    }
+    
+    return renderDefaultLayout();
   };
 
   const renderDefaultLayout = () => (
@@ -148,7 +154,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
         />
       )}
 
-      {(data.problem_description || data.solution_description) && (
+      {(data.problem_solution_introduction || data.problem_solution_stream) && (
         <ProblemSolutionSection data={data} theme={theme} />
       )}
 
@@ -192,28 +198,30 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ pageId, slug }) => {
         />
       )}
 
-      {data.primary_cta_heading && (
+      {data.primary_cta_sections && data.primary_cta_sections.length > 0 && data.primary_cta_sections.map((cta: any, i: number) => (
         <CTASection
-          heading={data.primary_cta_heading}
-          description={data.primary_cta_description}
-          buttonText={data.primary_cta_button_text}
-          buttonUrl={data.primary_cta_button_url}
-          backgroundImage={data.primary_cta_background_image}
+          key={i}
+          heading={cta.heading}
+          description={cta.description}
+          buttonText={cta.button_text}
+          buttonUrl={cta.button_url}
+          backgroundImage={cta.background_image}
           theme={theme}
           isPrimary={true}
         />
-      )}
+      ))}
 
-      {data.secondary_cta_heading && (
+      {data.secondary_cta_heading && data.secondary_cta_buttons && data.secondary_cta_buttons.length > 0 && data.secondary_cta_buttons.map((btn: any, i: number) => (
         <CTASection
-          heading={data.secondary_cta_heading}
+          key={i}
+          heading={data.secondary_cta_heading!}
           description={data.secondary_cta_description}
-          buttonText={data.secondary_cta_button_text}
-          buttonUrl={data.secondary_cta_button_url}
+          buttonText={btn.text}
+          buttonUrl={btn.url}
           theme={theme}
           isPrimary={false}
         />
-      )}
+      ))}
     </>
   );
 
