@@ -81,8 +81,8 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
           key={i}
           heading={cta.heading}
           description={cta.description}
-          buttonText={cta.button.text}
-          buttonUrl={cta.button.url}
+          buttonText={cta.button?.text || cta.button_text}
+          buttonUrl={cta.button?.url || cta.button_url}
           backgroundImage={cta.background_image}
         />
       ))}
