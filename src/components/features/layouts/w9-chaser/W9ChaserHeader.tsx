@@ -11,7 +11,12 @@ export const W9ChaserHeader: React.FC<{ data: FeaturesPageData }> = ({ data }) =
           <p className="text-2xl text-green-100">{data.header_subtitle}</p>
         </div>
         {data.header_description && <p className="text-xl mb-10 text-gray-300 max-w-3xl">{data.header_description}</p>}
-        {data.header_cta_text && <a href={data.header_cta_url || '#'} className="inline-block px-10 py-4 bg-green-500 text-white rounded-lg text-xl font-bold hover:bg-green-400 transition-colors">{data.header_cta_text}</a>}
+        {data.header_cta_text && (
+          <div>
+            <a href={data.header_cta_url || '#'} className="inline-block px-10 py-4 bg-green-500 text-white rounded-lg text-xl font-bold hover:bg-green-400 transition-colors">{data.header_cta_text}</a>
+            {data.header_line_after_button && <p className="mt-4 text-sm text-gray-400">{data.header_line_after_button}</p>}
+          </div>
+        )}
       </div>
       {data.header_image && <div className="mt-16 max-w-5xl mx-auto"><img src={getFullImageUrl(data.header_image.url)} alt={data.header_image.title} className="w-full rounded-2xl shadow-2xl border-4 border-green-500" /></div>}
     </div>
