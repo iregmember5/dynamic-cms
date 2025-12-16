@@ -121,7 +121,7 @@ export const ESignatureHowItWorks: React.FC<{
                     <div className="mb-4 relative overflow-hidden rounded-xl">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
                       <video 
-                        src={getFullImageUrl(step.video.video_file_url)}
+                        src={getFullImageUrl({url: step.video.video_file_url})}
                         className="w-full h-40 object-cover transform group-hover:scale-105 transition-transform duration-700"
                         controls
                       />
