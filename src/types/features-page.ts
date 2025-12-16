@@ -191,7 +191,7 @@ export interface FeaturesPageData {
   features_intro_description?: string;
   features_intro_introduction?: string;
   features_intro_ending_note?: string;
-  features?: Feature[];
+  features?: any;
   features_intro_icon?: string;
   features_intro_image?: ImageData;
   features_intro_background_image?: ImageData;

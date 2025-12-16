@@ -48,13 +48,25 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
           />
         )
       ))}
-    {data.features && data.features.length > 0 && (
-      <W9ChaserFeatures
-        features={data.features}
-        heading={data.features_intro_heading}
-        description={data.features_intro_description}
-      />
-    )}
+    {data.features &&
+      (Array.isArray(data.features) ? (
+        data.features.length > 0 && (
+          <W9ChaserFeatures
+            features={data.features}
+            heading={data.features_intro_heading}
+            description={data.features_intro_description}
+          />
+        )
+      ) : (
+        data.features.items &&
+        data.features.items.length > 0 && (
+          <W9ChaserFeatures
+            features={data.features.items}
+            heading={data.features.heading}
+            description={data.features.description}
+          />
+        )
+      ))}
     {data.faqs && data.faqs.length > 0 && (
       <W9ChaserFAQ
         faqs={data.faqs}
@@ -69,8 +81,8 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
           key={i}
           heading={cta.heading}
           description={cta.description}
-          buttonText={cta.button?.text}
-          buttonUrl={cta.button?.url}
+          buttonText={cta.button?.text || cta.button_text}
+          buttonUrl={cta.button?.url || cta.button_url}
           backgroundImage={cta.background_image}
           theme={theme}
           isPrimary={true}

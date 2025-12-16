@@ -75,8 +75,8 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
           key={i}
           heading={cta.heading}
           description={cta.description}
-          buttonText={cta.button_text}
-          buttonUrl={cta.button_url}
+          buttonText={cta.button?.text || cta.button_text}
+          buttonUrl={cta.button?.url || cta.button_url}
           backgroundImage={cta.background_image}
           theme={theme}
           isPrimary={true}
