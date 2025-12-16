@@ -17,6 +17,9 @@ export const W9ChaserCTA: React.FC<W9ChaserCTAProps> = ({
   buttonUrl,
   backgroundImage,
 }) => {
+  // Debug logging - check console to see what props are received
+  console.log("CTA Props:", { heading, description, buttonText, buttonUrl });
+
   return (
     <section
       className="py-20 relative overflow-hidden"
@@ -29,7 +32,7 @@ export const W9ChaserCTA: React.FC<W9ChaserCTAProps> = ({
       }}
     >
       <div className="absolute inset-0 bg-black/70" />
-      
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 animate-fadeInUp">
@@ -40,15 +43,13 @@ export const W9ChaserCTA: React.FC<W9ChaserCTAProps> = ({
               {description}
             </p>
           )}
-          {buttonText && (
-            <a
-              href={buttonUrl || "#"}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 animate-fadeInUp animation-delay-400 animate-pulse-glow text-pink-500"
-              {...(!buttonUrl && { onClick: (e) => e.preventDefault() })}
-            >
-              {buttonText}
-            </a>
-          )}
+          <a
+            href={buttonUrl || "#"}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-pink-500 font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 animate-fadeInUp animation-delay-400"
+            {...(!buttonUrl && { onClick: (e) => e.preventDefault() })}
+          >
+            {buttonText || "Get Started Now"}
+          </a>
         </div>
       </div>
     </section>
