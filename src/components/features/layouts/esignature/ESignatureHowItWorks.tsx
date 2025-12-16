@@ -8,7 +8,7 @@ export const ESignatureHowItWorks: React.FC<{
 }> = ({ steps, heading, description }) => (
   <section className="py-24 lg:py-32 relative overflow-hidden">
     {/* Sophisticated gradient background */}
-    <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/60"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-slate-300 via-blue-100/20 to-indigo-100/50"></div>
 
     {/* Animated flowing lines in background */}
     <div className="absolute inset-0 opacity-10">
@@ -72,12 +72,14 @@ export const ESignatureHowItWorks: React.FC<{
           const isEven = i % 2 === 0;
 
           return (
-            <div 
-              key={i} 
-              className={`flex flex-col lg:flex-row items-center gap-8 mb-20 last:mb-0 ${isEven ? '' : 'lg:flex-row-reverse'}`}
+            <div
+              key={i}
+              className={`flex flex-col lg:flex-row items-center gap-8 mb-20 last:mb-0 ${
+                isEven ? "" : "lg:flex-row-reverse"
+              }`}
             >
               {/* Step content */}
-              <div className={`lg:w-1/2 ${isEven ? 'lg:pr-8' : 'lg:pl-8'}`}>
+              <div className={`lg:w-1/2 ${isEven ? "lg:pr-8" : "lg:pl-8"}`}>
                 <div className="flex items-start gap-4">
                   <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl blur-lg opacity-50"></div>
@@ -86,13 +88,15 @@ export const ESignatureHowItWorks: React.FC<{
                         {step.step_number}
                       </span>
                     </div>
-                    
+
                     {/* Connector line for non-last items */}
                     {i < steps.length - 1 && (
-                      <div className={`hidden lg:block absolute top-full left-1/2 transform -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-blue-300 to-indigo-300`}></div>
+                      <div
+                        className={`hidden lg:block absolute top-full left-1/2 transform -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-blue-300 to-indigo-300`}
+                      ></div>
                     )}
                   </div>
-                  
+
                   <div>
                     <h3 className="text-2xl lg:text-3xl font-bold mb-3 text-gray-900">
                       {content.title}
@@ -108,8 +112,8 @@ export const ESignatureHowItWorks: React.FC<{
               <div className="lg:w-1/2 w-full">
                 {step.video && step.video.video_file_url ? (
                   <div className="rounded-2xl overflow-hidden shadow-xl">
-                    <video 
-                      src={getFullImageUrl({url: step.video.video_file_url})}
+                    <video
+                      src={getFullImageUrl({ url: step.video.video_file_url })}
                       className="w-full h-auto object-cover"
                       controls
                     />
