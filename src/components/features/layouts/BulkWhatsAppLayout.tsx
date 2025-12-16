@@ -8,7 +8,6 @@ import { BulkWhatsAppFeatures } from "./bulk-whatsapp/BulkWhatsAppFeatures";
 import { BulkWhatsAppHowItWorks } from "./bulk-whatsapp/BulkWhatsAppHowItWorks";
 import { BulkWhatsAppBenefits } from "./bulk-whatsapp/BulkWhatsAppBenefits";
 import { BulkWhatsAppFAQ } from "./bulk-whatsapp/BulkWhatsAppFAQ";
-import { CTASection } from "../sections/CTASection";
 import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 import { BulkWhatsAppCTA } from "./bulk-whatsapp/BulkWhatsAppCTA";
 interface LayoutProps {

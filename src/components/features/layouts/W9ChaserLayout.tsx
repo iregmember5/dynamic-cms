@@ -9,7 +9,7 @@ import { W9ChaserHowItWorks } from "./w9-chaser/W9ChaserHowItWorks";
 import { W9ChaserBenefits } from "./w9-chaser/W9ChaserBenefits";
 import { W9ChaserFeatures } from "./w9-chaser/W9ChaserFeatures";
 import { W9ChaserFAQ } from "./w9-chaser/W9ChaserFAQ";
-import { CTASection } from "../sections/CTASection";
+import { W9ChaserCTA } from "./w9-chaser/W9ChaserCTA";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -77,15 +77,13 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
     {data.primary_cta_sections &&
       data.primary_cta_sections.length > 0 &&
       data.primary_cta_sections.map((cta: any, i: number) => (
-        <CTASection
+        <W9ChaserCTA
           key={i}
           heading={cta.heading}
           description={cta.description}
           buttonText={cta.button.text}
           buttonUrl={cta.button.url}
           backgroundImage={cta.background_image}
-          theme={theme}
-          isPrimary={true}
         />
       ))}
   </>

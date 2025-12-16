@@ -8,7 +8,6 @@ import { BulkSMSFeatures } from "./bulk-sms/BulkSMSFeatures";
 import { BulkSMSHowItWorks } from "./bulk-sms/BulkSMSHowItWorks";
 import { BulkSMSBenefits } from "./bulk-sms/BulkSMSBenefits";
 import { BulkSMSFAQ } from "./bulk-sms/BulkSMSFAQ";
-import { CTASection } from "../sections/CTASection";
 import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 import { BulkSMSCTA } from "./bulk-sms/BulkSMSCTA";
 

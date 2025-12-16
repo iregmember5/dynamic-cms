@@ -7,10 +7,9 @@ import { ESignatureHeader } from "./esignature/ESignatureHeader";
 import { ESignatureFeatures } from "./esignature/ESignatureFeatures";
 import { ESignatureHowItWorks } from "./esignature/ESignatureHowItWorks";
 import { ESignatureBenefits } from "./esignature/ESignatureBenefits";
-import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { ESignatureFAQ } from "./esignature/ESignatureFAQ";
-import { CTASection } from "../sections/CTASection";
 import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
+import { ESignatureCTA } from "./esignature/ESignatureCTA";
 
 interface LayoutProps {
   data: FeaturesPageData;
@@ -41,7 +40,13 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.benefits_description}
       />
     )}
-
+    {data.faqs && data.faqs.length > 0 && (
+      <ESignatureFAQ
+        faqs={data.faqs}
+        heading={data.faq_section_heading}
+        description={data.faq_section_description}
+      />
+    )}
     {/* DYNAMIC CONTENT */}
     {data.dynamic_content &&
       data.dynamic_content.length > 0 &&
@@ -52,34 +57,16 @@ export const ESignatureLayout: React.FC<LayoutProps> = ({ data, theme }) => (
           theme={theme}
         />
       ))}
-
-    {data.testimonials && data.testimonials.length > 0 && (
-      <TestimonialsSection
-        testimonials={data.testimonials}
-        theme={theme}
-        heading={data.testimonials_heading}
-        description={data.testimonials_description}
-      />
-    )}
-    {data.faqs && data.faqs.length > 0 && (
-      <ESignatureFAQ
-        faqs={data.faqs}
-        heading={data.faq_section_heading}
-        description={data.faq_section_description}
-      />
-    )}
     {data.primary_cta_sections &&
       data.primary_cta_sections.length > 0 &&
       data.primary_cta_sections.map((cta: any, i: number) => (
-        <CTASection
+        <ESignatureCTA
           key={i}
           heading={cta.heading}
           description={cta.description}
           buttonText={cta.button?.text || cta.button_text}
           buttonUrl={cta.button?.url || cta.button_url}
           backgroundImage={cta.background_image}
-          theme={theme}
-          isPrimary={true}
         />
       ))}
   </>

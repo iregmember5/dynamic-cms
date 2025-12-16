@@ -8,7 +8,6 @@ import { BulkEmailFeatures } from "./bulk-email/BulkEmailFeatures";
 import { BulkEmailHowItWorks } from "./bulk-email/BulkEmailHowItWorks";
 import { BulkEmailBenefits } from "./bulk-email/BulkEmailBenefits";
 import { BulkEmailFAQ } from "./bulk-email/BulkEmailFAQ";
-import { CTASection } from "../sections/CTASection";
 import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 import { BulkEmailCTA } from "./bulk-email/BulkEmailCTA";
 
