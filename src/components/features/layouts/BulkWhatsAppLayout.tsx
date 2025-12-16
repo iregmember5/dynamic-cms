@@ -12,7 +12,7 @@ import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { PricingSection } from "../sections/PricingSection";
 import { FAQSection } from "../sections/FAQSection";
 import { CTASection } from "../sections/CTASection";
-
+import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 interface LayoutProps {
   data: FeaturesPageData;
   theme: Theme;
@@ -50,6 +50,17 @@ export const BulkWhatsAppLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         </div>
       </div>
     )}
+
+    {/* DYNAMIC CONTENT */}
+    {data.dynamic_content &&
+      data.dynamic_content.length > 0 &&
+      data.dynamic_content.map((block, index) => (
+        <DynamicContentRenderer
+          key={block.id || index}
+          block={block}
+          theme={theme}
+        />
+      ))}
 
     {/* How it works section with interactive WhatsApp chat */}
     {data.how_it_works_steps && data.how_it_works_steps.length > 0 && (

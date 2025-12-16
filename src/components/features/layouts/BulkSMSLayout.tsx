@@ -9,7 +9,7 @@ import { BulkSMSHowItWorks } from "./bulk-sms/BulkSMSHowItWorks";
 import { BulkSMSBenefits } from "./bulk-sms/BulkSMSBenefits";
 import { BulkSMSFAQ } from "./bulk-sms/BulkSMSFAQ";
 import { CTASection } from "../sections/CTASection";
-
+import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 interface LayoutProps {
   data: FeaturesPageData;
   theme: Theme;
@@ -39,6 +39,16 @@ export const BulkSMSLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.benefits_description}
       />
     )}
+    {/* DYNAMIC CONTENT */}
+    {data.dynamic_content &&
+      data.dynamic_content.length > 0 &&
+      data.dynamic_content.map((block, index) => (
+        <DynamicContentRenderer
+          key={block.id || index}
+          block={block}
+          theme={theme}
+        />
+      ))}
     {data.faqs && data.faqs.length > 0 && (
       <BulkSMSFAQ
         faqs={data.faqs}

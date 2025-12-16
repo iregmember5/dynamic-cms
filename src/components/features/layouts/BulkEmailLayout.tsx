@@ -9,7 +9,7 @@ import { BulkEmailHowItWorks } from "./bulk-email/BulkEmailHowItWorks";
 import { BulkEmailBenefits } from "./bulk-email/BulkEmailBenefits";
 import { BulkEmailFAQ } from "./bulk-email/BulkEmailFAQ";
 import { CTASection } from "../sections/CTASection";
-
+import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
 interface LayoutProps {
   data: FeaturesPageData;
   theme: Theme;
@@ -46,6 +46,16 @@ export const BulkEmailLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.faq_section_description}
       />
     )}
+    {/* DYNAMIC CONTENT */}
+    {data.dynamic_content &&
+      data.dynamic_content.length > 0 &&
+      data.dynamic_content.map((block, index) => (
+        <DynamicContentRenderer
+          key={block.id || index}
+          block={block}
+          theme={theme}
+        />
+      ))}
     {data.primary_cta_sections &&
       data.primary_cta_sections.length > 0 &&
       data.primary_cta_sections.map((cta: any, i: number) => (
