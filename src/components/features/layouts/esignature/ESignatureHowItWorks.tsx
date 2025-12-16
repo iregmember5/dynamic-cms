@@ -11,7 +11,7 @@ export const ESignatureHowItWorks: React.FC<{
     <div className="absolute inset-0 bg-gradient-to-br from-slate-300 via-blue-100/20 to-indigo-100/50"></div>
 
     {/* Animated flowing lines in background */}
-    <div className="absolute inset-0 opacity-10">
+    {/* <div className="absolute inset-0 opacity-10">
       <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -36,7 +36,7 @@ export const ESignatureHowItWorks: React.FC<{
           />
         </path>
       </svg>
-    </div>
+    </div> */}
 
     <div className="container mx-auto px-6 lg:px-8 relative z-10">
       {/* Section header */}
