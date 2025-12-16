@@ -41,15 +41,15 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                     style={{ borderColor: theme.primaryColor + '20' }}
                   >
                     <div className="flex flex-col items-center text-center space-y-4">
-                      {item.value.icon && (
+                      {item.icon && (
                         <div className="p-4 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors duration-300">
-                          <EasyIcon icon={item.value.icon} size={32} color={theme.primaryColor} />
+                          <EasyIcon icon={item.icon} size={32} color={theme.primaryColor} />
                         </div>
                       )}
-                      {item.value.image && (
+                      {item.image && (
                         <img
-                          src={getFullImageUrl(item.value.image.url)}
-                          alt={item.value.title}
+                          src={getFullImageUrl(item.image.url)}
+                          alt={item.title}
                           className="w-full h-48 object-cover rounded-xl"
                         />
                       )}
@@ -57,10 +57,10 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                         className="text-xl font-semibold transition-colors"
                         style={{ color: theme.textColor }}
                       >
-                        {item.value.title}
+                        {item.title}
                       </h3>
                       <p className="leading-relaxed" style={{ color: theme.neutralColor }}>
-                        {item.value.description}
+                        {item.description}
                       </p>
                     </div>
                   </div>
@@ -76,10 +76,10 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                     style={{ borderColor: theme.primaryColor + '20' }}
                   >
                     <div className="flex flex-col items-center text-center space-y-4">
-                      {item.value.image && (
+                      {item.image && (
                         <img
-                          src={getFullImageUrl(item.value.image.url)}
-                          alt={item.value.title}
+                          src={getFullImageUrl(item.image.url)}
+                          alt={item.title}
                           className="w-full h-48 object-cover rounded-xl"
                         />
                       )}
@@ -87,18 +87,18 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                         className="text-xl font-semibold transition-colors"
                         style={{ color: theme.textColor }}
                       >
-                        {item.value.title}
+                        {item.title}
                       </h3>
-                      {item.value.stat && (
+                      {item.stat && (
                         <div
                           className="text-2xl font-bold"
                           style={{ color: theme.primaryColor }}
                         >
-                          {item.value.stat}
+                          {item.stat}
                         </div>
                       )}
                       <p className="leading-relaxed" style={{ color: theme.neutralColor }}>
-                        {item.value.description}
+                        {item.description}
                       </p>
                     </div>
                   </div>
@@ -114,6 +114,13 @@ export const DynamicListBlock: React.FC<DynamicListBlockProps> = ({
                     style={{ borderColor: theme.primaryColor + '20' }}
                   >
                     <div className="flex flex-col items-center text-center space-y-4">
+                      {item.image && (
+                        <img
+                          src={getFullImageUrl(item.image.url)}
+                          alt={item.title}
+                          className="w-full h-48 object-cover rounded-xl"
+                        />
+                      )}
                       <h3
                         className="text-xl font-semibold transition-colors"
                         style={{ color: theme.textColor }}
