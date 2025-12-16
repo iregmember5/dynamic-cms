@@ -19,7 +19,7 @@ export const W9ChaserHowItWorks: React.FC<{ steps: any[]; heading?: string; desc
                 </div>
                 <p className="text-xl text-gray-300 leading-relaxed">{content.description}</p>
               </div>
-              {step.image && <div className="lg:w-1/2"><img src={getFullImageUrl(step.image.url)} alt={content.title} className="w-full max-w-md mx-auto rounded-2xl shadow-2xl" /></div>}
+              {step.image && <div className="lg:w-1/2"><img src={getFullImageUrl(step.image.url)} alt={content.title} className="w-80 h-80 mx-auto rounded-2xl shadow-2xl object-cover" /></div>}
             </div>
           );
         })}
