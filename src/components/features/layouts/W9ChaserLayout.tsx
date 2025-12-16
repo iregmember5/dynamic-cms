@@ -29,13 +29,25 @@ export const W9ChaserLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.how_it_works_description}
       />
     )}
-    {data.benefits && data.benefits.length > 0 && (
-      <W9ChaserBenefits
-        benefits={data.benefits}
-        heading={data.benefits_heading}
-        description={data.benefits_description}
-      />
-    )}
+    {data.benefits &&
+      (Array.isArray(data.benefits) ? (
+        data.benefits.length > 0 && (
+          <W9ChaserBenefits
+            benefits={data.benefits}
+            heading={data.benefits_heading}
+            description={data.benefits_description}
+          />
+        )
+      ) : (
+        data.benefits.items &&
+        data.benefits.items.length > 0 && (
+          <W9ChaserBenefits
+            benefits={data.benefits.items}
+            heading={data.benefits.heading}
+            description={data.benefits.description}
+          />
+        )
+      ))}
     {data.features && data.features.length > 0 && (
       <W9ChaserFeatures
         features={data.features}

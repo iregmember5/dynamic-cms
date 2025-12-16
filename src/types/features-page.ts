@@ -22,6 +22,7 @@ export interface Benefit {
   stats: string;
   icon: string;
   order: number;
+  image?: ImageData;
 }
 
 export interface Testimonial {
@@ -130,7 +131,7 @@ export interface FeaturesPageData {
   benefits_description?: string;
   benefits_ending_note?: string;
   benefits_style?: "cards" | "list" | "mixed";
-  benefits?: Benefit[];
+  benefits?: any;
   benefits_section_icon?: string;
   benefits_section_image?: ImageData;
   benefits_section_background_image?: ImageData;
