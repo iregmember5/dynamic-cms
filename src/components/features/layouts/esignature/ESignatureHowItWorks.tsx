@@ -116,8 +116,33 @@ export const ESignatureHowItWorks: React.FC<{
                     </div>
                   </div>
 
-                  {/* Image with elegant frame */}
-                  {step.image && (
+                  {/* Video or Image with elegant frame */}
+                  {step.video && step.video.video_file_url ? (
+                    <div className="mb-4 relative overflow-hidden rounded-xl">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
+                      <video 
+                        src={getFullImageUrl(step.video.video_file_url)}
+                        className="w-full h-40 object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        controls
+                      />
+                      {/* Play icon overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <svg
+                            className="w-5 h-5 text-blue-600 ml-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  ) : step.image ? (
                     <div className="mb-4 relative overflow-hidden rounded-xl">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
                       <img
@@ -148,7 +173,7 @@ export const ESignatureHowItWorks: React.FC<{
                         </svg>
                       </div>
                     </div>
-                  )}
+                  ) : null}
 
                   {/* Content */}
                   <div>
