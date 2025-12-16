@@ -10,6 +10,8 @@ import { BulkSMSBenefits } from "./bulk-sms/BulkSMSBenefits";
 import { BulkSMSFAQ } from "./bulk-sms/BulkSMSFAQ";
 import { CTASection } from "../sections/CTASection";
 import { DynamicContentRenderer } from "../dynamic-content/DynamicContentRenderer";
+import { BulkSMSCTA } from "./bulk-sms/BulkSMSCTA";
+
 interface LayoutProps {
   data: FeaturesPageData;
   theme: Theme;
@@ -59,15 +61,13 @@ export const BulkSMSLayout: React.FC<LayoutProps> = ({ data, theme }) => (
     {data.primary_cta_sections &&
       data.primary_cta_sections.length > 0 &&
       data.primary_cta_sections.map((cta: any, i: number) => (
-        <CTASection
+        <BulkSMSCTA
           key={i}
           heading={cta.heading}
           description={cta.description}
           buttonText={cta.button?.text || cta.button_text}
           buttonUrl={cta.button?.url || cta.button_url}
           backgroundImage={cta.background_image}
-          theme={theme}
-          isPrimary={true}
         />
       ))}
   </>
