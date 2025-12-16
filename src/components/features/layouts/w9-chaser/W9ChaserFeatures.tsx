@@ -9,7 +9,7 @@ export const W9ChaserFeatures: React.FC<{ features: any[]; heading?: string; des
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map((f: any, i: number) => (
             <div key={i} className="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-green-500/20 hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                <div className="h-40">
+                <div className="h-32">
                     {f.image ? (
                         <img src={getFullImageUrl(f.image.url)} alt={f.title} className="w-full h-full object-cover" />
                     ) : (
@@ -18,9 +18,9 @@ export const W9ChaserFeatures: React.FC<{ features: any[]; heading?: string; des
                         </div>
                     )}
                 </div>
-                <div className="p-5 flex-grow flex flex-col">
-                    <h3 className="text-lg font-bold mb-2 text-green-400 flex-grow">{f.title}</h3>
-                    <p className="text-gray-300 text-sm">{f.description}</p>
+                <div className="p-4 flex-grow flex flex-col">
+                    <h3 className="text-base font-bold mb-2 text-green-400 flex-grow">{f.title}</h3>
+                    <p className="text-gray-300 text-xs">{f.description}</p>
                 </div>
             </div>
         ))}
