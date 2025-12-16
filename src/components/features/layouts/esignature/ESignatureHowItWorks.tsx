@@ -83,6 +83,17 @@ export const ESignatureHowItWorks: React.FC<{
                 </div>
               )}
 
+              {/* Video placed outside of card */}
+              {step.video && step.video.video_file_url && (
+                <div className="mb-6 rounded-2xl overflow-hidden shadow-lg">
+                  <video 
+                    src={getFullImageUrl({url: step.video.video_file_url})}
+                    className="w-full h-48 object-cover"
+                    controls
+                  />
+                </div>
+              )}
+
               <div className="relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 h-full">
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-indigo-50/0 to-blue-50/0 group-hover:from-blue-50/50 group-hover:via-indigo-50/30 group-hover:to-blue-50/50 transition-all duration-500"></div>
@@ -116,33 +127,8 @@ export const ESignatureHowItWorks: React.FC<{
                     </div>
                   </div>
 
-                  {/* Video or Image with elegant frame */}
-                  {step.video && step.video.video_file_url ? (
-                    <div className="mb-4 relative overflow-hidden rounded-xl">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
-                      <video 
-                        src={getFullImageUrl({url: step.video.video_file_url})}
-                        className="w-full h-40 object-cover transform group-hover:scale-105 transition-transform duration-700"
-                        controls
-                      />
-                      {/* Play icon overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <svg
-                            className="w-5 h-5 text-blue-600 ml-1"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  ) : step.image ? (
+                  {/* Image with elegant frame (only shown if no video) */}
+                  {!step.video?.video_file_url && step.image && (
                     <div className="mb-4 relative overflow-hidden rounded-xl">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:opacity-0 transition-opacity"></div>
                       <img
@@ -173,7 +159,7 @@ export const ESignatureHowItWorks: React.FC<{
                         </svg>
                       </div>
                     </div>
-                  ) : null}
+                  )}
 
                   {/* Content */}
                   <div>
