@@ -1,38 +1,4 @@
 import React from "react";
-
-interface DocumentMergeCTAProps {
-  heading: string;
-  description: string;
-  buttonText: string;
-  buttonUrl: string;
-  backgroundImage?: string;
-}
-
-export const DocumentMergeCTA: React.FC<DocumentMergeCTAProps> = ({
-  heading,
-  description,
-  buttonText,
-  buttonUrl,
-  backgroundImage,
-}) => {
-  return (
-    <section 
-      className="document-merge-cta"
-      style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : undefined}
-    >
-      <div className="container">
-        <div className="content">
-          <h2>{heading}</h2>
-          <p>{description}</p>
-          <a href={buttonUrl} className="button">
-            {buttonText}
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-};
-import React from "react";
 import {
   type FeaturesPageData,
   type Theme,
@@ -73,16 +39,6 @@ export const DocumentMergeLayout: React.FC<LayoutProps> = ({ data, theme }) => (
         description={data.benefits_description}
       />
     )}
-    {/* DYNAMIC CONTENT */}
-    {data.dynamic_content &&
-      data.dynamic_content.length > 0 &&
-      data.dynamic_content.map((block, index) => (
-        <DynamicContentRenderer
-          key={block.id || index}
-          block={block}
-          theme={theme}
-        />
-      ))}
     {data.faqs && data.faqs.length > 0 && (
       <DocumentMergeFAQ
         faqs={data.faqs}
