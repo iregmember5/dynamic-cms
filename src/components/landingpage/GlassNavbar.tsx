@@ -281,8 +281,10 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                       className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
                                       onClick={() => setActiveDropdown(null)}
                                     >
-                                      <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl">
-                                        {icon}
+                                      <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl flex-shrink-0">
+                                        <span role="img" aria-label={page.page_layout || "default"}>
+                                          {icon}
+                                        </span>
                                       </div>
 
                                       <div className="flex-1 min-w-0">
