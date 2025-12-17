@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import type { LandingPageData, FeaturesPageData } from "../../types/landing";
 import { fetchAllFeaturesPages } from "../../types/landing";
+import EasyIcon from "./IconRenderer"; // Import the IconRenderer component
 
 interface NavigationItem {
   id: number;
@@ -264,15 +265,27 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                               {/* Features Grid */}
                               <div className="p-6 grid grid-cols-3 gap-5">
                                 {featuresPages.map((page) => {
-                                  const layoutIcons: Record<string, string> = {
-                                    esignature: "✍️",
-                                    w9_chaser: "📋",
-                                    bulk_sms: "📱",
-                                    bulk_whatsapp: "💬",
-                                    bulk_email: "📧",
-                                    document_merge: "📄",
-                                  };
-                                  const icon = page.page_layout ? layoutIcons[page.page_layout] : "📊";
+                                  // Extract icon name from page_icon HTML tag if it exists, otherwise use layout-based mapping
+                                  let icon = "FiGrid"; // default fallback icon
+                                  
+                                  if ((page as any).page_icon) {
+                                    // Extract icon name from HTML tag like "<FaFileSignature />"
+                                    const match = (page as any).page_icon.match(/<(\w+)/);
+                                    if (match && match[1]) {
+                                      icon = match[1];
+                                    }
+                                  } else if (page.page_layout) {
+                                    // Fallback to layout-based mapping if no page_icon
+                                    const layoutIcons: Record<string, string> = {
+                                      esignature: "FaFileSignature",
+                                      w9_chaser: "FiClipboard",
+                                      bulk_sms: "FiMessageSquare",
+                                      bulk_whatsapp: "FaWhatsapp",
+                                      bulk_email: "FiMail",
+                                      document_merge: "FiFilePlus",
+                                    };
+                                    icon = layoutIcons[page.page_layout] || "FiGrid";
+                                  }
                                   
                                   return (
                                     <a
@@ -282,9 +295,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                       onClick={() => setActiveDropdown(null)}
                                     >
                                       <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl flex-shrink-0">
-                                        <span role="img" aria-label={page.page_layout || "default"}>
-                                          {icon}
-                                        </span>
+                                        <EasyIcon icon={icon} size={20} />
                                       </div>
 
                                       <div className="flex-1 min-w-0">
