@@ -25,6 +25,12 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
       4: "md:grid-cols-2 lg:grid-cols-4",
     }[columns] || "md:grid-cols-3";
 
+  // Check if there are exactly two cards to apply centering
+  const shouldCenterCards = value.cards.length === 2;
+  const gridContainerClasses = `grid ${gridCols} gap-8 ${
+    shouldCenterCards ? "md:justify-center" : ""
+  }`;
+
   return (
     <section className="py-20 sm:py-28 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
@@ -39,7 +45,7 @@ export const CardGridBlock: React.FC<CardGridBlockProps> = ({
           </p>
         )}
 
-        <div className={`grid ${gridCols} gap-8`}>
+        <div className={gridContainerClasses}>
           {value.cards.map((card: any, idx: number) => {
             const getCardImage = () => {
               if (card.card_content?.card_image) {
